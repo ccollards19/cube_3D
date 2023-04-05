@@ -1,0 +1,4 @@
+void	*minimap(void)
+{
+	return ;
+}
