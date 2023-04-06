@@ -1,6 +1,10 @@
 CC	= gcc
 
-CCFLAGS	= -Wall -Wextra -Werror
+HEADER	=	./includes/
+
+LIBFT	=	libft/libft.a
+
+CCFLAGS	= -Wall -Wextra -Werror -I $(HEADER)
 
 MLFLAGS	= -Lmlx -lmlx -framework OpenGL -framework AppKit
 
@@ -27,7 +31,12 @@ BOLDWHITE	= \033[1m\033[37m
 
 SRCDIR	= src/
 
-SRC	=  $(addprefix $(SRCDIR),main.c)
+SRC	=  $(addprefix $(SRCDIR), $(SRC_LST))
+
+SRC_LIST	=	main.c\
+				minimap.c\
+				parsing.c\
+				utils.c\
 
 OBJ 	= $(SRC:%.c=%.o)
 
@@ -37,9 +46,12 @@ BOBJS	= $(BONUS:%.c=%.o)
 
 all: $(NAME) 
 
-$(NAME): libmlx $(OBJ)
-	 @$(CC) $(CCFLAGS) $(MLFLAGS) $(OBJ) -o $@
-	 @printf "\n[COMPILED]\n" 
+$(NAME): libmlx $(LIBFT) $(OBJ)
+	 @$(CC) $(CCFLAGS) $(MLFLAGS) $(OBJ) $(LIBFT) -o $@
+	 @printf "\n[COMPILED]\n"
+
+$(LIBFT):
+	make -C libft re
 
 libmlx:
 	@make -C mlx
