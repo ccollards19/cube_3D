@@ -17,19 +17,6 @@ void	safe_free(void	*mem_allocated)
 	mem_allocated = NULL;
 }
 
-int	print_err(int nb_arg, ...)
-{
-	va_list	lst;
-	int		i;
-
-	i = -1;
-	va_start(lst, nb_arg);
-	while (++i < nb_arg)
-		ft_putstr_fd((char *)va_arg(lst, char *), 2);
-	va_end(lst);
-	return (1);
-}
-
 int	ft_strcmp(const char *s1, const char *s2)
 {
 	size_t	i;

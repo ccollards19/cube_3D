@@ -1,24 +1,5 @@
 #include "cub3d.h"
 
-static int	valid_format(char *s)
-{
-	int	i;
-	int	nb;
-	int	coma;
-
-	i = -1;
-	nb = 0;
-	coma = 0;
-	while (s[++i])
-	{
-		if (s[i] == ',' && !nb)
-			return (0);
-		(!nb && ft_isdigit(s[i]) && nb++);
-		(s[i] == ',' && ++coma && nb--);
-	}
-	return (coma == 2);
-}
-
 int	get_color(char **file, t_color color)
 {
 	int		i;
@@ -36,7 +17,7 @@ int	get_color(char **file, t_color color)
 		i++;
 	}
 	if (!file[i] || !valid_format(file[i] + 2))
-		exit(print_err(1, "Error\n\tsyntax of .cub not respected\n"));
+		terminate(NULL, "syntax of .cub not respected2\n");
 	rgb = ft_split(file[i] + 2, ',');
 	int_color += ft_atoi(rgb[0]) << 16;
 	int_color += (ft_atoi(rgb[1]) << 8) + ft_atoi(rgb[2]);
@@ -66,7 +47,7 @@ char	*get_path(char **file, t_path path)
 	(path == WE && i != 2) || (path == NO && i != 0)) \
 	&& stop--);
 	if (!stop || ft_strlen(file[i]) < 4)
-		exit(print_err(1, "Error: syntax of .cub not respected\n"));
+		terminate(NULL, "syntax of .cub not respected1\n");
 	return (file[i] + 3);
 }
 
@@ -79,7 +60,7 @@ int	get_nb_line(char *s)
 	nb_line = 0;
 	fd = open(s, O_RDONLY);
 	if (fd < 0)
-		exit(print_err(3, "Error: file: '", s, "' does not exist\n"));
+		terminate(NULL, "file does not exist\n");
 	tmp = get_next_line(fd);
 	while (tmp)
 	{
@@ -100,23 +81,27 @@ char	**get_file_array(char *s)
 	int		map;
 
 	map = 0;
-	i = 0;
-	if (is_invalid_name(s) && \
-	print_err(3, "Error: invalid map name: '", s, "'\n"))
-		return (NULL);
+	i = -1;
+	if (is_invalid_name(s))
+		terminate(NULL, "invalid map name\n");
 	arr = xmalloc(sizeof(char *) * get_nb_line(s));
 	fd = open(s, O_RDONLY);
 	while (1)
 	{
-		(valid_map_line(arr[i]) && map++);
-		if (map && !valid_map_line(arr[i]))
-			exit(1);
-		if (!empty_line(arr[i]))
-			arr[i] = get_next_line(fd);
-		if (!arr[i++])
+		arr[++i] = get_next_line(fd);
+		if (!arr[i])
 			break ;
+		if (arr[i] && empty_line(arr[i]))
+		{
+			safe_free(arr[i--]);
+			continue;
+		}
+		(arr[i] && valid_map_line(arr[i]) && map++);
+		if (map && !valid_map_line(arr[i]))
+			terminate(NULL, "empty line in the map\n");
 		else if (does_contain(arr[i], '\n') && ft_strlen(arr[i] - 2))
 			arr[i][ft_strlen(arr[i]) - 2] = 0;
 	}
+	arr[i] = 0;
 	return (arr);
 }

@@ -64,4 +64,7 @@ int	is_invalid_name(char *s);
 int	empty_line(char *s);
 int	valid_map_line(char *s);
 
+//minimap.c
+char	**get_map(char **file);
+
 #endif

@@ -10,12 +10,16 @@ void	set_values_to_null(t_game *game)
 static void init_game(t_game *game, char *path)
 {
 	game->file = get_file_array(path);
+	int i = -1;
+	while (game->file[++i])
+		ft_printf("%d: %s\n", i, game->file[i]);
 	game->EA_path = get_path(game->file, EA);
 	game->SO_path = get_path(game->file, SO);
 	game->WE_path = get_path(game->file, WE);
 	game->NO_path = get_path(game->file, NO);
 	game->ceiling_color = get_color(game->file, CEILING);
 	game->floor_color = get_color(game->file, FLOOR);
+	game->map = get_map(game->file);
 }
 
 void	init_mlx(t_game *game)

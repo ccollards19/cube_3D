@@ -38,7 +38,8 @@ SRC_LIST =	main.c \
 		parsing.c \
 		terminate.c \
 		game_loop.c \
-		utils.c
+		utils.c \
+		syntax.c \
 
 OBJ 	= $(SRC:%.c=%.o)
 
