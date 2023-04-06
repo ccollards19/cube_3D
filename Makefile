@@ -69,8 +69,8 @@ clean:
 	@printf "$(RED)[CLEAN]\n$(RESET)"
 
 fclean: clean
-	#@make -C libft clean
-	#@make -C mlx clean
+	@#make -C libft clean
+	@#make -C mlx clean
 	@rm -f $(NAME)
 	@printf "[FCLEAN]\n"
 
