@@ -70,21 +70,6 @@ char	*get_path(char **file, t_path path)
 	return (file[i] + 3);
 }
 
-static int	is_invalid_name(char *s)
-{
-	int	i;
-
-	i = -1;
-	if (!s)
-		return (1);
-	while (s[++i])
-	{
-		if (s[i] == '.')
-			break ;
-	}
-	return (ft_strcmp(s + i, ".cub"));
-}
-
 int	get_nb_line(char *s)
 {
 	int		fd;
@@ -98,7 +83,8 @@ int	get_nb_line(char *s)
 	tmp = get_next_line(fd);
 	while (tmp)
 	{
-		nb_line++;
+		if (!empty_line(tmp))
+			nb_line++;
 		safe_free(tmp);
 		tmp = get_next_line(fd);
 	}
@@ -111,7 +97,9 @@ char	**get_file_array(char *s)
 	char	**arr;
 	int		fd;
 	int		i;
+	int		map;
 
+	map = 0;
 	i = 0;
 	if (is_invalid_name(s) && \
 	print_err(3, "Error: invalid map name: '", s, "'\n"))
@@ -120,9 +108,15 @@ char	**get_file_array(char *s)
 	fd = open(s, O_RDONLY);
 	while (1)
 	{
-		arr[i] = get_next_line(fd);
+		(valid_map_line(arr[i]) && map++);
+		if (map && !valid_map_line(arr[i]))
+			exit(1);
+		if (!empty_line(arr[i]))
+			arr[i] = get_next_line(fd);
 		if (!arr[i++])
 			break ;
+		else if (does_contain(arr[i], '\n') && ft_strlen(arr[i] - 2))
+			arr[i][ft_strlen(arr[i]) - 2] = 0;
 	}
 	return (arr);
 }
