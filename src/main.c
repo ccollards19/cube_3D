@@ -1,27 +1,42 @@
-#include "../includes/cub3d.h"
+#include "cub3d.h"
 
-static void	init_cub(t_cub *cub, char *path)
+void	set_values_to_null(t_game *game)
 {
-	cub->file = get_file_array(path);
-	cub->EA_path = get_path(cub->file, EA);
-	cub->SO_path = get_path(cub->file, SO);
-	cub->WE_path = get_path(cub->file, WE);
-	cub->NO_path = get_path(cub->file, NO);
-	cub->ceiling_color = get_color(cub->file, CEILING);
-	cub->floor_color = get_color(cub->file, FLOOR);
+	game->mlx_ptr = NULL;
+	game->win_ptr = NULL;
+	game->file = NULL;
 }
 
-int main(int argc, char **argv)
+static void init_game(t_game *game, char *path)
 {
-	t_cub	cub;
+	game->file = get_file_array(path);
+	game->EA_path = get_path(game->file, EA);
+	game->SO_path = get_path(game->file, SO);
+	game->WE_path = get_path(game->file, WE);
+	game->NO_path = get_path(game->file, NO);
+	game->ceiling_color = get_color(game->file, CEILING);
+	game->floor_color = get_color(game->file, FLOOR);
+}
 
-	ft_printf("%d\n", 0x00FFFF);
+void	init_mlx(t_game *game)
+{
+	game->mlx_ptr = mlx_init();
+	if (game->mlx_ptr == NULL)
+		terminate(game, "");
+	game->win_ptr = mlx_new_window(game->mlx_ptr, WIN_WIDTH, WIN_HEIGHT, "Cube_3D");//TODO macro must be defined
+	if (game->win_ptr == NULL)
+		terminate(game, "");
+}
+
+int	main(int argc, char **argv)
+{
+	t_game game;
+
 	if (argc != 2)
-		return (print_err(1, "Error: invalid number of arguments\n"));
-	init_cub(&cub, argv[1]);
-	void *mlx_ptr = mlx_init();
-	void *win_ptr = mlx_new_window(mlx_ptr, 1000, 1000, "test");
-	(void)win_ptr;
-	mlx_loop(mlx_ptr);
+		terminate(NULL, "invalid number of arguments\n");
+	set_values_to_null(&game);
+	init_game(&game, argv[1]);
+	init_mlx(&game);
+	game_loop(&game);
 	return (0);
 }

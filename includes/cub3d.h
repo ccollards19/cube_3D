@@ -8,6 +8,9 @@
 # include <stdlib.h>
 # include "../libft/libft.h"
 
+#define WIN_WIDTH 1000
+#define WIN_HEIGHT 1000
+
 typedef enum e_path
 {
 	EA,
@@ -22,8 +25,10 @@ typedef enum e_color
 	FLOOR
 }t_color;
 
-typedef struct s_cub
+typedef struct s_game
 {
+	void	*mlx_ptr;
+	void	*win_ptr;
 	char	**file;
 	char	**map;
 	char	*NO_path;
@@ -32,7 +37,7 @@ typedef struct s_cub
 	char	*EA_path;
 	int		floor_color;
 	int		ceiling_color;
-}t_cub;
+}t_game;
 
 //utils.c
 void	*xmalloc(int mem_size);
@@ -40,6 +45,12 @@ void	safe_free(void	*mem_allocated);
 int		print_err(int nb_arg, ...);
 int		ft_strcmp(const char *s1, const char *s2);
 void	free_array(char	**arr);
+
+//terminate.c
+void	terminate(t_game *game, char *msg);
+
+//game_loop.h
+void	game_loop(t_game *game);
 
 //parsing.c
 char	**get_file_array(char *s);
