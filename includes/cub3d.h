@@ -56,4 +56,12 @@ void	game_loop(t_game *game);
 char	**get_file_array(char *s);
 char	*get_path(char **file, t_path path);
 int		get_color(char **file, t_color color);
+
+//syntax.c
+
+int	valid_format(char *s);
+int	is_invalid_name(char *s);
+int	empty_line(char *s);
+int	valid_map_line(char *s);
+
 #endif
