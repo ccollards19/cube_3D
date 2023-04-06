@@ -36,7 +36,7 @@ int	get_color(char **file, t_color color)
 		i++;
 	}
 	if (!file[i] || !valid_format(file[i] + 2))
-		exit(print_err(1, "Error: syntax of .cub not respected 2\n"));
+		exit(print_err(1, "Error\n\tsyntax of .cub not respected\n"));
 	rgb = ft_split(file[i] + 2, ',');
 	int_color += ft_atoi(rgb[0]) << 16;
 	int_color += (ft_atoi(rgb[1]) << 8) + ft_atoi(rgb[2]);
@@ -66,7 +66,7 @@ char	*get_path(char **file, t_path path)
 	(path == WE && i != 2) || (path == NO && i != 0)) \
 	&& stop--);
 	if (!stop || ft_strlen(file[i]) < 4)
-		exit(print_err(1, "Error: syntax of .cub not respected 1\n"));
+		exit(print_err(1, "Error: syntax of .cub not respected\n"));
 	return (file[i] + 3);
 }
 
