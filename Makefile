@@ -1,4 +1,4 @@
-CC	= gcc
+CC	=	gcc
 
 HEADER	=	includes
 
@@ -49,13 +49,13 @@ BOBJS	= $(BONUS:%.c=%.o)
 
 all: $(NAME) 
 
-$(NAME): libmlx $(LIBFT) $(OBJ)
+$(NAME): libmlx $(LIBFT) $(OBJ) 
 	 @printf "\n$(OBJ)\n"
 	 @$(CC) $(CCFLAGS) $(MLFLAGS) $(OBJ) $(LIBFT) -o $@
 	 @printf "\n[COMPILED]\n"
 
 $(LIBFT):
-	make -C libft
+	@make -C libft
 
 libmlx:
 	@make -C mlx
@@ -69,6 +69,8 @@ clean:
 	@printf "$(RED)[CLEAN]\n$(RESET)"
 
 fclean: clean
+	#@make -C libft clean
+	#@make -C mlx clean
 	@rm -f $(NAME)
 	@printf "[FCLEAN]\n"
 
