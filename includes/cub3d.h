@@ -7,9 +7,11 @@
 # include "../mlx/mlx.h"
 # include <stdlib.h>
 # include "../libft/libft.h"
+# include "color.h"
+# define WIN_WIDTH 1000
+# define WIN_HEIGHT 1000
 
-#define WIN_WIDTH 1000
-#define WIN_HEIGHT 1000
+# define AGL(x) x > 2147483647 ? 1 : 0
 
 typedef enum e_path
 {
@@ -19,6 +21,17 @@ typedef enum e_path
 	NO
 }t_path;
 
+typedef struct s_player
+{
+	size_t 	angle;
+	float	x;
+	float	y;
+	int		fov;
+	int		ammo;
+	size_t	hp;
+	size_t	speed;
+}t_player;
+
 typedef enum e_color
 {
 	CEILING,
@@ -27,16 +40,17 @@ typedef enum e_color
 
 typedef struct s_game
 {
-	void	*mlx_ptr;
-	void	*win_ptr;
-	char	**file;
-	char	**map;
-	char	*NO_path;
-	char	*SO_path;
-	char	*WE_path;
-	char	*EA_path;
-	int		floor_color;
-	int		ceiling_color;
+	t_player	*player;
+	void		*mlx_ptr;
+	void		*win_ptr;
+	char		**file;
+	char		**map;
+	char		*NO_path;
+	char		*SO_path;
+	char		*WE_path;
+	char		*EA_path;
+	int			floor_color;
+	int			ceiling_color;
 }t_game;
 
 //utils.c
@@ -66,5 +80,5 @@ int	valid_map_line(char *s);
 
 //minimap.c
 char	**get_map(char **file);
-
+void	minimap(t_game *game);
 #endif

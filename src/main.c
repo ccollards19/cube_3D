@@ -10,9 +10,6 @@ void	set_values_to_null(t_game *game)
 static void init_game(t_game *game, char *path)
 {
 	game->file = get_file_array(path);
-	int i = -1;
-	while (game->file[++i])
-		ft_printf("%d: %s\n", i, game->file[i]);
 	game->EA_path = get_path(game->file, EA);
 	game->SO_path = get_path(game->file, SO);
 	game->WE_path = get_path(game->file, WE);
@@ -41,6 +38,7 @@ int	main(int argc, char **argv)
 	set_values_to_null(&game);
 	init_game(&game, argv[1]);
 	init_mlx(&game);
+	minimap(&game);
 	game_loop(&game);
 	return (0);
 }
