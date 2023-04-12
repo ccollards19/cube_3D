@@ -8,10 +8,14 @@
 # include <stdlib.h>
 # include "../libft/libft.h"
 # include "color.h"
+#include <stdio.h>//test
+
+# define RAY_NBR 1000
 # define WIN_WIDTH 1000
 # define WIN_HEIGHT 1000
 
 # define AGL(x) x > 2147483647 ? 1 : 0
+
 
 typedef enum e_path
 {
@@ -20,6 +24,32 @@ typedef enum e_path
 	WE,
 	NO
 }t_path;
+
+typedef struct	s_img {
+	void	*ptr;
+	char	*offset;
+	int	bits_per_pixel;
+	int	line_length;
+	int	endian;
+}				t_img;
+
+/* need to change texture and texture offset to chained list 
+ * to allow for multiple elements to be visible when behind each other
+ */
+typedef struct s_ray {
+	double	distance;
+	double	angle;
+	double	x0;
+	double	y0;
+	double	x;
+	double	y;
+	double	dx;
+	double	dy;
+	double	dx_inv;
+	double	dy_inv;
+	double	texture_offset;
+//	enum	texture;
+} t_ray;
 
 typedef struct s_player
 {
@@ -70,6 +100,12 @@ void	game_loop(t_game *game);
 char	**get_file_array(char *s);
 char	*get_path(char **file, t_path path);
 int		get_color(char **file, t_color color);
+
+//raycasting.c
+void	cast_ray(t_ray *ray);
+
+//render.c
+void	*build_frame(t_ray *ray, t_game *game);
 
 //syntax.c
 

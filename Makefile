@@ -40,6 +40,8 @@ SRC_LIST =	main.c \
 		game_loop.c \
 		utils.c \
 		syntax.c \
+		render.c \
+		raycast.c \
 
 OBJ 	= $(SRC:%.c=%.o)
 
@@ -50,7 +52,6 @@ BOBJS	= $(BONUS:%.c=%.o)
 all: $(NAME) 
 
 $(NAME): libmlx $(LIBFT) $(OBJ) 
-	 @printf "\n$(OBJ)\n"
 	 @$(CC) $(CCFLAGS) $(MLFLAGS) $(OBJ) $(LIBFT) -o $@
 	 @printf "\n[COMPILED]\n"
 
