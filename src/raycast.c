@@ -109,6 +109,6 @@ void	cast_ray(t_ray *ray/*, int **map_tmp_G*/)
 		else
 			intersect(ray, &ray_y/*, map_tmp_G*/);
 	}
-	printf("%f, x = %f, y = %f\n", ray->distance, ray->x, ray->y);//test
+	//printf("%f, x = %f, y = %f\n", ray->distance, ray->x, ray->y);//test
 }
 

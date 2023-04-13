@@ -15,7 +15,16 @@
 # define WIN_HEIGHT 1000
 
 # define AGL(x) x > 2147483647 ? 1 : 0
-
+#define ESC 53
+#define UP 126
+#define DOWN 123
+#define LEFT 125
+#define RIGHT 124
+#define W 13
+#define A 2
+#define S 0
+#define D 1
+#define PI2 2 * M_PI
 
 typedef enum e_path
 {
@@ -53,14 +62,14 @@ typedef struct s_ray {
 
 typedef struct s_player
 {
-	size_t 	angle;
-	float	x;
-	float	y;
+	double 	angle;
+	double	x;
+	double	y;
 	int		fov;
-	int		ammo;
+	size_t 	ammo;
 	size_t	hp;
 	size_t	speed;
-}t_player;
+}	t_player;
 
 typedef enum e_color
 {
@@ -95,11 +104,14 @@ void	terminate(t_game *game, char *msg);
 
 //game_loop.h
 void	game_loop(t_game *game);
-
+int		destroy(t_game *game);
+int		key_hook(int keycode, t_game *game);
+int		loop_hook(t_game *game);
 //parsing.c
 char	**get_file_array(char *s);
 char	*get_path(char **file, t_path path);
 int		get_color(char **file, t_color color);
+double	get_init_angle(t_game *game);
 
 //raycasting.c
 void	cast_ray(t_ray *ray);

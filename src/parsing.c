@@ -1,5 +1,55 @@
 #include "cub3d.h"
 
+int	set_player_position(double *x, double *y, t_game *game)
+{
+	int		i;
+	char	*search;
+
+	i = 0;
+	while (game->map[i])
+	{
+		search = ft_strchr(game->map[i], 'N');
+		if (!search)
+			ft_strchr(game->map[i], 'E');
+		if (!search)
+			ft_strchr(game->map[i], 'S');
+		if (!search)
+			ft_strchr(game->map[i], 'W');
+		if (search)
+			break ;
+		i++;
+	}
+	if (!game->map[i])
+		return (0);
+	*x = i;
+	*y = search - game->map[i];
+	return (1);
+}
+
+double	get_init_angle(t_game *game)
+{
+	int		i;
+	double		dir;
+
+	dir = 0;
+	i = -1;
+	while (game->map[++i])
+	{
+		if (does_contain(game->map[i], 'N') || \
+		(++dir && does_contain(game->map[i], 'E')) || \
+		(++dir && does_contain(game->map[i], 'S')) || \
+		(++dir && does_contain(game->map[i], 'W')))
+		{
+			return ((M_PI_2 * dir));
+		}
+		else
+		{
+			dir = 0;
+		}
+	}
+	return (0);
+}
+
 int	get_color(char **file, t_color color)
 {
 	int		i;
@@ -51,57 +101,37 @@ char	*get_path(char **file, t_path path)
 	return (file[i] + 3);
 }
 
-int	get_nb_line(char *s)
+int	get_buffer_size(char *s)
 {
 	int		fd;
-	char	*tmp;
-	int		nb_line;
+	char	tmp;
+	int		tot;
 
-	nb_line = 0;
+	tot = 0;
 	fd = open(s, O_RDONLY);
 	if (fd < 0)
 		terminate(NULL, "file does not exist\n");
-	tmp = get_next_line(fd);
-	while (tmp)
-	{
-		if (!empty_line(tmp))
-			nb_line++;
-		safe_free(tmp);
-		tmp = get_next_line(fd);
-	}
+	while (read(fd, &tmp, 1))
+		tot++;
 	close(fd);
-	return (nb_line + 1);
+	return (tot);
 }
 
 char	**get_file_array(char *s)
 {
 	char	**arr;
 	int		fd;
-	int		i;
-	int		map;
+	char 	*buf;
+	int		size;
 
-	map = 0;
-	i = -1;
 	if (is_invalid_name(s))
 		terminate(NULL, "invalid map name\n");
-	arr = xmalloc(sizeof(char *) * get_nb_line(s));
+	size = get_buffer_size(s);
+	buf = xmalloc(size + 1);
 	fd = open(s, O_RDONLY);
-	while (1)
-	{
-		arr[++i] = get_next_line(fd);
-		if (!arr[i])
-			break ;
-		if (arr[i] && empty_line(arr[i]))
-		{
-			safe_free(arr[i--]);
-			continue;
-		}
-		(arr[i] && valid_map_line(arr[i]) && map++);
-		if (map && !valid_map_line(arr[i]))
-			terminate(NULL, "empty line in the map\n");
-		else if (does_contain(arr[i], '\n') && ft_strlen(arr[i] - 2))
-			arr[i][ft_strlen(arr[i]) - 2] = 0;
-	}
-	arr[i] = 0;
+	read(fd, buf, size);
+	buf[size]= 0;
+	arr = ft_split(buf, '\n');
+	safe_free(buf);
 	return (arr);
 }

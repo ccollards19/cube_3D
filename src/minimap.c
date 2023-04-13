@@ -29,17 +29,25 @@ char	**get_map(char **file)
 	int	len;
 
 	len = 1;
-	i = 4;
+	i = 0;
 	while (file[++i])
-		len++;
+	{
+		if (file[i][0] == '1')
+			len++;
+	}
 	map = xmalloc(sizeof(char *) * len);
 	len = 0;
-	i = 4;
+	i = 0;
 	while (file[++i])
-		map[len++] = file[i];
+	{
+		if (file[i][0] == '1')
+			map[len++] = file[i];
+	}
 	map[len] = NULL;
+	i = 0;
+	while (map[i])
+		printf("%s\n", map[i++]);
 	return (map);
-
 }
 
 
