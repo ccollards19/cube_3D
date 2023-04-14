@@ -7,9 +7,29 @@ int	destroy(t_game *game)
 	return (1);
 }
 
+double	get_ratio(double angle double *x, double *y)
+{
+	double	x2;
+	double	y2;
+
+	x2 = sin(angle);
+	if (angle < M_PI_2)
+	{
+
+	}
+	if (angle < 2 * M_PI_2)
+	{
+
+	}
+	if ()
+}
+
 int	key_hook(int keycode, t_game *game)
 {
 	(void)game;
+	double x;
+	double y;
+	x  = get_ratio(game->player->angle);
 	if (keycode == ESC)
 		destroy(game);
 	if (keycode == LEFT || keycode == A)
@@ -21,6 +41,7 @@ int	key_hook(int keycode, t_game *game)
 	if (keycode == DOWN || keycode == S)
 		game->player->y -= 0.1;
 	printf("keycode is %d\n", keycode);
+	printf("player position is [%f, %f]\n", game->player->x,game->player->y);
 	return (0);
 }
 
@@ -36,9 +57,9 @@ int	loop_hook(t_game *game)
 		mlx_mouse_get_pos(game->win_ptr, &previous_mouse_position[0], &previous_mouse_position[1]);
 		return (19);
 	}
-	printf("in loop_hook\n");
+	//printf("in loop_hook\n");
 	mlx_mouse_get_pos(game->win_ptr, &current_mouse_position[0], &current_mouse_position[1]);
-	printf("1mouse position = %d %d\n", current_mouse_position[0], current_mouse_position[1]);
+	//printf("1mouse position = %d %d\n", current_mouse_position[0], current_mouse_position[1]);
 	if (current_mouse_position[0] > previous_mouse_position[0])
 		game->player->angle += 0.05;
 	if (current_mouse_position[0] < previous_mouse_position[0])
@@ -52,11 +73,10 @@ int	loop_hook(t_game *game)
 	if (current_mouse_position[0] > 1000)
 		mlx_mouse_move(game->win_ptr, -500, 0);
 	mlx_mouse_get_pos(game->win_ptr, &current_mouse_position[0], &current_mouse_position[1]);
-	printf("2mouse position = %d %d\ncurrent angle %f\n", current_mouse_position[0], current_mouse_position[1], game->player->angle);
+	//printf("2mouse position = %d %d\ncurrent angle %f\n", current_mouse_position[0], current_mouse_position[1], game->player->angle);
 	previous_mouse_position[0] = current_mouse_position[0];
 	previous_mouse_position[1] = current_mouse_position[1];
 	t_ray ray;
-	printf("player position is [%f, %f]\n", game->player->x,game->player->y);
 	ray.texture_offset = 0;
 	ray.x = game->player->x;
 	ray.y = game->player->y;

@@ -1,4 +1,4 @@
-#include "cub3d.h"
+#include "../includes/cub3d.h"
 
 
 /////////////////////////////////////////////////////////////
@@ -58,12 +58,12 @@ void	*build_frame(t_ray *ray, t_game *game)
 
 	i = 0;
 	angle_incr = (M_PI_2 / 3) / RAY_NBR;
-	frame.ptr = mlx_new_image(game->mlx_ptr, 1000, 1000);//test version
+	frame.ptr = mlx_new_image(game->mlx_ptr, 1200, 1200);//test version
 	frame.offset = mlx_get_data_addr(frame.ptr, &frame.bits_per_pixel, &frame.line_length, &frame.endian);//test version
 	while (i < RAY_NBR)
 	{
 
-		cast_ray(ray);
+		cast_ray(ray, game->render_array);
 		print_ray_on_img(&frame, ray->distance, i);
 		//reset_ray();
 		ray->x = 2.1;

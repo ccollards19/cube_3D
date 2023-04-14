@@ -1,6 +1,6 @@
-#include "cub3d.h"
+#include "../includes/cub3d.h"
 
-int map_tmp_G[24][24] =
+/*int map_tmp_G[24][24] =
 {
 	{1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
 	{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
@@ -26,7 +26,7 @@ int map_tmp_G[24][24] =
 	{1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
 	{1,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
 	{1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1}
-};//test
+};//test*/
 
 void ray_copy(t_ray *src, t_ray *dest)
 {
@@ -69,7 +69,11 @@ void	move_ray_y(t_ray *ray)
 /* check if current tile contain an element
  * need to add more logic things other than walls
  */
+<<<<<<< HEAD
 int	intersect_x(t_ray *ray, t_ray *ray_tmp/*, int *map_tmp_G[]*/)
+=======
+int	intersect(t_ray *ray, t_ray *ray_tmp, int *map_tmp_G[])
+>>>>>>> cab41e4 (lol)
 {
 	int tile;
 	
@@ -110,7 +114,7 @@ int	intersect_y(t_ray *ray, t_ray *ray_tmp/*, int *map_tmp_G[]*/)
 	return (0);
 }
 
-void	cast_ray(t_ray *ray/*, int **map_tmp_G*/)
+void	cast_ray(t_ray *ray, int **map_tmp_G)
 {
 	t_ray	ray_x;
 	t_ray	ray_y;
@@ -130,9 +134,15 @@ void	cast_ray(t_ray *ray/*, int **map_tmp_G*/)
 		//printf("%f, %f, %f\n", ray_x.x, ray_x.y, ray_x.distance);
 		//printf("%f, %f, %f\n", ray_y.x, ray_y.y, ray_y.distance);
 		if (ray_x.distance <= ray_y.distance)
+<<<<<<< HEAD
 			intersect_x(ray, &ray_x/*, map_tmp_G*/);
 		else
 			intersect_y(ray, &ray_y/*, map_tmp_G*/);
+=======
+			intersect(ray, &ray_x, map_tmp_G);
+		else
+			intersect(ray, &ray_y, map_tmp_G);
+>>>>>>> cab41e4 (lol)
 	}
 	//printf("angle = %f, distance %f, x = %f, y = %f\n", ray->angle, ray->distance, ray->x, ray->y);//test
 }

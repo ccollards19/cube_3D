@@ -1,6 +1,6 @@
 #include "cub3d.h"
 
-int	set_player_position(double *x, double *y, t_game *game)
+int	set_player_position(t_game *game)
 {
 	int		i;
 	char	*search;
@@ -10,19 +10,20 @@ int	set_player_position(double *x, double *y, t_game *game)
 	{
 		search = ft_strchr(game->map[i], 'N');
 		if (!search)
-			ft_strchr(game->map[i], 'E');
+			search = ft_strchr(game->map[i], 'E');
 		if (!search)
-			ft_strchr(game->map[i], 'S');
+			search = ft_strchr(game->map[i], 'S');
 		if (!search)
-			ft_strchr(game->map[i], 'W');
+			search = ft_strchr(game->map[i], 'W');
 		if (search)
 			break ;
 		i++;
 	}
 	if (!game->map[i])
 		return (0);
-	*x = i;
-	*y = search - game->map[i];
+	printf("found\n");
+	game->player->x = i;
+	game->player->y = search - game->map[i];
 	return (1);
 }
 
@@ -40,7 +41,7 @@ double	get_init_angle(t_game *game)
 		(++dir && does_contain(game->map[i], 'S')) || \
 		(++dir && does_contain(game->map[i], 'W')))
 		{
-			return ((M_PI_2 * dir));
+			return ((M_PI_4 * dir));
 		}
 		else
 		{

@@ -40,3 +40,13 @@ void	free_array(char	**arr)
 		safe_free(arr[i++]);
 	safe_free(arr);
 }
+
+int	array_size(char **arr)
+{
+	int	i;
+
+	i = 0;
+	while(arr[i])
+		i++;
+	return (i);
+}
