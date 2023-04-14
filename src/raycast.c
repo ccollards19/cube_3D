@@ -47,7 +47,7 @@ void	move_ray_x(t_ray *ray)
 {
 	if (ray->dx > 0)
 		ray->x = ceil(ray->x + 0.001);
-	else
+	else if (ray->dx < 0)
 		ray->x = floor(ray->x - 0.001);	
 	ray->x = round(ray->x);//should insure that cast work as it should
 	ray->distance = (ray->x - ray->x0) * ray->dx_inv;
@@ -58,7 +58,7 @@ void	move_ray_y(t_ray *ray)
 {
 	if (ray->dy > 0)
 		ray->y = ceil(ray->y + 0.001);
-	else
+	else if (ray->dy < 0)
 		ray->y = floor(ray->y - 0.001);
 	ray->y = round(ray->y);
 	ray->distance = (ray->y - ray->y0) * ray->dy_inv;
@@ -69,13 +69,38 @@ void	move_ray_y(t_ray *ray)
 /* check if current tile contain an element
  * need to add more logic things other than walls
  */
-int	intersect(t_ray *ray, t_ray *ray_tmp/*, int *map_tmp_G[]*/)
+int	intersect_x(t_ray *ray, t_ray *ray_tmp/*, int *map_tmp_G[]*/)
 {
 	int tile;
-	tile = map_tmp_G[pseudo_cast(ray_tmp->x)][pseudo_cast(ray_tmp->y)];//scary casting
-	//printf("tile = %d in map_tmp_G[%d][%d]\n", tile, pseudo_cast(ray_tmp->x), pseudo_cast(ray_tmp->y)); 
+	
+	if (ray->dx < 0)
+		tile = map_tmp_G[pseudo_cast(ray_tmp->x - 1)][pseudo_cast(ray_tmp->y)];
+	else
+		tile = map_tmp_G[pseudo_cast(ray_tmp->x)][pseudo_cast(ray_tmp->y)];
 	if (tile != 0)
 	{
+		//usleep(1000000);
+		//printf("tile = %d in map_tmp_G[%d][%d]\n", tile, pseudo_cast(ray_tmp->x), pseudo_cast(ray_tmp->y)); 
+		ray_copy(ray_tmp, ray);
+		ray->texture_offset = 1;//tmp for testing only
+		// other logic to add correct texture and shit
+		if (tile == 1)
+			return (1);
+	}
+	return (0);
+}
+
+int	intersect_y(t_ray *ray, t_ray *ray_tmp/*, int *map_tmp_G[]*/)
+{
+	int tile;
+	
+	if (ray->dy < 0)
+		tile = map_tmp_G[pseudo_cast(ray_tmp->x)][pseudo_cast(ray_tmp->y - 1)];
+	else
+		tile = map_tmp_G[pseudo_cast(ray_tmp->x)][pseudo_cast(ray_tmp->y)];
+	if (tile != 0)
+	{
+		//printf("tile = %d in map_tmp_G[%d][%d]\n", tile, pseudo_cast(ray_tmp->x), pseudo_cast(ray_tmp->y)); 
 		ray_copy(ray_tmp, ray);
 		ray->texture_offset = 1;//tmp for testing only
 		// other logic to add correct texture and shit
@@ -105,10 +130,44 @@ void	cast_ray(t_ray *ray/*, int **map_tmp_G*/)
 		//printf("%f, %f, %f\n", ray_x.x, ray_x.y, ray_x.distance);
 		//printf("%f, %f, %f\n", ray_y.x, ray_y.y, ray_y.distance);
 		if (ray_x.distance <= ray_y.distance)
-			intersect(ray, &ray_x/*, map_tmp_G*/);
+			intersect_x(ray, &ray_x/*, map_tmp_G*/);
 		else
-			intersect(ray, &ray_y/*, map_tmp_G*/);
+			intersect_y(ray, &ray_y/*, map_tmp_G*/);
 	}
-	//printf("%f, x = %f, y = %f\n", ray->distance, ray->x, ray->y);//test
+	//printf("angle = %f, distance %f, x = %f, y = %f\n", ray->angle, ray->distance, ray->x, ray->y);//test
 }
+/*
+int main()
+{
+	t_game game;
+	game.mlx_ptr = mlx_init();
+	game.win_ptr = mlx_new_window(game.mlx_ptr, WIN_WIDTH, WIN_HEIGHT, "Cube_3D");
 
+	t_ray ray;
+	ray.texture_offset = 0;
+	ray.x = 3.1;
+	ray.y = 3.1;
+	ray.x0 = 3.1;
+	ray.y0 = 3.1;
+	ray.angle = 0;
+	ray.dx = sin(ray.angle);
+	ray.dx_inv = 1 / sin(ray.angle);
+	ray.dy = cos(ray.angle);
+	ray.dy_inv = 1 / cos(ray.angle);
+	while (ray.angle > M_PI * 2)
+	{
+		cast_ray(&ray);
+		ray.texture_offset = 0;
+		ray.x = 3.1;
+		ray.y = 3.1;
+		ray.x0 = 3.1;
+		ray.y0 = 3.1;
+		ray.angle += 0.05;
+		ray.dx = sin(ray.angle);
+		ray.dx_inv = 1 / sin(ray.angle);
+		ray.dy = cos(ray.angle);
+		ray.dy_inv = 1 / cos(ray.angle);
+	}
+
+}
+*/
