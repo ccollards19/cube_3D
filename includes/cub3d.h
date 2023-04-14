@@ -129,7 +129,7 @@ double	get_init_angle(t_game *game);
 int		set_player_position(t_game *game);
 
 //raycasting.c
-void	cast_ray(t_ray *ray, int **tmp);
+void	cast_ray(t_ray *ray);
 
 //render.c
 void	*build_frame(t_ray *ray, t_game *game);

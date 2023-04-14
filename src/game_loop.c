@@ -7,21 +7,27 @@ int	destroy(t_game *game)
 	return (1);
 }
 
-double	get_ratio(double angle double *x, double *y)
+void	get_ratio(double angle, double *x, double *y)
 {
 	double	x2;
-	double	y2;
 
 	x2 = sin(angle);
 	if (angle < M_PI_2)
 	{
-
+		*x = x2 - *y;
 	}
 	if (angle < 2 * M_PI_2)
 	{
-
+		*x = x2;
 	}
-	if ()
+	if (angle < 3 * M_PI_2)
+	{
+		*x = x2;
+	}
+	else
+	{
+		*x = 1 - x2;
+	}
 }
 
 int	key_hook(int keycode, t_game *game)
@@ -29,7 +35,7 @@ int	key_hook(int keycode, t_game *game)
 	(void)game;
 	double x;
 	double y;
-	x  = get_ratio(game->player->angle);
+	get_ratio(game->player->angle, &x, &y);
 	if (keycode == ESC)
 		destroy(game);
 	if (keycode == LEFT || keycode == A)

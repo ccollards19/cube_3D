@@ -63,13 +63,13 @@ void	*build_frame(t_ray *ray, t_game *game)
 	while (i < RAY_NBR)
 	{
 
-		cast_ray(ray, game->render_array);
+		cast_ray(ray);
 		print_ray_on_img(&frame, ray->distance, i);
 		//reset_ray();
-		ray->x = 2.1;
-		ray->y = 2.1;
-		ray->x0 = 2.1;
-		ray->y0 = 2.1;
+		ray->x = game->player->x;
+		ray->y = game->player->y;
+		ray->x0 = game->player->x;
+		ray->y0 = game->player->y;
 		ray->angle = ray->angle + angle_incr;
 		ray->dx = sin(ray->angle);
 		ray->dx_inv = 1 / sin(ray->angle);
