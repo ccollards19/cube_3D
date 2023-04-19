@@ -6,48 +6,69 @@ int	destroy(t_game *game)
 	terminate(game, "Window got closed\n");
 	return (1);
 }
-
-void	get_ratio(double angle, double *x, double *y)
+int	set_xy(double *x, double *y, double v_x, double v_y)
 {
-	double	x2;
+	printf("mooving...\n");
+	*x += v_x;
+	*y += v_y;
+	return (1);
+}
 
-	x2 = sin(angle);
-	if (angle < M_PI_2)
-	{
-		*x = x2 - *y;
-	}
-	if (angle < 2 * M_PI_2)
-	{
-		*x = x2;
-	}
-	if (angle < 3 * M_PI_2)
-	{
-		*x = x2;
-	}
-	else
-	{
-		*x = 1 - x2;
-	}
+int is_inside_wall(t_game *game, double y, double x)
+{
+	char target;
+
+	printf("x = %f y = %f\n", x, y);
+	printf("rouned to [%d] [%d] = %c\n",(int)x, (int)y,game->map[(int)x][(int)y]);
+	target = game->map[(int)x][(int)y];
+	return (target == '1');
+}
+
+void	get_ratio(t_game *game, double orient)
+{
+	double	a;
+	double	b;
+	double	angle;
+
+	angle = game->player->angle + orient;
+	if (angle > PI2)
+		angle -= PI2;
+	(void)orient;
+	b = sin(game->player->angle);
+	a = cos(game->player->angle);
+	if (game->player->angle < M_PI && game->player->angle >= 0 && \
+	printf("hemisphere haut"))
+		b = -b / 3;
+	else if (printf("hemisphere bas"))
+		b = b / 3;
+	if ((game->player->angle > (M_3_PI_2) || game->player->angle < M_PI_2) && \
+	printf(" droit\n"))
+		a = a / 3;
+	else if (printf(" gauche\n"))
+		a = a / 3;
+	printf("angle:\t%f\nsin:\t%f\ncos:\t%f\n", game->player->angle * M_PI, b, a);
+	if (!is_inside_wall(game, game->player->y + a, game->player->x + b))
+		set_xy(&game->player->x, &game->player->y, b, a);
+	else if (orient != NORTH)
+		set_xy(&game->player->x, &game->player->y, b, a);
 }
 
 int	key_hook(int keycode, t_game *game)
 {
-	(void)game;
-	double x;
-	double y;
-	get_ratio(game->player->angle, &x, &y);
+	//printf("angle = %f\n", game->player->angle);
+	//printf("BEFORE player position is [%f, %f]\n", game->player->x,game->player->y);
 	if (keycode == ESC)
 		destroy(game);
 	if (keycode == LEFT || keycode == A)
-		game->player->x += 0.1;
+		get_ratio(game, WEST);
 	if (keycode == RIGHT || keycode == D)
-		game->player->x -= 0.1;
+		get_ratio(game, EAST);
 	if (keycode == UP || keycode == W)
-		game->player->y += 0.1;
+		get_ratio(game, NORTH);
 	if (keycode == DOWN || keycode == S)
-		game->player->y -= 0.1;
-	printf("keycode is %d\n", keycode);
-	printf("player position is [%f, %f]\n", game->player->x,game->player->y);
+		get_ratio(game, SOUTH);
+	//printf("keycode is %d\n", keycode);
+	//printf("AFTER player position is [%f, %f]\n", game->player->x,game->player->y);
 	return (0);
 }
 
@@ -57,9 +78,10 @@ int	loop_hook(t_game *game)
 	int 		current_mouse_position[2];
 	static int once;
 
+	mlx_mouse_hide();
 	if (!once++)
 	{
-		mlx_mouse_hide();
+
 		mlx_mouse_get_pos(game->win_ptr, &previous_mouse_position[0], &previous_mouse_position[1]);
 		return (19);
 	}
@@ -78,6 +100,10 @@ int	loop_hook(t_game *game)
 		mlx_mouse_move(game->win_ptr, 500, 0);
 	if (current_mouse_position[0] > 1000)
 		mlx_mouse_move(game->win_ptr, -500, 0);
+	if (current_mouse_position[1] < 100)
+		mlx_mouse_move(game->win_ptr, 0, 400);
+	if (current_mouse_position[1] > 900)
+		mlx_mouse_move(game->win_ptr, 0, -400);
 	mlx_mouse_get_pos(game->win_ptr, &current_mouse_position[0], &current_mouse_position[1]);
 	//printf("2mouse position = %d %d\ncurrent angle %f\n", current_mouse_position[0], current_mouse_position[1], game->player->angle);
 	previous_mouse_position[0] = current_mouse_position[0];
@@ -94,6 +120,9 @@ int	loop_hook(t_game *game)
 	ray.dy = cos(ray.angle);
 	ray.dy_inv = 1 / cos(ray.angle);
 	build_frame(&ray, game);
+	mlx_string_put(game->mlx_ptr, game->win_ptr, 10, 40, 0, ft_strjoin("current chunk: ", ft_itoa((int)(game->player->x))));
+	mlx_string_put(game->mlx_ptr, game->win_ptr, 130, 40, 0, ft_itoa((int)(game->player->y)));
+	mlx_string_put(game->mlx_ptr, game->win_ptr, 10, 10, 0, ft_strjoin("angle ", ft_itoa((int)(game->player->angle/ M_PI * 180))));
 	return (0);
 }
 void	game_loop(t_game *game)

@@ -57,7 +57,6 @@ void	init_mlx(t_game *game)
 	game->player->angle = get_init_angle(game);
 	set_player_position(game);
 	set_map_to_render(game);
-	set_map_to_render(game);
 	loop_hook(game);
 }
 
