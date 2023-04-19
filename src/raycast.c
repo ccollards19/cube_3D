@@ -5,16 +5,6 @@ void ray_copy(t_ray *src, t_ray *dest)
 	ft_memcpy(dest, src, sizeof(t_ray));
 }
 
-/* make sure that the cast of a double stay consistant 
- * even after a round(), ceil() or floor()
- */
-int pseudo_cast(double nbr)
-{
-	if (fabs(nbr - round(nbr)) < 0.0001)
-		return ((int)round(nbr));
-	return ((int)nbr);
-}
-
 //////////////////////////////////////////////////////////////
 /* move ray->x or ray->y to the next intersection with a tile
  * and update other values of the ray
@@ -24,7 +14,7 @@ void	move_ray_x(t_ray *ray)
 	if (ray->dx > 0)
 		ray->x = ceil(ray->x + 0.0001);
 	else if (ray->dx < 0)
-		ray->x = floor(ray->x - 0.0001);	
+		ray->x = floor(ray->x - 0.0001);
 	ray->x = round(ray->x);
 	ray->distance = (ray->x - ray->x0) * ray->dx_inv;
 	ray->y = (ray->distance * ray->dy) + ray->y0;
@@ -48,7 +38,7 @@ void	move_ray_y(t_ray *ray)
  */
 int	intersect_WE(t_ray *ray, t_ray *ray_tmp, t_game *game, char tile)
 {
-	tile = (game->map)[pseudo_cast(ray_tmp->x - 1)][pseudo_cast(ray_tmp->y)];
+	tile = (game->map)[(int)(ray_tmp->x - 1)][(int)(ray_tmp->y)];
 	if (tile != '0')
 	{
 		ray_copy(ray_tmp, ray);
@@ -66,7 +56,7 @@ int	intersect_WE(t_ray *ray, t_ray *ray_tmp, t_game *game, char tile)
 
 int	intersect_EA(t_ray *ray, t_ray *ray_tmp, t_game *game, char tile)
 {
-	tile = (game->map)[pseudo_cast(ray_tmp->x)][pseudo_cast(ray_tmp->y)];
+	tile = (game->map)[(int)(ray_tmp->x)][(int)(ray_tmp->y)];
 	if (tile != '0')
 	{
 		ray_copy(ray_tmp, ray);
@@ -84,7 +74,7 @@ int	intersect_EA(t_ray *ray, t_ray *ray_tmp, t_game *game, char tile)
 
 int	intersect_NO(t_ray *ray, t_ray *ray_tmp, t_game *game, char tile)
 {
-	tile = (game->map)[pseudo_cast(ray_tmp->x)][pseudo_cast(ray_tmp->y - 1)];
+	tile = (game->map)[(int)(ray_tmp->x)][(int)(ray_tmp->y - 1)];
 	if (tile != '0')
 	{
 		ray_copy(ray_tmp, ray);
@@ -102,7 +92,7 @@ int	intersect_NO(t_ray *ray, t_ray *ray_tmp, t_game *game, char tile)
 
 int	intersect_SO(t_ray *ray, t_ray *ray_tmp, t_game *game, char tile)
 {
-	tile = (game->map)[pseudo_cast(ray_tmp->x)][pseudo_cast(ray_tmp->y)];
+	tile = (game->map)[(int)(ray_tmp->x)][(int)(ray_tmp->y)];
 	if (tile != '0')
 	{
 		ray_copy(ray_tmp, ray);
