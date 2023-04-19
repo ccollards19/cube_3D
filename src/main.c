@@ -7,29 +7,6 @@ void	set_values_to_null(t_game *game)
 	game->file = NULL;
 }
 
-void	set_map_to_render(t_game *game)
-{
-	int		i;
-	int		j;
-	char	c;
-
-	game->render_array = xmalloc(sizeof(int *) * (array_size(game->map) + 1));
-	i = -1;
-	while(game->map[++i])
-	{
-		game->render_array[i] = xmalloc(sizeof(int) * (ft_strlen(game->map[i]) + 1));
-		j = -1;
-		while(game->map[i][++j])
-		{
-			c = game->map[i][j];
-			if (c == 'S' || c == 'N' || c == 'E' || c == 'W')
-				game->render_array[i][j] = 0;
-			else
-				game->render_array[i][j] -= c - 48;
-		}
-	}
-}
-
 static void init_game(t_game *game, char *path)
 {
 	printf("game initialazing\n");
@@ -56,7 +33,6 @@ void	init_mlx(t_game *game)
 	game->player = xmalloc(sizeof(t_player));
 	game->player->angle = get_init_angle(game);
 	set_player_position(game);
-	set_map_to_render(game);
 	set_map_to_render(game);
 	loop_hook(game);
 }
