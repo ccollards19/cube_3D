@@ -16,7 +16,7 @@ void	my_mlx_pixel_put(t_img *img, int x, int y, int color)
 // wall size = 3
 // fov 60 degree
 // optimisation possible by precomputing most values
-void	print_ray_on_img(t_img *frame, double distance, int x)
+void	print_ray_on_img(t_img *frame, double distance, int x, int color)
 {
 	int y;
 	int lim1;
@@ -37,7 +37,7 @@ void	print_ray_on_img(t_img *frame, double distance, int x)
 	while (y < lim2)
 	{       
 		//printf("x = %d y = %d\n", x, y);
-		my_mlx_pixel_put(frame, x, y, blue);
+		my_mlx_pixel_put(frame, x, y, color);
 		y++;
 	}
 	while (y < 1000)
@@ -58,23 +58,23 @@ void	*build_frame(t_ray *ray, t_game *game)
 
 	i = 0;
 	angle_incr = (M_PI_2 / 3) / RAY_NBR;
-	frame.ptr = mlx_new_image(game->mlx_ptr, 1200, 1200);//test version
+	frame.ptr = mlx_new_image(game->mlx_ptr, 1000, 1000);//test version
 	frame.offset = mlx_get_data_addr(frame.ptr, &frame.bits_per_pixel, &frame.line_length, &frame.endian);//test version
 	while (i < RAY_NBR)
 	{
 
-		cast_ray(ray);
-		print_ray_on_img(&frame, ray->distance, i);
+		cast_ray(ray, game);
+		print_ray_on_img(&frame, ray->distance, i, ray->texture);
 		//reset_ray();
 		ray->x = game->player->x;
 		ray->y = game->player->y;
 		ray->x0 = game->player->x;
 		ray->y0 = game->player->y;
 		ray->angle = ray->angle + angle_incr;
-		ray->dx = sin(ray->angle);
-		ray->dx_inv = 1 / sin(ray->angle);
-		ray->dy = cos(ray->angle);
-		ray->dy_inv = 1 / cos(ray->angle);
+		ray->dx = cos(ray->angle);
+		ray->dx_inv = 1 / cos(ray->angle);
+		ray->dy = sin(ray->angle);
+		ray->dy_inv = 1 / sin(ray->angle);
 		ray->texture_offset = 0;
 
 		//printf("ray->distance = %f angle = %f\n", ray->distance, ray->angle);

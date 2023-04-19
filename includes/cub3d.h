@@ -66,7 +66,7 @@ typedef struct s_ray {
 	double	dx_inv;
 	double	dy_inv;
 	double	texture_offset;
-//	enum	texture;
+	int	texture;
 } t_ray;
 
 typedef struct s_player
@@ -126,7 +126,7 @@ double	get_init_angle(t_game *game);
 int		set_player_position(t_game *game);
 
 //raycasting.c
-void	cast_ray(t_ray *ray);
+void	cast_ray(t_ray *ray, t_game *game);
 
 //render.c
 void	*build_frame(t_ray *ray, t_game *game);
