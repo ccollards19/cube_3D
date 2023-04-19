@@ -25,16 +25,12 @@
 # define S 1
 # define D 0
 # define PI2 2 * M_PI
-# define SIN_10 0.173648
-# define SIN_20 0.342020
-# define SIN_30 0.500000
-# define SIN_40 0.642788
-# define SIN_50 0.766044
-# define SIN_60 0.866025
-# define SIN_70 0.939693
-# define SIN_80 0.984808
-# define SIN_90 1.000000
+# define NORTH 0
+# define WEST M_PI_2
+# define SOUTH M_PI
+# define EAST M_PI + M_PI_2
 
+# define M_3_PI_2 EAST
 //# define SIN_2(A) A < M_PI ? : SIN_3(A)
 //# define SIN(A) A < M_PI_2 ? A < M_PI_4 ? SIN_3(A) : A < M_PI_8 ? SIN_10 : SIN_20: SIN_2(A)
 
@@ -78,7 +74,8 @@ typedef struct s_player
 	double 	angle;
 	double	x;
 	double	y;
-	int		fov;
+	int		fov_h;
+	int 	fov_v;
 	size_t 	ammo;
 	size_t	hp;
 	size_t	speed;
