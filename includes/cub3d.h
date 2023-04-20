@@ -29,7 +29,7 @@
 # define WEST M_PI_2
 # define SOUTH M_PI
 # define EAST M_PI + M_PI_2
-
+# define NONE -1
 # define M_3_PI_2 EAST
 //# define SIN_2(A) A < M_PI ? : SIN_3(A)
 //# define SIN(A) A < M_PI_2 ? A < M_PI_4 ? SIN_3(A) : A < M_PI_8 ? SIN_10 : SIN_20: SIN_2(A)
@@ -79,6 +79,9 @@ typedef struct s_player
 	size_t 	ammo;
 	size_t	hp;
 	size_t	speed;
+	double	direction;
+	double	sin;
+	double	cos;
 }	t_player;
 
 typedef enum e_color
