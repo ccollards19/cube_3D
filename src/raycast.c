@@ -12,10 +12,10 @@ void ray_copy(t_ray *src, t_ray *dest)
 void	move_ray_x(t_ray *ray)
 {
 	if (ray->dx > 0)
-		ray->x = ceil(ray->x + 0.0001);
+		ray->x = ceil(ray->x + 0.000001);
 	else if (ray->dx < 0)
-		ray->x = floor(ray->x - 0.0001);
-	ray->x = round(ray->x);
+		ray->x = floor(ray->x - 0.000001);
+	//ray->x = round(ray->x);
 	ray->distance = (ray->x - ray->x0) * ray->dx_inv;
 	ray->y = (ray->distance * ray->dy) + ray->y0;
 }
@@ -23,10 +23,10 @@ void	move_ray_x(t_ray *ray)
 void	move_ray_y(t_ray *ray)
 {
 	if (ray->dy > 0)
-		ray->y = ceil(ray->y + 0.0001);
+		ray->y = ceil(ray->y + 0.000001);
 	else if (ray->dy < 0)
-		ray->y = floor(ray->y - 0.0001);
-	ray->y = round(ray->y);
+		ray->y = floor(ray->y - 0.000001);
+	//ray->y = round(ray->y);
 	ray->distance = (ray->y - ray->y0) * ray->dy_inv;
 	ray->x = (ray->distance * ray->dx) + ray->x0;
 }
@@ -38,7 +38,7 @@ void	move_ray_y(t_ray *ray)
  */
 int	intersect_WE(t_ray *ray, t_ray *ray_tmp, t_game *game, char tile)
 {
-	tile = (game->map)[(int)(ray_tmp->x - 1)][(int)(ray_tmp->y)];
+	tile = (game->map)[(int)(ray_tmp->x)][(int)(ray_tmp->y)];
 	if (tile != '0')
 	{
 		ray_copy(ray_tmp, ray);
@@ -56,7 +56,7 @@ int	intersect_WE(t_ray *ray, t_ray *ray_tmp, t_game *game, char tile)
 
 int	intersect_EA(t_ray *ray, t_ray *ray_tmp, t_game *game, char tile)
 {
-	tile = (game->map)[(int)(ray_tmp->x)][(int)(ray_tmp->y)];
+	tile = (game->map)[(int)(ray_tmp->x - 1)][(int)(ray_tmp->y)];
 	if (tile != '0')
 	{
 		ray_copy(ray_tmp, ray);
@@ -129,8 +129,8 @@ void	cast_ray(t_ray *ray, t_game *game)
 			move_ray_y(&ray_y);
 		if (ray_x.distance <= ray_y.distance)
 		{
-			if ((ray->dx < 0 && intersect_WE(ray, &ray_x, game, 0)) ||
-			intersect_EA(ray, &ray_x, game, 0))
+			if ((ray->dx < 0 && intersect_EA(ray, &ray_x, game, 0)) ||
+			intersect_WE(ray, &ray_x, game, 0))
 				return ;
 		}
 		else

@@ -35,8 +35,31 @@ void	init_mlx(t_game *game)
 	set_player_position(game);
 	loop_hook(game);
 }
+/*
+void precompute(t_game *game)
+{
+	int i;
+	double angle;
 
+	i = 0;
+	angle = 0;
+	game->angle = malloc(sizeof(t_angle) * RAY_NBR);
+	if (game->angle == NULL)
+		terminate(game, "");
+	while (i < RAY_NBR)
+	{
+		(game->angle)[i].angle = angle;
+		(game->angle)[i].sin = sin(angle);
+		(game->angle)[i].cos = cos(angle);
+		(game->angle)[i].tan = tan(angle);
+		(game->angle)[i].sin_inv = 1 / sin(angle);
+		(game->angle)[i].cos_inv = 1 / cos(angle);
 
+		angle += ((M_PI * 2) / RAY_NBR);
+		i++;
+	}
+}
+*/
 int	main(int argc, char **argv)
 {
 	t_game game;

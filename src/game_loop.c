@@ -84,15 +84,16 @@ int	loop_hook(t_game *game)
 	previous_mouse_position[1] = current_mouse_position[1];
 	t_ray ray;
 	ray.texture_offset = 0;
+	ray.texture = 0;
 	ray.x = game->player->x;
 	ray.y = game->player->y;
 	ray.x0 = game->player->x;
 	ray.y0 = game->player->y;
 	ray.angle = game->player->angle;
-	ray.dx = sin(ray.angle);
-	ray.dx_inv = 1 / sin(ray.angle);
-	ray.dy = cos(ray.angle);
-	ray.dy_inv = 1 / cos(ray.angle);
+	ray.dx = cos(ray.angle);
+	ray.dx_inv = 1 / cos(ray.angle);
+	ray.dy = sin(ray.angle);
+	ray.dy_inv = 1 / sin(ray.angle);
 	build_frame(&ray, game);
 	return (0);
 }

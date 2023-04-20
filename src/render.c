@@ -64,20 +64,22 @@ void	*build_frame(t_ray *ray, t_game *game)
 	{
 
 		cast_ray(ray, game);
+		//printf("x = %f, y = %f, ray->distance = %f angle = %f\n", ray->x, ray->y, ray->distance, ray->angle);
 		print_ray_on_img(&frame, ray->distance, i, ray->texture);
 		//reset_ray();
 		ray->x = game->player->x;
 		ray->y = game->player->y;
 		ray->x0 = game->player->x;
 		ray->y0 = game->player->y;
+		ray->distance = 0;
 		ray->angle = ray->angle + angle_incr;
 		ray->dx = cos(ray->angle);
 		ray->dx_inv = 1 / cos(ray->angle);
 		ray->dy = sin(ray->angle);
 		ray->dy_inv = 1 / sin(ray->angle);
 		ray->texture_offset = 0;
+		ray->texture = 0;
 
-		//printf("ray->distance = %f angle = %f\n", ray->distance, ray->angle);
 		i++;
 	}
 	mlx_put_image_to_window(game->mlx_ptr, game->win_ptr, frame.ptr, 0, 0);
