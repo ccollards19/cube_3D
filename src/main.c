@@ -36,6 +36,26 @@ void	init_mlx(t_game *game)
 	loop_hook(game);
 }
 /*
+void init_asset(t_game *game)
+{
+	game->asset = malloc(sizeof(t_asset));
+	if (game->asset == NULL)
+		terminate(game, "");
+	(game->asset).NO.ptr = mlx_xpm_file_to_image(game->mlx_ptr, game->NO_path, (game->asset).NO.width, (game->asset).NO.height);
+	if ((game->asset).NO.ptr == NULL)
+		terminate(game, "");
+	(game->asset).SO.ptr = mlx_xpm_file_to_image(game->mlx_ptr, game->SO_path, (game->asset).SO.width, (game->asset).SO.height);
+	if ((game->asset).SO.ptr == NULL)
+		terminate(game, "");
+	(game->asset).WE.ptr = mlx_xpm_file_to_image(game->mlx_ptr, game->WE_path, (game->asset).WE.width, (game->asset).WE.height);
+	if ((game->asset).WE.ptr == NULL)
+		terminate(game, "");
+	(game->asset).EA.ptr = mlx_xpm_file_to_image(game->mlx_ptr, game->EA_path, (game->asset).EA.width, (game->asset).EA.height);
+	if ((game->asset).EA.ptr == NULL)
+		terminate(game, "");
+}
+
+
 void precompute(t_game *game)
 {
 	int i;
@@ -70,24 +90,16 @@ int	main(int argc, char **argv)
 	set_values_to_null(&game);
 	init_game(&game, argv[1]);
 	init_mlx(&game);
+//	init_asset;
 //	minimap(&game);
-	/*t_ray ray;
-	ray.texture_offset = 0;
-	ray.x = 3.1;
-	ray.y = 3.1;
-	ray.x0 = 3.1;
-	ray.y0 = 3.1;
-	ray.angle = M_PI_2 / 2;
-	ray.dx = sin(ray.angle);
-	ray.dx_inv = 1 / sin(ray.angle);
-	ray.dy = cos(ray.angle);
-	ray.dy_inv = 1 / cos(ray.angle);
-	build_frame(&ray, &game);*/
-	//ray.angle += 0.1;
-	//usleep(10000);
-	//mlx_do_sync(game->mlx_ptr)
-	game_loop(&game);
-
+/*	t_ray ray;
+	game.player->angle = 2.354;
+	game.player->x= 8.1;
+	game.player->y= 4.6;
+	build_frame(&ray, &game);
+	mlx_loop(game.mlx_ptr);
+	*/game_loop(&game);
+	
 	return (0);
 }
 //////////////////////////////////////////////////////////////

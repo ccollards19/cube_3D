@@ -121,12 +121,10 @@ void	cast_ray(t_ray *ray, t_game *game)
 
 	ray_copy(ray, &ray_x);
 	ray_copy(ray, &ray_y);
+	move_ray_x(&ray_x);
+	move_ray_y(&ray_y);
 	while (1)// assume player in empty tile
 	{
-		if (ray_x.distance <= ray_y.distance)
-			move_ray_x(&ray_x);
-		else
-			move_ray_y(&ray_y);
 		if (ray_x.distance <= ray_y.distance)
 		{
 			if ((ray->dx < 0 && intersect_EA(ray, &ray_x, game, 0)) ||
@@ -139,5 +137,9 @@ void	cast_ray(t_ray *ray, t_game *game)
 			intersect_SO(ray, &ray_y, game, 0))
 				return ;
 		}
+		if (ray_x.distance <= ray_y.distance)
+			move_ray_x(&ray_x);
+		else
+			move_ray_y(&ray_y);
 	}
 }

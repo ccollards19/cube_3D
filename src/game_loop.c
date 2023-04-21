@@ -47,7 +47,7 @@ int	key_hook(int keycode, t_game *game)
 	if (keycode == DOWN || keycode == S)
 		game->player->y -= 0.1;
 	printf("keycode is %d\n", keycode);
-	printf("player position is [%f, %f]\n", game->player->x,game->player->y);
+	printf("player position is [%f, %f] angle is [%f]\n", game->player->x,game->player->y, game->player->angle);
 	return (0);
 }
 

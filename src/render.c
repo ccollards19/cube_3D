@@ -1,6 +1,5 @@
 #include "../includes/cub3d.h"
 
-
 /////////////////////////////////////////////////////////////
 
 void	my_mlx_pixel_put(t_img *img, int x, int y, int color)
@@ -18,36 +17,21 @@ void	my_mlx_pixel_put(t_img *img, int x, int y, int color)
 // optimisation possible by precomputing most values
 void	print_ray_on_img(t_img *frame, double distance, int x, int color)
 {
-	int y;
 	int lim1;
 	int lim2;
-	
  
 	lim2 = (WIN_HEIGHT / 2) + (int)((WIN_HEIGHT / 2) * (1.2 / (distance * tan(M_PI_4))));
 	lim1 = (WIN_HEIGHT / 2) - (int)((WIN_HEIGHT / 2) * (1.8 / (distance * tan(M_PI_4))));
-	y = 0;
-	//printf("lim1 = %d lim2 = %d\n", lim1, lim2);
-	while (y < lim1)
-	{
-		//print_ceiling();
-		//printf("x = %d y = %d\n", x, y);
-		my_mlx_pixel_put(frame, x, y, red);
-		y++;
-	}
-	while (y < lim2)
+	//printf("lim1 = %d lim2 = %d distance [%f]\n", lim1, lim2, distance);
+	if (lim1 < 0)
+		lim1 = 0;
+	if (lim2 < 0)
+		lim2 = 1000;
+	while (lim1 < lim2)
 	{       
-		//printf("x = %d y = %d\n", x, y);
-		my_mlx_pixel_put(frame, x, y, color);
-		y++;
+		my_mlx_pixel_put(frame, x, lim1, color);
+		lim1++;
 	}
-	while (y < 1000)
-	{
-		//printf("x = %d y = %d\n", x, y);
-		//print_floor();
-		my_mlx_pixel_put(frame, x, y, green);
-		y++;
-	}
-	y = 0;
 }
 
 void	*build_frame(t_ray *ray, t_game *game)
@@ -57,7 +41,7 @@ void	*build_frame(t_ray *ray, t_game *game)
 	t_img	frame;
 
 	i = 0;
-	angle_incr = (M_PI_2 / 3) / RAY_NBR;
+	angle_incr = (M_PI_2) / RAY_NBR;
 	frame.ptr = mlx_new_image(game->mlx_ptr, 1000, 1000);//test version
 	frame.offset = mlx_get_data_addr(frame.ptr, &frame.bits_per_pixel, &frame.line_length, &frame.endian);//test version
 	while (i < RAY_NBR)
