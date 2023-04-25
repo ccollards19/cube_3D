@@ -36,15 +36,16 @@ void	print_ray_on_img(t_img *frame, t_ray *ray, int x)
 	lim2 = (WIN_HEIGHT / 2) + (int)((WIN_HEIGHT / 2) * (1.2 / (ray->distance * tan(M_PI_4))));
 	lim1 = (WIN_HEIGHT / 2) - (int)((WIN_HEIGHT / 2) * (1.8 / (ray->distance * tan(M_PI_4))));
 	//printf("lim1 = %d lim2 = %d distance [%f]\n", lim1, lim2, distance);
-	if (lim1 < 0)
+	/*if (lim1 < 0)
 		lim1 = 0;
 	if (lim2 < 0)
 		lim2 = 1000;
+*/
 	y = 0;
 	y_incr = (ray->texture->height / fabs(lim2 - lim1));
 	while (lim1 < lim2)
 	{
-		color = get_texture_color(ray->texture, (int)(ray->texture_offset * ray->texture->width), y);
+		color = get_texture_color(ray->texture, (int)(ray->texture_offset * ray->texture->width), (int)y);
 		my_mlx_pixel_put(frame, x, lim1, color);
 		lim1++;
 		y += y_incr;
