@@ -44,7 +44,7 @@ int	intersect_WE(t_ray *ray, t_ray *ray_tmp, t_game *game, char tile)
 		ray_copy(ray_tmp, ray);
 		//ray->asset = tile;
 		//ray->asset = &((game->assets)[tile]);
-		ray->texture = blue;//game->asset->WE;
+		ray->texture = &(game->asset->WE);
 		//ray->texture = (game->assets)[tile]->WE;
 		ray->texture_offset = ray->y - floor(ray->y);
 		//if ((game->assets)[tile]->stop)
@@ -62,7 +62,7 @@ int	intersect_EA(t_ray *ray, t_ray *ray_tmp, t_game *game, char tile)
 		ray_copy(ray_tmp, ray);
 		//ray->asset = tile;
 		//ray->asset = &((game->assets)[tile]);
-		ray->texture = steel_blue;//game->asset->EA;
+		ray->texture = &(game->asset->EA);
 		//ray->texture = (game->assets)[tile]->EA;
 		ray->texture_offset = ray->y - floor(ray->y);
 		//if ((game->assets)[tile]->stop)
@@ -80,7 +80,7 @@ int	intersect_NO(t_ray *ray, t_ray *ray_tmp, t_game *game, char tile)
 		ray_copy(ray_tmp, ray);
 		//ray->asset = tile;
 		//ray->asset = &((game->assets)[tile]);
-		ray->texture = light_blue;//game->asset->NO;
+		ray->texture = &(game->asset->NO);
 		//ray->texture = (game->assets)[tile]->NO;
 		ray->texture_offset = ray->x - floor(ray->x);
 		//if ((game->assets)[tile]->stop)
@@ -98,7 +98,7 @@ int	intersect_SO(t_ray *ray, t_ray *ray_tmp, t_game *game, char tile)
 		ray_copy(ray_tmp, ray);
 		//ray->asset = tile;
 		//ray->asset = &((game->assets)[tile]);
-		ray->texture = dark_blue;//game->asset->S0;
+		ray->texture = &(game->asset->SO);
 		//ray->texture = (game->assets)[tile]->S0;
 		ray->texture_offset = ray->x - floor(ray->x);
 		//if ((game->assets)[tile]->stop)
@@ -131,10 +131,9 @@ void	cast_ray(t_ray *ray, t_game *game)
 			intersect_WE(ray, &ray_x, game, 0))
 				return ;
 		}
-		else
-		{ 
-			if ((ray->dy < 0 && intersect_NO(ray, &ray_y, game, 0)) ||
+		else if ((ray->dy < 0 && intersect_NO(ray, &ray_y, game, 0)) ||
 			intersect_SO(ray, &ray_y, game, 0))
+		{
 				return ;
 		}
 		if (ray_x.distance <= ray_y.distance)

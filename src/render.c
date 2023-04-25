@@ -11,26 +11,43 @@ void	my_mlx_pixel_put(t_img *img, int x, int y, int color)
 	}
 }
 
+unsigned int get_texture_color(t_img *img, int x, int y)
+{
+	if (x < img->width && x >= 0 && y < img->height && y >= 0)
+	{
+		return (*(unsigned int *)(img->offset + 
+		(y * img->line_length + x * (img->bits_per_pixel / 8))));
+	}
+	return (0);
+}
+
 // player size = 1.8
 // wall size = 3
 // fov 60 degree
 // optimisation possible by precomputing most values
-void	print_ray_on_img(t_img *frame, double distance, int x, int color)
+void	print_ray_on_img(t_img *frame, t_ray *ray, int x)
 {
-	int lim1;
-	int lim2;
+	double 	lim1;
+	double	lim2;
+	double	y;
+	double	y_incr;
+	int 	color;
  
-	lim2 = (WIN_HEIGHT / 2) + (int)((WIN_HEIGHT / 2) * (1.2 / (distance * tan(M_PI_4))));
-	lim1 = (WIN_HEIGHT / 2) - (int)((WIN_HEIGHT / 2) * (1.8 / (distance * tan(M_PI_4))));
+	lim2 = (WIN_HEIGHT / 2) + (int)((WIN_HEIGHT / 2) * (1.2 / (ray->distance * tan(M_PI_4))));
+	lim1 = (WIN_HEIGHT / 2) - (int)((WIN_HEIGHT / 2) * (1.8 / (ray->distance * tan(M_PI_4))));
 	//printf("lim1 = %d lim2 = %d distance [%f]\n", lim1, lim2, distance);
 	if (lim1 < 0)
 		lim1 = 0;
 	if (lim2 < 0)
 		lim2 = 1000;
+	y = 0;
+	y_incr = (ray->texture->height / fabs(lim2 - lim1));
 	while (lim1 < lim2)
-	{       
+	{
+		color = get_texture_color(ray->texture, (int)(ray->texture_offset * ray->texture->width), y);
 		my_mlx_pixel_put(frame, x, lim1, color);
 		lim1++;
+		y += y_incr;
 	}
 }
 
@@ -49,7 +66,7 @@ void	*build_frame(t_ray *ray, t_game *game)
 
 		cast_ray(ray, game);
 		//printf("x = %f, y = %f, ray->distance = %f angle = %f\n", ray->x, ray->y, ray->distance, ray->angle);
-		print_ray_on_img(&frame, ray->distance, i, ray->texture);
+		print_ray_on_img(&frame, ray, i);
 		//reset_ray();
 		ray->x = game->player->x;
 		ray->y = game->player->y;

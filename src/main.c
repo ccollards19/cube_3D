@@ -35,27 +35,35 @@ void	init_mlx(t_game *game)
 	set_player_position(game);
 	loop_hook(game);
 }
-/*
+
 void init_asset(t_game *game)
 {
-	game->asset = malloc(sizeof(t_asset));
+	game->asset = xmalloc(sizeof(t_asset));
 	if (game->asset == NULL)
 		terminate(game, "");
-	(game->asset).NO.ptr = mlx_xpm_file_to_image(game->mlx_ptr, game->NO_path, (game->asset).NO.width, (game->asset).NO.height);
-	if ((game->asset).NO.ptr == NULL)
+
+	game->asset->NO.ptr = mlx_xpm_file_to_image(game->mlx_ptr, game->NO_path, &game->asset->NO.width, &game->asset->NO.height);
+	if (game->asset->NO.ptr == NULL)
 		terminate(game, "");
-	(game->asset).SO.ptr = mlx_xpm_file_to_image(game->mlx_ptr, game->SO_path, (game->asset).SO.width, (game->asset).SO.height);
-	if ((game->asset).SO.ptr == NULL)
+	game->asset->NO.offset = mlx_get_data_addr(game->asset->NO.ptr, &game->asset->NO.bits_per_pixel, &game->asset->NO.line_length, &game->asset->NO.endian);
+
+	game->asset->SO.ptr = mlx_xpm_file_to_image(game->mlx_ptr, game->SO_path, &game->asset->SO.width, &game->asset->SO.height);
+	if (game->asset->SO.ptr == NULL)
 		terminate(game, "");
-	(game->asset).WE.ptr = mlx_xpm_file_to_image(game->mlx_ptr, game->WE_path, (game->asset).WE.width, (game->asset).WE.height);
-	if ((game->asset).WE.ptr == NULL)
+	game->asset->SO.offset = mlx_get_data_addr(game->asset->SO.ptr, &game->asset->SO.bits_per_pixel, &game->asset->SO.line_length, &game->asset->SO.endian);
+
+	game->asset->WE.ptr = mlx_xpm_file_to_image(game->mlx_ptr, game->WE_path, &game->asset->WE.width, &game->asset->WE.height);
+	if (game->asset->WE.ptr == NULL)
 		terminate(game, "");
-	(game->asset).EA.ptr = mlx_xpm_file_to_image(game->mlx_ptr, game->EA_path, (game->asset).EA.width, (game->asset).EA.height);
-	if ((game->asset).EA.ptr == NULL)
+	game->asset->WE.offset = mlx_get_data_addr(game->asset->WE.ptr, &game->asset->WE.bits_per_pixel, &game->asset->WE.line_length, &game->asset->WE.endian);
+
+	game->asset->EA.ptr = mlx_xpm_file_to_image(game->mlx_ptr, game->EA_path, &game->asset->EA.width, &(game->asset->EA.height));
+	if (game->asset->EA.ptr == NULL)
 		terminate(game, "");
+	game->asset->EA.offset = mlx_get_data_addr(game->asset->EA.ptr, &game->asset->EA.bits_per_pixel, &game->asset->EA.line_length, &game->asset->EA.endian);
 }
 
-
+/*
 void precompute(t_game *game)
 {
 	int i;
@@ -90,7 +98,7 @@ int	main(int argc, char **argv)
 	set_values_to_null(&game);
 	init_game(&game, argv[1]);
 	init_mlx(&game);
-//	init_asset;
+	init_asset(&game);
 //	minimap(&game);
 /*	t_ray ray;
 	game.player->angle = 2.354;
@@ -98,7 +106,7 @@ int	main(int argc, char **argv)
 	game.player->y= 4.6;
 	build_frame(&ray, &game);
 	mlx_loop(game.mlx_ptr);
-	*/game_loop(&game);
+*/	game_loop(&game);
 	
 	return (0);
 }

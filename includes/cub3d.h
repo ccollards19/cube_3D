@@ -53,6 +53,8 @@ typedef struct	s_img {
 	int	bits_per_pixel;
 	int	line_length;
 	int	endian;
+	int	width;
+	int	height;
 }				t_img;
 
 /* need to change texture and texture offset to chained list 
@@ -70,7 +72,7 @@ typedef struct s_ray {
 	double	dx_inv;
 	double	dy_inv;
 	double	texture_offset;
-	int	texture;
+	t_img	*texture;
 } t_ray;
 
 typedef struct s_player
@@ -84,6 +86,15 @@ typedef struct s_player
 	size_t	speed;
 }	t_player;
 
+typedef	struct s_asset {
+	char	id;
+	int	stop;
+	t_img	NO;
+	t_img	SO;
+	t_img	WE;
+	t_img	EA;
+} t_asset;
+
 typedef enum e_color
 {
 	CEILING,
@@ -93,6 +104,7 @@ typedef enum e_color
 typedef struct s_game
 {
 	t_player	*player;
+	t_asset		*asset;
 	void		*mlx_ptr;
 	void		*win_ptr;
 	char		**file;
