@@ -105,6 +105,7 @@ typedef struct s_game
 {
 	t_player	*player;
 	t_asset		*asset;
+  t_img   frame;
 	void		*mlx_ptr;
 	void		*win_ptr;
 	char		**file;

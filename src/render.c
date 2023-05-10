@@ -1,4 +1,5 @@
 #include "../includes/cub3d.h"
+#include <stdio.h>
 
 /////////////////////////////////////////////////////////////
 
@@ -25,11 +26,12 @@ unsigned int get_texture_color(t_img *img, int x, int y)
 // wall size = 3
 // fov 60 degree
 // optimisation possible by precomputing most values
-void	print_ray_on_img(t_img *frame, t_ray *ray, int x)
+void	print_ray_on_img(t_img *frame, t_ray *ray, int x, t_game *game)
 {
 	double 	lim1;
 	double	lim2;
 	double	y;
+	double	y_texture;
 	double	y_incr;
 	int 	color;
  
@@ -42,32 +44,41 @@ void	print_ray_on_img(t_img *frame, t_ray *ray, int x)
 		lim2 = 1000;
 */
 	y = 0;
+	y_texture = 0;
 	y_incr = (ray->texture->height / fabs(lim2 - lim1));
-	while (lim1 < lim2)
+	while (y < lim1)
+  {
+		my_mlx_pixel_put(frame, x, y, game->ceiling_color);
+    y++;
+  }
+  while (lim1 < lim2)
 	{
-		color = get_texture_color(ray->texture, (int)(ray->texture_offset * ray->texture->width), (int)y);
+		color = get_texture_color(ray->texture, (int)(ray->texture_offset * ray->texture->width), (int)y_texture);
 		my_mlx_pixel_put(frame, x, lim1, color);
-		lim1++;
-		y += y_incr;
+		y++;
+    lim1++;
+		y_texture += y_incr;
 	}
+  while (y < 1000)
+  {
+		my_mlx_pixel_put(frame, x, y, game->floor_color);
+    y++;
+  }
 }
 
 void	*build_frame(t_ray *ray, t_game *game)
 {
 	int	i;
 	double 	angle_incr;
-	t_img	frame;
 
 	i = 0;
 	angle_incr = (M_PI_2) / RAY_NBR;
-	frame.ptr = mlx_new_image(game->mlx_ptr, 1000, 1000);//test version
-	frame.offset = mlx_get_data_addr(frame.ptr, &frame.bits_per_pixel, &frame.line_length, &frame.endian);//test version
 	while (i < RAY_NBR)
 	{
 
 		cast_ray(ray, game);
 		//printf("x = %f, y = %f, ray->distance = %f angle = %f\n", ray->x, ray->y, ray->distance, ray->angle);
-		print_ray_on_img(&frame, ray, i);
+		print_ray_on_img(&game->frame, ray, i, game);
 		//reset_ray();
 		ray->x = game->player->x;
 		ray->y = game->player->y;
@@ -84,8 +95,7 @@ void	*build_frame(t_ray *ray, t_game *game)
 
 		i++;
 	}
-	mlx_put_image_to_window(game->mlx_ptr, game->win_ptr, frame.ptr, 0, 0);
-	mlx_destroy_image(game->mlx_ptr, frame.ptr);
+	mlx_put_image_to_window(game->mlx_ptr, game->win_ptr, game->frame.ptr, 0, 0);
 	return (NULL);
 }
 

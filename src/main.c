@@ -1,4 +1,4 @@
-#include "cub3d.h"
+#include "../includes/cub3d.h"
 
 void	set_values_to_null(t_game *game)
 {
@@ -27,12 +27,14 @@ void	init_mlx(t_game *game)
 	game->mlx_ptr = mlx_init();
 	if (game->mlx_ptr == NULL)
 		terminate(game, "");
-	game->win_ptr = mlx_new_window(game->mlx_ptr, WIN_WIDTH, WIN_HEIGHT, "Cube_3D");
-	if (game->win_ptr == NULL)
+  game->win_ptr = mlx_new_window(game->mlx_ptr, WIN_WIDTH, WIN_HEIGHT, "Cube_3D");
+  if (game->win_ptr == NULL)
 		terminate(game, "");
 	game->player = xmalloc(sizeof(t_player));
 	game->player->angle = get_init_angle(game);
 	set_player_position(game);
+	game->frame.ptr = mlx_new_image(game->mlx_ptr, 1000, 1000);//test version
+	game->frame.offset = mlx_get_data_addr(game->frame.ptr, &game->frame.bits_per_pixel, &game->frame.line_length, &game->frame.endian);//test version
 	loop_hook(game);
 }
 
@@ -99,30 +101,7 @@ int	main(int argc, char **argv)
 	init_game(&game, argv[1]);
 	init_mlx(&game);
 	init_asset(&game);
-//	minimap(&game);
-/*	t_ray ray;
-	game.player->angle = 2.354;
-	game.player->x= 8.1;
-	game.player->y= 4.6;
-	build_frame(&ray, &game);
-	mlx_loop(game.mlx_ptr);
-*/	game_loop(&game);
+	game_loop(&game);
 	
 	return (0);
 }
-//////////////////////////////////////////////////////////////
-/*
-   int main()
-   {
-
-   for (int i = 0; i < mapWidth; i++)
-   {
-   for (int j = 0; j < mapHeight; j++)
-   printf("%d ", map[j][i]);
-   printf("\n");
-
-   }
-   build_frame(&ray);
-   return 0;
-
-   }*/
