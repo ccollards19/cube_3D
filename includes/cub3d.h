@@ -57,12 +57,20 @@ typedef struct	s_img {
 	int	height;
 }				t_img;
 
+typedef struct s_angle{
+  double angle;
+  double sin;
+  double cos;
+  double tan;
+  double sin_inv;
+  double cos_inv;
+} t_angle;
 /* need to change texture and texture offset to chained list 
  * to allow for multiple elements to be visible when behind each other
  */
 typedef struct s_ray {
 	double	distance;
-	double	angle;
+	double  angle;
 	double	x0;
 	double	y0;
 	double	x;
@@ -95,6 +103,7 @@ typedef	struct s_asset {
 	t_img	EA;
 } t_asset;
 
+
 typedef enum e_color
 {
 	CEILING,
@@ -104,7 +113,8 @@ typedef enum e_color
 typedef struct s_game
 {
 	t_player	*player;
-	t_asset		*asset;
+  t_asset		*asset;
+  t_angle *angle;
   t_img   frame;
 	void		*mlx_ptr;
 	void		*win_ptr;

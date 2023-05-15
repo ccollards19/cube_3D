@@ -65,18 +65,18 @@ void init_asset(t_game *game)
 	game->asset->EA.offset = mlx_get_data_addr(game->asset->EA.ptr, &game->asset->EA.bits_per_pixel, &game->asset->EA.line_length, &game->asset->EA.endian);
 }
 
-/*
+
 void precompute(t_game *game)
 {
 	int i;
 	double angle;
 
 	i = 0;
-	angle = 0;
-	game->angle = malloc(sizeof(t_angle) * RAY_NBR);
+	angle = 0;//M_PI_2;
+	game->angle = malloc(sizeof(t_angle) * 3600);
 	if (game->angle == NULL)
 		terminate(game, "");
-	while (i < RAY_NBR)
+	while (i < 3600)
 	{
 		(game->angle)[i].angle = angle;
 		(game->angle)[i].sin = sin(angle);
@@ -85,11 +85,11 @@ void precompute(t_game *game)
 		(game->angle)[i].sin_inv = 1 / sin(angle);
 		(game->angle)[i].cos_inv = 1 / cos(angle);
 
-		angle += ((M_PI * 2) / RAY_NBR);
+		angle += ((M_PI_2) / RAY_NBR);
 		i++;
 	}
 }
-*/
+
 int	main(int argc, char **argv)
 {
 	t_game game;
@@ -101,6 +101,7 @@ int	main(int argc, char **argv)
 	init_game(&game, argv[1]);
 	init_mlx(&game);
 	init_asset(&game);
+  precompute(&game);
 	game_loop(&game);
 	
 	return (0);
