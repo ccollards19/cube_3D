@@ -26,7 +26,7 @@ static void init_game(t_game *game, char *path)
 	game->should_cast = 1;
 	game->mouse[0] = 0;
 	game->mouse[1] = 0;
-	printf("game initialzed\n");
+	printf("game initialized\n");
 }
 
 void	init_mlx(t_game *game)
@@ -43,17 +43,9 @@ void	init_mlx(t_game *game)
 	game->frame.ptr = mlx_new_image(game->mlx_ptr, 1000, 1000);//test version
 	game->frame.offset = mlx_get_data_addr(game->frame.ptr, &game->frame.bits_per_pixel, &game->frame.line_length, &game->frame.endian);//test version
 
-	printf("1\n");
 	mlx_mouse_hide();
-	printf("1\n");
-
 	mlx_mouse_move(game->win_ptr, 500, 500);
-	printf("1\n");
-
 	mlx_mouse_get_pos(game->win_ptr, &game->mouse[0], &game->mouse[1]);
-	printf("1\n");
-
-	//loop_hook(game);
 }
 
 void init_asset(t_game *game)
