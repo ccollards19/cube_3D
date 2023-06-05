@@ -89,6 +89,7 @@ void raycast(t_game *game)
 	ray.dy_inv = 1 / sin(ray.angle);
 	printf("build frame\n");
 	build_frame(&ray, game);
+	printf("frame built\n");
 }
 
 int	input_management(t_game *game)
@@ -102,10 +103,10 @@ int	input_management(t_game *game)
 		d_x = sin(game->player->angle) / 5000;
 		d_y = cos(game->player->angle) / 5000;
 	}
-	else if (!game->right && !game->left && printf("no input\n"))
+	else if (!game->right && !game->left)
 		return (0);
 	printf("1\n");
-	if (game->up && !is_wall(game->map, game->player->x - d_x, game->player->y  + d_y))
+	if (game->up)
 	{
 		printf("up %f %f\n", d_x, d_y);
 		game->player->y += d_y;
@@ -127,14 +128,14 @@ int loop_hook(t_game *game)
 {
 	int cast;
 
-	printf("loop\n");
 	cast = 0;
-	if (input_management(game) || handle_mouse(game))
+	if ( handle_mouse(game) || input_management(game))
 		cast = 1;
 	if (cast || game->should_cast)
 	{
 		game->should_cast = 0;
-		raycast(game);
+		//raycast(game);
+		minimap(game);
 	}
 	return (0);
 }

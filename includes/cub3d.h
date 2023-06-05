@@ -152,6 +152,7 @@ void	cast_ray(t_ray *ray, t_game *game);
 
 //render.c
 void	*build_frame(t_ray *ray, t_game *game);
+void	my_mlx_pixel_put(t_img *img, int x, int y, int color);
 
 //syntax.c
 
