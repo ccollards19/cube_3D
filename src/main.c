@@ -12,13 +12,20 @@ static void init_game(t_game *game, char *path)
 	printf("game initialazing\n");
 	game->file = get_file_array(path);
 	printf(".\n");
-	game->EA_path = get_path(game->file, EA);printf(".\n");
-	game->SO_path = get_path(game->file, SO);printf(".\n");
-	game->WE_path = get_path(game->file, WE);printf(".\n");
-	game->NO_path = get_path(game->file, NO);printf(".\n");
-	game->ceiling_color = get_color(game->file, CEILING);printf(".\n");
-	game->floor_color = get_color(game->file, FLOOR);printf(".\n");
+	game->EA_path = get_path(game->file, EA);
+	game->SO_path = get_path(game->file, SO);
+	game->WE_path = get_path(game->file, WE);
+	game->NO_path = get_path(game->file, NO);
+	game->ceiling_color = get_color(game->file, CEILING);
+	game->floor_color = get_color(game->file, FLOOR);
 	game->map = get_map(game->file);
+	game->down = 0;
+	game->up = 0;
+	game->left = 0;
+	game->right = 0;
+	game->should_cast = 1;
+	game->mouse[0] = 0;
+	game->mouse[1] = 0;
 	printf("game initialzed\n");
 }
 
@@ -35,7 +42,18 @@ void	init_mlx(t_game *game)
 	set_player_position(game);
 	game->frame.ptr = mlx_new_image(game->mlx_ptr, 1000, 1000);//test version
 	game->frame.offset = mlx_get_data_addr(game->frame.ptr, &game->frame.bits_per_pixel, &game->frame.line_length, &game->frame.endian);//test version
-	loop_hook(game);
+
+	printf("1\n");
+	mlx_mouse_hide();
+	printf("1\n");
+
+	mlx_mouse_move(game->win_ptr, 500, 500);
+	printf("1\n");
+
+	mlx_mouse_get_pos(game->win_ptr, &game->mouse[0], &game->mouse[1]);
+	printf("1\n");
+
+	//loop_hook(game);
 }
 
 void init_asset(t_game *game)

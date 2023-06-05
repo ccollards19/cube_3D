@@ -21,7 +21,6 @@ int	set_player_position(t_game *game)
 	}
 	if (!game->map[i])
 		return (0);
-	printf("found\n");
 	game->player->x = i;
 	game->player->y = search - game->map[i];
 	return (1);

@@ -117,6 +117,12 @@ typedef struct s_game
 	int			floor_color;
 	int			ceiling_color;
 	int			**render_array;
+	int			up;
+	int			down;
+	int			left;
+	int			right;
+	int			mouse[2];
+	int			should_cast;
 }t_game;
 
 //utils.c
