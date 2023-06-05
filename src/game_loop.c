@@ -100,23 +100,24 @@ int	input_management(t_game *game)
 	if (game->up || game->down)
 	{
 		printf("inputs\n");
-		d_x = sin(game->player->angle) / 5000;
-		d_y = cos(game->player->angle) / 5000;
+		d_x = sin(game->player->angle) / 10;
+		d_y = cos(game->player->angle) / 10;
 	}
 	else if (!game->right && !game->left)
 		return (0);
 	printf("1\n");
-	if (game->up)
+	if (game->up && !is_wall(game->map, game->player->x + d_x, game->player->y + d_y))
 	{
-		printf("up %f %f\n", d_x, d_y);
+		printf("up %f %f\n", game->player->x, game->player->y);
 		game->player->y += d_y;
-		game->player->x -= d_x;
+		game->player->x += d_x;
+		printf("up %f %f\n", game->player->x, game->player->y);
 	}
-	if (game->down && !is_wall(game->map, game->player->x + d_x, game->player->y - d_y))
+	if (game->down && !is_wall(game->map, game->player->x - d_x, game->player->y - d_y))
 	{
 		printf("down\n");
 		game->player->y -= d_y;
-		game->player->x += d_x;
+		game->player->x -= d_x;
 	}
 	if (game->left && printf("left\n"))
 		game->player->angle -= 0.5;
@@ -128,9 +129,7 @@ int loop_hook(t_game *game)
 {
 	int cast;
 
-	cast = 0;
-	if ( handle_mouse(game) || input_management(game))
-		cast = 1;
+	cast = handle_mouse(game) + input_management(game);
 	if (cast || game->should_cast)
 	{
 		game->should_cast = 0;
