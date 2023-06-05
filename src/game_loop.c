@@ -1,4 +1,4 @@
-#include "cub3d.h"
+#include "../includes/cub3d.h"
 
 int	destroy(t_game *game)
 {
@@ -39,13 +39,13 @@ int	key_hook(int keycode, t_game *game)
 	if (keycode == ESC)
 		destroy(game);
 	if (keycode == LEFT || keycode == A)
-		game->player->x += 0.1;
+		game->player->x += 0.05;
 	if (keycode == RIGHT || keycode == D)
-		game->player->x -= 0.1;
+		game->player->x -= 0.05;
 	if (keycode == UP || keycode == W)
-		game->player->y += 0.1;
+		game->player->y += 0.05;
 	if (keycode == DOWN || keycode == S)
-		game->player->y -= 0.1;
+		game->player->y -= 0.05;
 	printf("keycode is %d\n", keycode);
 	printf("player position is [%f, %f] angle is [%f]\n", game->player->x,game->player->y, game->player->angle);
 	return (0);

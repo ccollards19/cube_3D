@@ -80,10 +80,20 @@ void precompute(t_game *game)
 	{
 		(game->angle)[i].angle = angle;
 		(game->angle)[i].sin = sin(angle);
+		if ((game->angle)[i].sin == 0)
+      (game->angle)[i].sin += 0.000001;
 		(game->angle)[i].cos = cos(angle);
+		if ((game->angle)[i].cos == 0)
+      (game->angle)[i].cos += 0.000001;
 		(game->angle)[i].tan = tan(angle);
+		if ((game->angle)[i].tan == 0)
+      (game->angle)[i].tan += 0.000001;
 		(game->angle)[i].sin_inv = 1 / sin(angle);
+		if ((game->angle)[i].sin_inv == 0)
+      (game->angle)[i].sin_inv += 0.000001;
 		(game->angle)[i].cos_inv = 1 / cos(angle);
+		if ((game->angle)[i].cos_inv == 0)
+      (game->angle)[i].cos_inv += 0.000001;
 
 		angle += ((M_PI_2) / RAY_NBR);
 		i++;
