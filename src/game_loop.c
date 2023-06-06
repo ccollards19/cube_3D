@@ -50,7 +50,7 @@ int	loop_hook(t_game *game)
 	if (cast || game->should_cast)
 	{
 		game->should_cast = 0;
-		//raycast(game);
+		raycast(game);
 		if (!game->hide_minimap)
 			minimap(game);
 	}
