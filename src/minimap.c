@@ -30,28 +30,29 @@ int	trgb(int t, int r, int g, int b)
 char	**get_map(char **file)
 {
 	char	**map;
-	int		i;
-	int		len;
+	int		i[3];
 
-	len = 1;
-	i = 0;
-	while (file[++i])
+	i[1] = 1;
+	i[0] = 0;
+	while (file[++i[0]])
 	{
-		if (file[i][0] == '1')
-			len++;
+		i[2] = 0;
+		while (file[i[0]][i[2]] == ' ' || file[i[1]][i[2]] == '\t')
+			i[2]++;
+		i[1] += (file[i[0]][i[2]] == '1');
 	}
-	map = xmalloc(sizeof(char *) * len);
-	len = 0;
-	i = 0;
-	while (file[++i])
+	map = xmalloc(sizeof(char *) * i[1]);
+	i[1] = 0;
+	i[0] = 0;
+	while (file[++i[0]])
 	{
-		if (file[i][0] == '1')
-			map[len++] = file[i];
+		i[2] = 0;
+		while (file[i[0]][i[2]] == ' ' || file[i[0]][i[2]] == '\t')
+			i[2]++;
+		if (file[i[0]][i[2]] == '1')
+			map[i[1]++] = file[i[0]];
 	}
-	map[len] = NULL;
-	i = 0;
-	while (map[i])
-		printf("%s\n", map[i++]);
+	map[i[1]] = 0;
 	return (map);
 }
 /*

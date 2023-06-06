@@ -83,13 +83,13 @@ int	input_management(t_game *game, double d_x, double d_y)
 	else if (!game->right && !game->left)
 		return (0);
 	if (game->up && !is_wall(game->map, game->player->x + \
-	d_x, game->player->y + d_y))
+	(d_x * 2), game->player->y + (d_y * 2)))
 	{
 		game->player->y += d_y;
 		game->player->x += d_x;
 	}
 	if (game->down && !is_wall(game->map, game->player->x - \
-	d_x, game->player->y - d_y))
+	(d_x * 2), game->player->y - (d_y * 2)))
 	{
 		game->player->y -= d_y;
 		game->player->x -= d_x;
