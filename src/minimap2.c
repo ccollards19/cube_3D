@@ -51,8 +51,8 @@ void	print_player_fov(t_img *minimap, t_game *game, int color)
 	angle = game->player->angle - fov_demi;
 	while (angle < game->player->angle + fov_demi)
 	{
-		delta[0] = sin(angle) / 100;
-		delta[1] = cos(angle) / 100;
+		delta[0] = cos(angle) / 100;
+		delta[1] = sin(angle) / 100;
 		p[0] = game->player->x;
 		p[1] = game->player->y;
 		while (!is_wall(game->map, p[0], p[1]))

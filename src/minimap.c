@@ -54,7 +54,14 @@ char	**get_map(char **file)
 		printf("%s\n", map[i++]);
 	return (map);
 }
-
+/*
+ * Assign every pixel of the image to transparent
+ * Then for each element of the map, print if it's nearby the player
+ * the element is a square semi transparent, cut at the edges to fit in a circle
+ * Then print the field of view noearby the player
+ * Then print the player at the center of the minimap as a dot
+ * Then print the image in the window
+ */
 void	minimap(t_game *game)
 {
 	t_img	minimap;

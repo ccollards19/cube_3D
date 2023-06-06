@@ -77,8 +77,8 @@ int	input_management(t_game *game, double d_x, double d_y)
 {
 	if (game->up || game->down)
 	{
-		d_x = sin(game->player->angle) / 10;
-		d_y = cos(game->player->angle) / 10;
+		d_x = cos(game->player->angle) / 10;
+		d_y = sin(game->player->angle) / 10;
 	}
 	else if (!game->right && !game->left)
 		return (0);
