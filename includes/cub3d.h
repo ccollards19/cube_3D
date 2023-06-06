@@ -149,6 +149,7 @@ char	*get_path(char **file, t_path path);
 int		get_color(char **file, t_color color);
 double	get_init_angle(t_game *game);
 int		set_player_position(t_game *game);
+int		closed_map(char **map);
 
 //raycasting.c
 void	cast_ray(t_ray *ray, t_game *game);

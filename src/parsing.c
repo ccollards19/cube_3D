@@ -135,3 +135,27 @@ char	**get_file_array(char *s)
 	safe_free(buf);
 	return (arr);
 }
+
+int	closed_map(char **map)
+{
+	int	i;
+	int	j;
+
+	i = -1;
+	while (map[++i])
+	{
+		j = -1;
+		while (map[i][++j])
+		{
+			if (map[i][j] == '0')
+			{
+				if (i == 0 || map[i + 1] == 0 || j == 0 || map[i][j + 1] == 0)
+					return (0);
+				if (map[i + 1][j] == ' ' || map[i - 1][j] == ' ' || \
+				map[i][j - 1] == ' ' || map[i][j + 1] == ' ')
+					return (0);
+			}
+		}
+	}
+	return (1);
+}

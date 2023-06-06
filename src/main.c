@@ -17,6 +17,8 @@ static void init_game(t_game *game, char *path)
 	game->ceiling_color = get_color(game->file, CEILING);
 	game->floor_color = get_color(game->file, FLOOR);
 	game->map = get_map(game->file);
+	if (!closed_map(game->map))
+		terminate(game, "Error\nMap invalid");
 	game->down = 0;
 	game->up = 0;
 	game->left = 0;
