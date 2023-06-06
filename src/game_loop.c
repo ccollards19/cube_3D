@@ -10,6 +10,8 @@ int	destroy(t_game *game)
 int key_hook(int key, t_game *game)
 {
 	printf("key=%d\n", key);
+	if (key == 46)
+		((game->hide_minimap && game->hide_minimap-- )|| game->hide_minimap++);
 	if (key == 53)
 		exit(1);
 	if (key == W)
@@ -43,9 +45,9 @@ int	handle_mouse(t_game *game)
 	int mouse[2];
 
 	mlx_mouse_get_pos(game->win_ptr, &mouse[0], &mouse[1]);
-	if (mouse[0] > game->mouse[0] && printf("incre\n"))
+	if (mouse[0] > game->mouse[0])
 		game->player->angle += 0.05;
-	else if (mouse[0] < game->mouse[0] && printf("decr\n"))
+	else if (mouse[0] < game->mouse[0])
 		game->player->angle -= 0.05;
 	else
 		return (0);
@@ -99,30 +101,30 @@ int	input_management(t_game *game)
 
 	if (game->up || game->down)
 	{
-		printf("inputs\n");
+		//printf("inputs\n");
 		d_x = sin(game->player->angle) / 10;
 		d_y = cos(game->player->angle) / 10;
 	}
 	else if (!game->right && !game->left)
 		return (0);
-	printf("1\n");
+	//printf("1\n");
 	if (game->up && !is_wall(game->map, game->player->x + d_x, game->player->y + d_y))
 	{
-		printf("up %f %f\n", game->player->x, game->player->y);
+		//printf("up %f %f\n", game->player->x, game->player->y);
 		game->player->y += d_y;
 		game->player->x += d_x;
-		printf("up %f %f\n", game->player->x, game->player->y);
+		//printf("up %f %f\n", game->player->x, game->player->y);
 	}
 	if (game->down && !is_wall(game->map, game->player->x - d_x, game->player->y - d_y))
 	{
-		printf("down\n");
+		//printf("down\n");
 		game->player->y -= d_y;
 		game->player->x -= d_x;
 	}
-	if (game->left && printf("left\n"))
-		game->player->angle -= 0.5;
-	if (game->right && printf("right\n"))
-		game->player->angle += 0.5;
+	if (game->left)
+		game->player->angle -= 0.05;
+	if (game->right)
+		game->player->angle += 0.05;
 	return (1);
 }
 int loop_hook(t_game *game)
@@ -134,7 +136,8 @@ int loop_hook(t_game *game)
 	{
 		game->should_cast = 0;
 		//raycast(game);
-		minimap(game);
+		if (!game->hide_minimap)
+			minimap(game);
 	}
 	return (0);
 }

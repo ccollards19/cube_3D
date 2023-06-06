@@ -26,6 +26,7 @@ static void init_game(t_game *game, char *path)
 	game->should_cast = 1;
 	game->mouse[0] = 0;
 	game->mouse[1] = 0;
+	game->hide_minimap = 0;
 	printf("game initialized\n");
 }
 
@@ -34,8 +35,8 @@ void	init_mlx(t_game *game)
 	game->mlx_ptr = mlx_init();
 	if (game->mlx_ptr == NULL)
 		terminate(game, "");
-  game->win_ptr = mlx_new_window(game->mlx_ptr, WIN_WIDTH, WIN_HEIGHT, "Cube_3D");
-  if (game->win_ptr == NULL)
+	game->win_ptr = mlx_new_window(game->mlx_ptr, WIN_WIDTH, WIN_HEIGHT, "Cube_3D");
+	if (game->win_ptr == NULL)
 		terminate(game, "");
 	game->player = xmalloc(sizeof(t_player));
 	game->player->angle = get_init_angle(game);
@@ -112,6 +113,6 @@ int	main(int argc, char **argv)
 	init_mlx(&game);
 	init_asset(&game);
 	game_loop(&game);
-	
+
 	return (0);
 }

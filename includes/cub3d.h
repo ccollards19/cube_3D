@@ -105,7 +105,7 @@ typedef struct s_game
 {
 	t_player	*player;
 	t_asset		*asset;
-  t_img   frame;
+	t_img   frame;
 	void		*mlx_ptr;
 	void		*win_ptr;
 	char		**file;
@@ -122,6 +122,7 @@ typedef struct s_game
 	int			left;
 	int			right;
 	int			mouse[2];
+	int			hide_minimap;
 	int			should_cast;
 }t_game;
 
@@ -140,6 +141,8 @@ void	game_loop(t_game *game);
 int		destroy(t_game *game);
 int		key_hook(int keycode, t_game *game);
 int		loop_hook(t_game *game);
+int is_wall(char **map, double y, double x);
+
 //parsing.c
 char	**get_file_array(char *s);
 char	*get_path(char **file, t_path path);
