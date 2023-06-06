@@ -62,11 +62,11 @@ void	change_color(t_game *game)
 	else
 		game->ceiling_color = get_color(game->file, CEILING);
 	if (game->color_type == 1)
-		game->floor_color = trgb(0, 0, 0, 255);
-	else if (game->color_type == 2)
-		game->floor_color = trgb(0, 255, 0, 0);
-	else if (game->color_type == 3)
 		game->floor_color = trgb(0, 0, 255, 0);
+	else if (game->color_type == 2)
+		game->floor_color = trgb(0, 0, 0, 255);
+	else if (game->color_type == 3)
+		game->floor_color = trgb(0, 255, 0, 0);
 	else
 		game->floor_color = get_color(game->file, FLOOR);
 	if (game->color_type > 3)
