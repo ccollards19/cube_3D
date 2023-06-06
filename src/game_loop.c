@@ -8,6 +8,8 @@ int	destroy(t_game *game)
 
 int	key_hook(int key, t_game *game)
 {
+	if (key == 49 && game->color_type++)
+		change_color(game);
 	if (key == 46)
 		((game->hide_minimap && game->hide_minimap--) || game->hide_minimap++);
 	if (key == 53)

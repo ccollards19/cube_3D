@@ -9,9 +9,7 @@ void	set_values_to_null(t_game *game)
 
 static void init_game(t_game *game, char *path)
 {
-	printf("game initialazing\n");
 	game->file = get_file_array(path);
-	printf(".\n");
 	game->EA_path = get_path(game->file, EA);
 	game->SO_path = get_path(game->file, SO);
 	game->WE_path = get_path(game->file, WE);
@@ -27,7 +25,7 @@ static void init_game(t_game *game, char *path)
 	game->mouse[0] = 0;
 	game->mouse[1] = 0;
 	game->hide_minimap = 0;
-	printf("game initialized\n");
+	game->color_type = 0;
 }
 
 void	init_mlx(t_game *game)
@@ -43,7 +41,6 @@ void	init_mlx(t_game *game)
 	set_player_position(game);
 	game->frame.ptr = mlx_new_image(game->mlx_ptr, 1000, 1000);//test version
 	game->frame.offset = mlx_get_data_addr(game->frame.ptr, &game->frame.bits_per_pixel, &game->frame.line_length, &game->frame.endian);//test version
-
 	mlx_mouse_hide();
 	mlx_mouse_move(game->win_ptr, 500, 500);
 	mlx_mouse_get_pos(game->win_ptr, &game->mouse[0], &game->mouse[1]);

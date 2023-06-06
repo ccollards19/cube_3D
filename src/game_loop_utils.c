@@ -51,6 +51,28 @@ void	raycast(t_game *game)
 	build_frame(&ray, game);
 }
 
+void	change_color(t_game *game)
+{
+	if (game->color_type == 1)
+		game->ceiling_color = trgb(0, 0, 0, 255);
+	else if (game->color_type == 2)
+		game->ceiling_color = trgb(0, 255, 0, 0);
+	else if (game->color_type == 3)
+		game->ceiling_color = trgb(0, 0, 255, 0);
+	else
+		game->ceiling_color = get_color(game->file, CEILING);
+	if (game->color_type == 1)
+		game->floor_color = trgb(0, 0, 0, 255);
+	else if (game->color_type == 2)
+		game->floor_color = trgb(0, 255, 0, 0);
+	else if (game->color_type == 3)
+		game->floor_color = trgb(0, 0, 255, 0);
+	else
+		game->floor_color = get_color(game->file, FLOOR);
+	if (game->color_type > 3)
+		game->color_type = 0;
+}
+
 int	input_management(t_game *game, double d_x, double d_y)
 {
 	if (game->up || game->down)

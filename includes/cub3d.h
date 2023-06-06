@@ -105,7 +105,7 @@ typedef struct s_game
 {
 	t_player	*player;
 	t_asset		*asset;
-	t_img   frame;
+	t_img		frame;
 	void		*mlx_ptr;
 	void		*win_ptr;
 	char		**file;
@@ -124,6 +124,7 @@ typedef struct s_game
 	int			mouse[2];
 	int			hide_minimap;
 	int			should_cast;
+	int			color_type;
 }t_game;
 
 //utils.c
@@ -172,6 +173,7 @@ int		handle_mouse(t_game *game);
 int		is_wall(char **map, double y, double x);
 void	raycast(t_game *game);
 int		input_management(t_game *game, double d_x, double d_y);
+void	change_color(t_game *game);
 
 //minimap2.c
 void	print_square(t_img *minimap, int i, int j, int color);
