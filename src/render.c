@@ -73,7 +73,8 @@ void	*build_frame(t_ray *ray, t_game *game)
 
 	i = 0;
 	angle_incr = (M_PI_2) / RAY_NBR;
-	while (i < RAY_NBR)
+  ray->angle -= M_PI_4;
+  while (i < RAY_NBR)
 	{
 
 		cast_ray(ray, game);
