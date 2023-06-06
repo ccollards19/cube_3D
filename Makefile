@@ -35,9 +35,11 @@ SRC	=  $(addprefix $(SRCDIR), $(SRC_LIST))
 
 SRC_LIST =	main.c \
 		minimap.c \
+		minimap2.c \
 		parsing.c \
 		terminate.c \
 		game_loop.c \
+		game_loop_utils.c \
 		utils.c \
 		syntax.c \
 		render.c \

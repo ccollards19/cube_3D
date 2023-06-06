@@ -141,7 +141,6 @@ void	game_loop(t_game *game);
 int		destroy(t_game *game);
 int		key_hook(int keycode, t_game *game);
 int		loop_hook(t_game *game);
-int is_wall(char **map, double y, double x);
 
 //parsing.c
 char	**get_file_array(char *s);
@@ -159,12 +158,25 @@ void	my_mlx_pixel_put(t_img *img, int x, int y, int color);
 
 //syntax.c
 
-int	valid_format(char *s);
-int	is_invalid_name(char *s);
-int	empty_line(char *s);
-int	valid_map_line(char *s);
+int		valid_format(char *s);
+int		is_invalid_name(char *s);
+int		empty_line(char *s);
+int		valid_map_line(char *s);
 
 //minimap.c
 char	**get_map(char **file);
 void	minimap(t_game *game);
+int		trgb(int t, int r, int g, int b);
+//game_loop_utils
+int		handle_mouse(t_game *game);
+int		is_wall(char **map, double y, double x);
+void	raycast(t_game *game);
+int		input_management(t_game *game, double d_x, double d_y);
+
+//minimap2.c
+void	print_square(t_img *minimap, int i, int j, int color);
+void	print_player(t_img *minimap, double i, double j, int color);
+void	print_player_fov(t_img *minimap, t_game *game, int color);
+void	print_outer_circle(t_img *img, int pos, int inner_radius, int color);
+void	print_element(t_img *minimap, t_game *game, int i, int j);
 #endif
