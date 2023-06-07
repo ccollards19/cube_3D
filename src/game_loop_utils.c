@@ -27,7 +27,7 @@ int	is_wall(char **map, double y, double x)
 
 	i = (int)x;
 	j = (int)y;
-	if (map[j][i] == '1')
+	if (map[j][i] == '1' || map[j][i] == ' ')
 		return (1);
 	else
 		return (0);
@@ -88,13 +88,13 @@ int	input_management(t_game *game, double d_x, double d_y)
 	else if (!game->right && !game->left)
 		return (0);
 	if (game->up && !is_wall(game->map, game->player->x + \
-	(d_x * 2), game->player->y + (d_y * 2)))
+	(d_x * 3), game->player->y + (d_y * 3)))
 	{
 		game->player->y += d_y;
 		game->player->x += d_x;
 	}
 	if (game->down && !is_wall(game->map, game->player->x - \
-	(d_x * 2), game->player->y - (d_y * 2)))
+	(d_x * 3), game->player->y - (d_y * 3)))
 	{
 		game->player->y -= d_y;
 		game->player->x -= d_x;
