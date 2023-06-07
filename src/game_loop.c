@@ -8,8 +8,8 @@ int	destroy(t_game *game)
 
 int	key_hook(int key, t_game *game)
 {
-	if (key == 49 && game->color_type++)
-		change_color(game);
+	if (key == 49)
+		game->color_change = 1;
 	if (key == 46)
 		((game->hide_minimap && game->hide_minimap--) || game->hide_minimap++);
 	if (key == 53)
@@ -48,8 +48,9 @@ int	loop_hook(t_game *game)
 
 	d_x = 0;
 	d_y = 0;
-	cast = handle_mouse(game) + input_management(game, d_x, d_y);
-	if (cast || game->should_cast || game->color_change)
+	cast = handle_mouse(game) + input_management(game, d_x, d_y) \
+	+ change_color(game);
+	if (cast || game->should_cast)
 	{
 		game->should_cast = 0;
 		raycast(game);

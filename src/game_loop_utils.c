@@ -55,9 +55,11 @@ void	raycast(t_game *game)
 	printf("succes\n");
 }
 
-void	change_color(t_game *game)
+int	change_color(t_game *game)
 {
-	game->color_change = 1;
+	if (!game->color_change)
+		return (0);
+	game->color_type++;
 	if (game->color_type == 1)
 		game->ceiling_color = trgb(0, 0, 0, 255);
 	else if (game->color_type == 2)
@@ -76,6 +78,7 @@ void	change_color(t_game *game)
 		game->floor_color = get_color(game->file, FLOOR);
 	if (game->color_type > 3)
 		game->color_type = 0;
+	return (1);
 }
 
 int	input_management(t_game *game, double d_x, double d_y)

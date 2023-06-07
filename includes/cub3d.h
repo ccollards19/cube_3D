@@ -175,7 +175,7 @@ int		handle_mouse(t_game *game);
 int		is_wall(char **map, double y, double x);
 void	raycast(t_game *game);
 int		input_management(t_game *game, double d_x, double d_y);
-void	change_color(t_game *game);
+int		change_color(t_game *game);
 
 //minimap2.c
 void	print_square(t_img *minimap, int i, int j, int color);
