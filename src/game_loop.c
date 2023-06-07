@@ -27,6 +27,8 @@ int	key_hook(int key, t_game *game)
 
 int	relase_key_hook(int key, t_game *game)
 {
+	if (key == 49)
+		game->color_change = 0;
 	if (key == W)
 		game->up = 0;
 	if (key == S)
@@ -47,7 +49,7 @@ int	loop_hook(t_game *game)
 	d_x = 0;
 	d_y = 0;
 	cast = handle_mouse(game) + input_management(game, d_x, d_y);
-	if (cast || game->should_cast)
+	if (cast || game->should_cast || game->color_change)
 	{
 		game->should_cast = 0;
 		raycast(game);

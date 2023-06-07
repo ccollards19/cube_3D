@@ -28,6 +28,7 @@ static void init_game(t_game *game, char *path)
 	game->mouse[1] = 0;
 	game->hide_minimap = 0;
 	game->color_type = 0;
+	game->color_change = 0;
 }
 
 void	init_mlx(t_game *game)

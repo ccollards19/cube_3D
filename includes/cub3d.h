@@ -125,6 +125,7 @@ typedef struct s_game
 	int			hide_minimap;
 	int			should_cast;
 	int			color_type;
+	int			color_change;
 }t_game;
 
 //utils.c

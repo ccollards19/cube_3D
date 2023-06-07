@@ -47,23 +47,23 @@ void	print_ray_on_img(t_img *frame, t_ray *ray, int x, t_game *game)
 	y_texture = 0;
 	y_incr = (ray->texture->height / fabs(lim2 - lim1));
 	while (y < lim1)
-  {
+  	{
 		my_mlx_pixel_put(frame, x, y, game->ceiling_color);
-    y++;
-  }
-  while (lim1 < lim2)
+		y++;
+  	}
+  	while (lim1 < lim2)
 	{
 		color = get_texture_color(ray->texture, (int)(ray->texture_offset * ray->texture->width), (int)y_texture);
 		my_mlx_pixel_put(frame, x, lim1, color);
 		y++;
-    lim1++;
+    	lim1++;
 		y_texture += y_incr;
 	}
-  while (y < 1000)
-  {
+  	while (y < 1000)
+  	{
 		my_mlx_pixel_put(frame, x, y, game->floor_color);
-    y++;
-  }
+    	y++;
+  	}
 }
 
 void	*build_frame(t_ray *ray, t_game *game)

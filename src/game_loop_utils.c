@@ -53,6 +53,7 @@ void	raycast(t_game *game)
 
 void	change_color(t_game *game)
 {
+	game->color_change = 1;
 	if (game->color_type == 1)
 		game->ceiling_color = trgb(0, 0, 0, 255);
 	else if (game->color_type == 2)
