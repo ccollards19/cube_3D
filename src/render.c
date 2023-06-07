@@ -35,68 +35,67 @@ void	print_ray_on_img(t_img *frame, t_ray *ray, int x, t_game *game)
 	double	y_incr;
 	int 	color;
  
-	lim2 = (WIN_HEIGHT / 2) + (int)((WIN_HEIGHT / 2) * (1.2 / (ray->distance * tan(M_PI_4))));
-	lim1 = (WIN_HEIGHT / 2) - (int)((WIN_HEIGHT / 2) * (1.8 / (ray->distance * tan(M_PI_4))));
+	lim2 = 500 * (1 + (1.2 / ray->distance));
+	lim1 = 500 * (1 - (1.8 / ray->distance));
 	//printf("lim1 = %d lim2 = %d distance [%f]\n", lim1, lim2, distance);
-	/*if (lim1 < 0)
-		lim1 = 0;
-	if (lim2 < 0)
-		lim2 = 1000;
-*/
+
 	y = 0;
-	y_texture = 0;
+	y_texture = 0;//ray->texture->height *  //TODO;
 	y_incr = (ray->texture->height / fabs(lim2 - lim1));
-	while (y < lim1)
-  	{
-		my_mlx_pixel_put(frame, x, y, game->ceiling_color);
-		y++;
-  	}
-  	while (lim1 < lim2)
-	{
-		color = get_texture_color(ray->texture, (int)(ray->texture_offset * ray->texture->width), (int)y_texture);
-		my_mlx_pixel_put(frame, x, lim1, color);
-		y++;
-    	lim1++;
-		y_texture += y_incr;
-	}
-  	while (y < 1000)
-  	{
-		my_mlx_pixel_put(frame, x, y, game->floor_color);
-    	y++;
-  	}
+
+	while (y < 1000)
+  {
+    if (y < lim1)
+    {
+      my_mlx_pixel_put(frame, x, y, game->ceiling_color);
+    }
+    else if (y < lim2)
+    {
+      //if (color == 0)
+        color = get_texture_color(ray->texture, (int)(ray->texture_offset * ray->texture->width), (int)y_texture);
+      my_mlx_pixel_put(frame, x, y, color);
+      lim1++;
+      y_texture += y_incr;
+    }
+    else
+    {
+      my_mlx_pixel_put(frame, x, y, game->floor_color);
+    }
+    y++;
+  }
 }
 
 void	*build_frame(t_ray *ray, t_game *game)
 {
-	int	i;
-	double 	angle_incr;
+  int	i;
+  double 	angle_incr;
 
-	i = 0;
-	angle_incr = (M_PI_2) / RAY_NBR;
+  i = 0;
+  angle_incr = (M_PI_2) / RAY_NBR;
   ray->angle -= M_PI_4;
   while (i < RAY_NBR)
-	{
+  {
 
-		cast_ray(ray, game);
-		//printf("x = %f, y = %f, ray->distance = %f angle = %f\n", ray->x, ray->y, ray->distance, ray->angle);
-		print_ray_on_img(&game->frame, ray, i, game);
-		//reset_ray();
-		ray->x = game->player->x;
-		ray->y = game->player->y;
-		ray->x0 = game->player->x;
-		ray->y0 = game->player->y;
-		ray->distance = 0;
-		ray->angle = ray->angle + angle_incr;
-		ray->dx = cos(ray->angle);
-		ray->dx_inv = 1 / cos(ray->angle);
-		ray->dy = sin(ray->angle);
-		ray->dy_inv = 1 / sin(ray->angle);
-		ray->texture_offset = 0;
-		ray->texture = 0;
+    cast_ray(ray, game);
+    //printf("x = %f, y = %f, ray->distance = %f angle = %f\n", ray->x, ray->y, ray->distance, ray->angle);
+    print_ray_on_img(&game->frame, ray, i, game);
+    //reset_ray();
+    ray->x = game->player->x;
+    ray->y = game->player->y;
+    ray->x0 = game->player->x;
+    ray->y0 = game->player->y;
+    ray->distance = 0;
+    ray->angle = ray->angle + angle_incr;
+    ray->dx = cos(ray->angle);
+    ray->dx_inv = 1 / cos(ray->angle);
+    ray->dy = sin(ray->angle);
+    ray->dy_inv = 1 / sin(ray->angle);
+    ray->texture_offset = 0;
+    ray->texture = 0;
 
-		i++;
-	}
-	mlx_put_image_to_window(game->mlx_ptr, game->win_ptr, game->frame.ptr, 0, 0);
-	return (NULL);
+    i++;
+  }
+  mlx_put_image_to_window(game->mlx_ptr, game->win_ptr, game->frame.ptr, 0, 0);
+  return (NULL);
 }
 

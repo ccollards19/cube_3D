@@ -45,7 +45,7 @@ void	raycast(t_game *game)
 	ray.x0 = game->player->x;
 	ray.y0 = game->player->y;
 	ray.angle = game->player->angle;
-	if (!ray.angle || rai.angle == M_PI_2 || ray.angle == M_PI || ray.angle == (M_PI_2 * 3))
+	if (!ray.angle || ray.angle == M_PI_2 || ray.angle == M_PI || ray.angle == (M_PI_2 * 3))
 		ray.angle += 0.001;
 	ray.dx = cos(ray.angle);
 	ray.dx_inv = 1 / cos(ray.angle);
