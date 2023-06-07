@@ -136,6 +136,46 @@ char	**get_file_array(char *s)
 	return (arr);
 }
 
+char	*add_spaces(char *line, size_t target_len)
+{
+	char	*tmp;
+	size_t 	i;
+
+	i = -1;
+	if (ft_strlen(line) < target_len)
+	{
+		tmp = xmalloc((int)target_len * sizeof(char));
+		while (line[++i])
+			tmp[i] = line[i];
+		while (i < target_len)
+			tmp[i++] = 32;
+		tmp[i] = 0;
+		return (tmp);
+	}
+	else
+		return (ft_strdup(line));
+}
+
+void	fill_map_blanks(t_game *game, char **map)
+{
+	size_t 	i;
+	size_t	j;
+
+	i = -1;
+	j = 0;
+	while (map[++i])
+	{
+		if (ft_strlen(map[i]) > j)
+			j = ft_strlen(map[i]);
+	}
+	i = -1;
+	while (game->map[++i])
+		game->map[i] = add_spaces(map[i], j);
+	i = -1;
+	while (game->map[++i])
+		printf("[%s]\n", game->map[i]);
+}
+
 int	closed_map(char **map)
 {
 	int	i;

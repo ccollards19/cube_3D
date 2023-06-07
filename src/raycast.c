@@ -39,7 +39,7 @@ void	move_ray_y(t_ray *ray)
 int	intersect_WE(t_ray *ray, t_ray *ray_tmp, t_game *game, char tile)
 {
 	tile = (game->map)[(int)(ray_tmp->x)][(int)(ray_tmp->y)];
-	if (tile != '0')
+	if (tile == '1')
 	{
 		ray_copy(ray_tmp, ray);
 		//ray->asset = tile;
@@ -48,8 +48,7 @@ int	intersect_WE(t_ray *ray, t_ray *ray_tmp, t_game *game, char tile)
 		//ray->texture = (game->assets)[tile]->WE;
 		ray->texture_offset = ray->y - floor(ray->y);
 		//if ((game->assets)[tile]->stop)
-		if (tile == '1')
-			return (1);
+		return (1);
 	}
 	return (0);
 }
@@ -57,7 +56,7 @@ int	intersect_WE(t_ray *ray, t_ray *ray_tmp, t_game *game, char tile)
 int	intersect_EA(t_ray *ray, t_ray *ray_tmp, t_game *game, char tile)
 {
 	tile = (game->map)[(int)(ray_tmp->x - 1)][(int)(ray_tmp->y)];
-	if (tile != '0')
+	if (tile == '1')
 	{
 		ray_copy(ray_tmp, ray);
 		//ray->asset = tile;
@@ -66,8 +65,7 @@ int	intersect_EA(t_ray *ray, t_ray *ray_tmp, t_game *game, char tile)
 		//ray->texture = (game->assets)[tile]->EA;
 		ray->texture_offset = ray->y - floor(ray->y);
 		//if ((game->assets)[tile]->stop)
-		if (tile == '1')
-			return (1);
+		return (1);
 	}
 	return (0);
 }
@@ -75,7 +73,7 @@ int	intersect_EA(t_ray *ray, t_ray *ray_tmp, t_game *game, char tile)
 int	intersect_NO(t_ray *ray, t_ray *ray_tmp, t_game *game, char tile)
 {
 	tile = (game->map)[(int)(ray_tmp->x)][(int)(ray_tmp->y - 1)];
-	if (tile != '0')
+	if (tile == '1')
 	{
 		ray_copy(ray_tmp, ray);
 		//ray->asset = tile;
@@ -84,8 +82,7 @@ int	intersect_NO(t_ray *ray, t_ray *ray_tmp, t_game *game, char tile)
 		//ray->texture = (game->assets)[tile]->NO;
 		ray->texture_offset = ray->x - floor(ray->x);
 		//if ((game->assets)[tile]->stop)
-		if (tile == '1')
-			return (1);
+		return (1);
 	}
 	return (0);
 }
@@ -93,7 +90,7 @@ int	intersect_NO(t_ray *ray, t_ray *ray_tmp, t_game *game, char tile)
 int	intersect_SO(t_ray *ray, t_ray *ray_tmp, t_game *game, char tile)
 {
 	tile = (game->map)[(int)(ray_tmp->x)][(int)(ray_tmp->y)];
-	if (tile != '0')
+	if (tile == '1')
 	{
 		ray_copy(ray_tmp, ray);
 		//ray->asset = tile;
@@ -102,8 +99,7 @@ int	intersect_SO(t_ray *ray, t_ray *ray_tmp, t_game *game, char tile)
 		//ray->texture = (game->assets)[tile]->S0;
 		ray->texture_offset = ray->x - floor(ray->x);
 		//if ((game->assets)[tile]->stop)
-		if (tile == '1')
-			return (1);
+		return (1);
 	}
 	return (0);
 }

@@ -19,6 +19,7 @@ static void init_game(t_game *game, char *path)
 	game->map = get_map(game->file);
 	if (!closed_map(game->map))
 		terminate(game, "Error\nMap invalid");
+	fill_map_blanks(game, game->map);
 	game->down = 0;
 	game->up = 0;
 	game->left = 0;
