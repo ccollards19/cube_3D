@@ -70,13 +70,13 @@ void	minimap(t_game *game)
 	int		j;
 
 	i = -1;
-	minimap.ptr = mlx_new_image(game->mlx_ptr, 500, 500);
+	minimap.ptr = mlx_new_image(game->mlx_ptr, 300, 300);
 	minimap.offset = mlx_get_data_addr(minimap.ptr, &minimap.bits_per_pixel, \
 	&minimap.line_length, &minimap.endian);
-	while (++i < 500)
+	while (++i < 300)
 	{
 		j = -1;
-		while (++j < 500)
+		while (++j < 300)
 			my_mlx_pixel_put(&minimap, i, j, trgb(255, 0, 0, 0));
 	}
 	i = -1;

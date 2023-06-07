@@ -35,7 +35,6 @@ int	is_wall(char **map, double y, double x)
 
 void	raycast(t_game *game)
 {
-	printf("raycasting\n");
 	t_ray	ray;
 
 	ray.texture_offset = 0;
@@ -52,7 +51,6 @@ void	raycast(t_game *game)
 	ray.dy = sin(ray.angle);
 	ray.dy_inv = 1 / sin(ray.angle);
 	build_frame(&ray, game);
-	printf("succes\n");
 }
 
 int	change_color(t_game *game)

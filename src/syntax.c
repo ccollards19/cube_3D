@@ -51,15 +51,11 @@ int	valid_map_line(char *s)
 	int	i;
 
 	i = -1;
-	if (empty_line(s) || s[0] != '1')
-		return (0);
 	while (s[++i])
 	{
 		if (s[i] != '1' && s[i] != '0' && s[i] != 'N' && s[i] != 'S' && \
-		s[i] != 'E' && s[i] != 'W')
+		s[i] != 'E' && s[i] != 'W' && s[i] != ' ')
 			return (0);
 	}
-	if (s[i - 1] != '1')
-		return (0);
 	return (1);
 }

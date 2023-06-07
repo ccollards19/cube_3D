@@ -37,6 +37,7 @@ SRC_LIST =	main.c \
 		minimap.c \
 		minimap2.c \
 		parsing.c \
+		parsing2.c \
 		terminate.c \
 		game_loop.c \
 		game_loop_utils.c \

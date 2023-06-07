@@ -13,7 +13,7 @@ void	print_square(t_img *minimap, int i, int j, int color)
 	{
 		j = base_j;
 		while (j < l && sqrt(((i - 130) * (i - 130)) + ((j - 130) * \
-		(j - 130))) <= 69)
+		(j - 130))) <= 70)
 			my_mlx_pixel_put(minimap, i, j++, color);
 		i++;
 	}
@@ -74,14 +74,14 @@ void	print_outer_circle(t_img *img, int pos, int inner_radius, int color)
 	int		j;
 	double	distance;
 
-	i = 0;
-	while (++i < pos * 3)
+	i = inner_radius - 5;
+	while (++i < pos * 2)
 	{
-		j = 0;
-		while (++j < pos * 3)
+		j = inner_radius - 5;
+		while (++j < pos * 2)
 		{
 			distance = sqrt(((pos - i) * (pos - i)) + ((pos - j) * (pos - j)));
-			if (distance > inner_radius && distance < inner_radius + 5)
+			if (distance >= inner_radius && distance <= inner_radius + 5)
 				my_mlx_pixel_put(img, i, j, color);
 		}
 	}
