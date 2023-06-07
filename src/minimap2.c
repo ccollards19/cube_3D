@@ -12,8 +12,8 @@ void	print_square(t_img *minimap, int i, int j, int color)
 	while (i < k)
 	{
 		j = base_j;
-		while (j < l && sqrt(((i - 130) * (i - 130)) + ((j - 130) * \
-		(j - 130))) <= 70)
+		while (j < l && (((i - 130) * (i - 130)) + ((j - 130) * \
+		(j - 130))) <= 70 * 70)
 			my_mlx_pixel_put(minimap, i, j++, color);
 		i++;
 	}
@@ -32,7 +32,7 @@ void	print_player(t_img *minimap, double i, double j, int color)
 		y = (int)j - radius;
 		while (y < (int)j + radius)
 		{
-			if (sqrt(((i - x) * (i - x)) + ((j - y) * (j - y))) <= radius)
+			if ((((i - x) * (i - x)) + ((j - y) * (j - y))) <= radius * radius)
 				my_mlx_pixel_put(minimap, x, y, color);
 			y++;
 		}
@@ -57,8 +57,8 @@ void	print_player_fov(t_img *minimap, t_game *game, int color)
 		p[1] = game->player->y;
 		while (!is_wall(game->map, p[0], p[1]))
 		{
-			if (sqrt(((p[0] - game->player->x) * (p[0] - game->player->x)) + \
-			((p[1] - game->player->y) * (p[1] - game->player->y))) <= 7)
+			if ((((p[0] - game->player->x) * (p[0] - game->player->x)) + \
+			((p[1] - game->player->y) * (p[1] - game->player->y))) <= 49)
 				my_mlx_pixel_put(minimap, 130 - (int)((game->player->x - p[0]) \
 				* 10), 130 - (int)((game->player->y - p[1]) * 10), color);
 			p[0] += delta[0];
@@ -80,8 +80,9 @@ void	print_outer_circle(t_img *img, int pos, int inner_radius, int color)
 		j = inner_radius - 5;
 		while (++j < pos * 2)
 		{
-			distance = sqrt(((pos - i) * (pos - i)) + ((pos - j) * (pos - j)));
-			if (distance >= inner_radius && distance <= inner_radius + 5)
+			distance = (((pos - i) * (pos - i)) + ((pos - j) * (pos - j)));
+			if (distance >= inner_radius * inner_radius && distance <= \
+			(inner_radius + 5) * (inner_radius + 5))
 				my_mlx_pixel_put(img, i, j, color);
 		}
 	}
@@ -89,8 +90,8 @@ void	print_outer_circle(t_img *img, int pos, int inner_radius, int color)
 
 void	print_element(t_img *minimap, t_game *game, int i, int j)
 {
-	if (sqrt(((i - game->player->x) * (i - game->player->x)) + \
-	((j - game->player->y) * (j - game->player->y))) <= 7)
+	if ((((i - game->player->x) * (i - game->player->x)) + \
+	((j - game->player->y) * (j - game->player->y))) <= 49)
 	{
 		if (game->map[i][j] == '1')
 			print_square(minimap, 130 - (int)((game->player->x - i) * \
