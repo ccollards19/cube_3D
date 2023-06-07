@@ -129,9 +129,7 @@ void	cast_ray(t_ray *ray, t_game *game)
 		}
 		else if ((ray->dy < 0 && intersect_NO(ray, &ray_y, game, 0)) ||
 			intersect_SO(ray, &ray_y, game, 0))
-		{
 				return ;
-		}
 		if (ray_x.distance <= ray_y.distance)
 			move_ray_x(&ray_x);
 		else
