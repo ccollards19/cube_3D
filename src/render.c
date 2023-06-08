@@ -76,15 +76,15 @@ void	*build_frame(t_ray *ray, t_game *game)
 
 	i = 0;
 	angle_incr = (M_PI_2) / RAY_NBR;
-	fisheye_angle = -1 * M_PI_4;
-	ray->angle -= M_PI_4;
+	fisheye_angle = -1 * M_PI_4 / 2;
+	ray->angle -= M_PI_4 / 2;
 	while (i < RAY_NBR)
 	{
 		cast_ray(ray, game);
 		ray->distance = ray->distance * cos(fisheye_angle);
 		print_ray_on_img(ray, i, 0, game);
 		ray->angle = ray->angle + angle_incr;
-		fisheye_angle = fisheye_angle + angle_incr;
+		fisheye_angle = fisheye_angle + angle_incr / 2;
 		reset_ray(ray, game);
 		i++;
 	}
