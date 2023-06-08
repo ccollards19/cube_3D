@@ -179,7 +179,6 @@ int		input_management(t_game *game, double d_x, double d_y);
 int		change_color(t_game *game);
 
 //minimap2.c
-void	print_square(t_img *minimap, int i, int j, int color);
 void	print_player(t_img *minimap, double i, double j, int color);
 void	print_player_fov(t_img *minimap, t_game *game, int color);
 void	print_outer_circle(t_img *img, int pos, int inner_radius, int color);

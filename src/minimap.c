@@ -55,6 +55,7 @@ char	**get_map(char **file)
 	map[i[1]] = 0;
 	return (map);
 }
+
 /*
  * Assign every pixel of the image to transparent
  * Then for each element of the map, print if it's nearby the player

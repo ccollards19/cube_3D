@@ -1,21 +1,22 @@
 #include "../includes/cub3d.h"
 
-void	print_square(t_img *minimap, int i, int j, int color)
+void	print_square(t_img *minimap, double i, double j, int color)
 {
 	int	k;
 	int	l;
-	int	base_j;
 
-	base_j = j;
-	k = i + 10;
-	l = j + 10;
-	while (i < k)
+	k = 0;
+	while (k < 10)
 	{
-		j = base_j;
-		while (j < l && (((i - 130) * (i - 130)) + ((j - 130) * \
-		(j - 130))) <= 70 * 70)
-			my_mlx_pixel_put(minimap, i, j++, color);
-		i++;
+		l = 0;
+		while (l < 10)
+		{
+			if ((((i + k - 130) * (i + k - 130)) + ((j + l - 130) * \
+			(j + l - 130))) <= 70 * 70)
+				my_mlx_pixel_put(minimap, i + k, j + l, color);
+			l++;
+		}
+		k++;
 	}
 }
 
@@ -47,7 +48,7 @@ void	print_player_fov(t_img *minimap, t_game *game, int color)
 	double	p[2];
 	double	fov_demi;
 
-	fov_demi = 0.5;
+	fov_demi = M_PI_4;
 	angle = game->player->angle - fov_demi;
 	while (angle < game->player->angle + fov_demi)
 	{
@@ -90,16 +91,15 @@ void	print_outer_circle(t_img *img, int pos, int inner_radius, int color)
 
 void	print_element(t_img *minimap, t_game *game, int i, int j)
 {
-	if ((((i - game->player->x) * (i - game->player->x)) + \
-	((j - game->player->y) * (j - game->player->y))) <= 49)
-	{
-		if (game->map[i][j] == '1')
-			print_square(minimap, 130 - (int)((game->player->x - i) * \
-			10), 130 - (int)((game->player->y - j) * 10), \
-			trgb(128, 255, 255, 255));
-		else
-			print_square(minimap, 130 - (int)((game->player->x - i) * \
-			10), 130 - (int)((game->player->y - j) * 10), \
-			trgb(128, 0, 0, 0));
-	}
+	double	relative_x;
+	double	relative_y;
+	int		color;
+
+	relative_x = 130 - ((game->player->x - i) * 10);
+	relative_y = 130 - ((game->player->y - j) * 10);
+	if (game->map[i][j] == '1')
+		color = trgb(128, 255, 255, 255);
+	else
+		color = trgb(128, 0, 0, 0);
+	print_square(minimap, relative_x, relative_y, color);
 }
