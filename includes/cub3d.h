@@ -37,7 +37,7 @@
 
 //# define SIN_2(A) A < M_PI ? : SIN_3(A)
 //# define SIN(A) A < M_PI_2 ? A < M_PI_4 ? SIN_3(A) : A < M_PI_8 ? SIN_10 : SIN_20: SIN_2(A)
-
+#define ABS(x) ((x) < 0 ? -(x) : (x))
 
 typedef enum e_path
 {

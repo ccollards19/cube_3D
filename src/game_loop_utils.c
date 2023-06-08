@@ -2,15 +2,14 @@
 
 int	handle_mouse(t_game *game)
 {
-	int	mouse[2];
+	int		mouse[2];
+	double	diff;
 
 	mlx_mouse_get_pos(game->win_ptr, &mouse[0], &mouse[1]);
-	if (mouse[0] > game->mouse[0])
-		game->player->angle += 0.1;
-	else if (mouse[0] < game->mouse[0])
-		game->player->angle -= 0.1;
-	else
+	diff = mouse[0] - game->mouse[0];
+	if (!diff)
 		return (0);
+	game->player->angle += diff / 500;
 	if (game->player->angle > M_PI * 2)
 		game->player->angle -= M_PI * 2;
 	if (game->player->angle < 0)
