@@ -21,7 +21,6 @@ static void init_game(t_game *game, char *path)
 	if (!closed_map(game->map))
 		terminate(game, "Invalid map\n");
 	fill_map_blanks(game, game->map);
-	add_doors(game, -1, -1);
 	game->down = 0;
 	game->up = 0;
 	game->left = 0;
@@ -46,6 +45,7 @@ void	init_mlx(t_game *game)
 	game->player->angle = get_init_angle(game);
 	if (!set_player_position(game))
 		terminate(game, "Error\nNo players fund\n");
+	add_doors(game, -1, -1);
 	game->frame.ptr = mlx_new_image(game->mlx_ptr, 1000, 1000);//test version
 	game->frame.offset = mlx_get_data_addr(game->frame.ptr, &game->frame.bits_per_pixel, &game->frame.line_length, &game->frame.endian);//test version
 	game->minimap.ptr = mlx_new_image(game->mlx_ptr, 300, 300);
