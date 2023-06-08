@@ -127,6 +127,7 @@ typedef struct s_game
 	int			should_cast;
 	int			color_type;
 	int			color_change;
+	int			map_allocated;
 }t_game;
 
 //utils.c

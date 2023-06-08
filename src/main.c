@@ -10,6 +10,7 @@ void	set_values_to_null(t_game *game)
 static void init_game(t_game *game, char *path)
 {
 	game->file = get_file_array(path);
+	game->map_allocated = 0;
 	game->EA_path = get_path(game->file, EA);
 	game->SO_path = get_path(game->file, SO);
 	game->WE_path = get_path(game->file, WE);

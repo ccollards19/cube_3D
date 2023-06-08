@@ -27,10 +27,14 @@ void	fill_map_blanks(t_game *game, char **map)
 
 	i = -1;
 	j = 0;
+	game->map_allocated = 1;
 	while (map[++i])
 	{
 		if (!valid_map_line(map[i]))
+		{
+			map[i] = 0;
 			terminate(game, "Invalid map\n");
+		}
 		if (ft_strlen(map[i]) > j)
 			j = ft_strlen(map[i]);
 	}
