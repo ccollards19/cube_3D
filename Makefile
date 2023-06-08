@@ -43,6 +43,7 @@ SRC_LIST =	main.c \
 		game_loop_utils.c \
 		utils.c \
 		syntax.c \
+		intersect.c \
 		render.c \
 		raycast.c \
 

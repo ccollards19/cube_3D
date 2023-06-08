@@ -154,8 +154,16 @@ double	get_init_angle(t_game *game);
 int		set_player_position(t_game *game);
 int		closed_map(char **map);
 void	fill_map_blanks(t_game *game, char **map);
+
 //raycasting.c
 void	cast_ray(t_ray *ray, t_game *game);
+void ray_copy(t_ray *src, t_ray *dest);
+
+//intersect.c
+int	intersect_so(t_ray *ray, t_ray *ray_tmp, t_game *game, char tile);
+int	intersect_no(t_ray *ray, t_ray *ray_tmp, t_game *game, char tile);
+int	intersect_ea(t_ray *ray, t_ray *ray_tmp, t_game *game, char tile);
+int	intersect_we(t_ray *ray, t_ray *ray_tmp, t_game *game, char tile);
 
 //render.c
 void	*build_frame(t_ray *ray, t_game *game);
