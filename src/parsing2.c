@@ -104,16 +104,22 @@ int	is_hallway(char **map, int i, int j)
 void	add_doors(t_game *game, int i, int j)
 {
 	while (game->map[++i])
-		printf("%s\n", game->map[i]);
+	{
+		j = -1;
+		while (game->map[i][++j])
+		{
+			if (game->map[i][j] == 'S' || game->map[i][j] == 'W' || \
+                game->map[i][j] == 'E' || game->map[i][j] == 'N')
+				game->map[i][j] = '0';
+		}
+	}
 	i = -1;
 	while (game->map[++i])
 	{
 		j = -1;
 		while (game->map[i][++j])
 		{
-			if (game->map[i][j] == 'S' || game->map[i][j] == 'W' || \
-			game->map[i][j] == 'E' || game->map[i][j] == 'N')
-				game->map[i][j] = '0';
+
 			if (is_hallway(game->map, i, j) && \
 			((!is_hallway(game->map, i - 1, j) && \
 			!is_hallway(game->map, i + 1, j)) || \
@@ -122,23 +128,4 @@ void	add_doors(t_game *game, int i, int j)
 				game->map[i][j] = 'C';
 		}
 	}
-	printf("\n");
-	i = -1;
-	while (game->map[++i])
-	{
-		j = -1;
-		while (game->map[i][++j])
-		{
-			if (game->map[i][j] == 'C')
-				printf("\033[0;32m%c\033[0m", game->map[i][j]);
-			else if (game->map[i][j] == '1')
-				printf("\033[0;30m%c\033[0m", game->map[i][j]);
-			else if (game->map[i][j] == '0')
-				printf("\033[0;40m%c\033[0m", game->map[i][j]);
-			else
-				printf("%c", game->map[i][j]);
-		}
-		printf("\n");
-	}
-
 }
