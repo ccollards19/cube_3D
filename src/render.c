@@ -30,7 +30,6 @@ void	print_ray_on_img(t_ray *ray, int x, int y, t_game *game)
 	double	lim2;
 	double	y_texture;
 	double	y_incr;
-	int		color;
 
 	lim2 = 500 * (1 + (1.2 / ray->distance));
 	lim1 = 500 * (1 - (1.8 / ray->distance));
@@ -44,8 +43,9 @@ void	print_ray_on_img(t_ray *ray, int x, int y, t_game *game)
 			my_mlx_pixel_put(&game->frame, x, y, game->ceiling_color);
 		else if (y < lim2)
 		{
-			color = get_texture_color(ray->texture, (int)(ray->texture_offset * ray->texture->width), (int)y_texture);
-			my_mlx_pixel_put(&game->frame, x, y, color);
+			my_mlx_pixel_put(&game->frame, x, y, get_texture_color(\
+ray->texture, (int)(ray->texture_offset * ray->texture->width) \
+, (int)y_texture));
 			y_texture += y_incr;
 		}
 		else
