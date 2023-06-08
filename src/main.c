@@ -21,6 +21,7 @@ static void init_game(t_game *game, char *path)
 	if (!closed_map(game->map))
 		terminate(game, "Invalid map\n");
 	fill_map_blanks(game, game->map);
+	add_doors(game, -1, -1);
 	game->down = 0;
 	game->up = 0;
 	game->left = 0;

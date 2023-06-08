@@ -154,7 +154,7 @@ double	get_init_angle(t_game *game);
 int		set_player_position(t_game *game);
 int		closed_map(char **map);
 void	fill_map_blanks(t_game *game, char **map);
-
+void	add_doors(t_game *game, int i, int j);
 //raycasting.c
 void	cast_ray(t_ray *ray, t_game *game);
 void ray_copy(t_ray *src, t_ray *dest);

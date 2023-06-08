@@ -92,3 +92,50 @@ char	*get_path(char **file, t_path path)
 		terminate(NULL, "syntax of .cub not respected1\n");
 	return (file[i] + 3);
 }
+
+int	is_hallway(char **map, int i, int j)
+{
+	return (i && map[i + 1] && j && map[i][j] == '0' && ((map[i + 1][j] == '0' && \
+	map[i - 1][j] == '0' && map[i][j + 1] == '1' && map[i][j - 1] == '1') || \
+	(map[i + 1][j] == '1' && map[i - 1][j] == '1' && map[i][j + 1] == '0' && \
+	map[i][j - 1] == '0')));
+}
+
+void	add_doors(t_game *game, int i, int j)
+{
+	while (game->map[++i])
+		printf("%s\n", game->map[i]);
+	i = -1;
+	while (game->map[++i])
+	{
+		j = -1;
+		while (game->map[i][++j])
+		{
+			if (is_hallway(game->map, i, j) && \
+			((!is_hallway(game->map, i - 1, j) && \
+			!is_hallway(game->map, i + 1, j)) || \
+			(!is_hallway(game->map, i, j -1) && \
+			!is_hallway(game->map, i, j + 1))))
+				game->map[i][j] = 'C';
+		}
+	}
+	printf("\n");
+	i = -1;
+	while (game->map[++i])
+	{
+		j = -1;
+		while (game->map[i][++j])
+		{
+			if (game->map[i][j] == 'C')
+				printf("\033[0;32m%c\033[0m", game->map[i][j]);
+			else if (game->map[i][j] == '1')
+				printf("\033[0;30m%c\033[0m", game->map[i][j]);
+			else if (game->map[i][j] == '0')
+				printf("\033[0;40m%c\033[0m", game->map[i][j]);
+			else
+				printf("%c", game->map[i][j]);
+		}
+		printf("\n");
+	}
+
+}
