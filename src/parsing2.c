@@ -111,6 +111,9 @@ void	add_doors(t_game *game, int i, int j)
 		j = -1;
 		while (game->map[i][++j])
 		{
+			if (game->map[i][j] == 'S' || game->map[i][j] == 'W' || \
+			game->map[i][j] == 'E' || game->map[i][j] == 'N')
+				game->map[i][j] = '0';
 			if (is_hallway(game->map, i, j) && \
 			((!is_hallway(game->map, i - 1, j) && \
 			!is_hallway(game->map, i + 1, j)) || \
