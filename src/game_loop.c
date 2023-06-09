@@ -63,7 +63,8 @@ int	loop_hook(t_game *game)
 
 int	mouse_hook(int key, int i, int j, t_game *game)
 {
-	printf("%d %d %d\n", key, i, j);
+	(void)i;
+	(void)j;
 	if (key == 1)
 	{
 		if (game->firing < 2)

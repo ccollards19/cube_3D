@@ -27,13 +27,13 @@ void	shoot(t_game *game)
 		{
 			if (game->firing)
 				game->firing--;
-			else
+			if (!game->firing)
 				game->should_cast = 1;
 			tic = 0;
 		}
 		if (game->firing)
 			mlx_put_image_to_window(game->mlx_ptr, game->win_ptr, \
-			game->gun_effect[game->sprite_frame].ptr, 500, 680);
+			game->gun_effect[game->sprite_frame].ptr, 495, 680);
 		print_sprite(&game->gun, game->pos[tic], game->dimension, &game->gun_sprite);
 	}
 	mlx_put_image_to_window(game->mlx_ptr, game->win_ptr, \
