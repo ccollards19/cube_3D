@@ -46,6 +46,7 @@ SRC_LIST =	main.c \
 		intersect.c \
 		render.c \
 		raycast.c \
+		cursor.c \
 
 OBJ 	= $(SRC:%.c=%.o)
 

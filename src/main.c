@@ -50,6 +50,7 @@ void	init_mlx(t_game *game)
 	game->frame.offset = mlx_get_data_addr(game->frame.ptr, &game->frame.bits_per_pixel, &game->frame.line_length, &game->frame.endian);//test version
 	game->minimap.ptr = mlx_new_image(game->mlx_ptr, 300, 300);
 	game->minimap.offset = mlx_get_data_addr(game->minimap.ptr, &game->minimap.bits_per_pixel, &game->minimap.line_length, &game->minimap.endian);
+	init_cursor(game);
 	mlx_mouse_hide();
 	mlx_mouse_move(game->win_ptr, 500, 500);
 	mlx_mouse_get_pos(game->win_ptr, &game->mouse[0], &game->mouse[1]);

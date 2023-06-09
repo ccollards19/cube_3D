@@ -101,12 +101,27 @@ typedef enum e_color
 	FLOOR
 }t_color;
 
+enum e_shape
+{
+	CROSS,
+	DOT,
+	CIRCLE
+};
+
+typedef struct s_cursor
+{
+	int				hover;
+	t_img			img;
+	enum e_shape	shape;
+}t_cursor;
+
 typedef struct s_game
 {
 	t_player	*player;
 	t_asset		*asset;
 	t_img		frame;
 	t_img		minimap;
+	t_cursor 	cursor;
 	void		*mlx_ptr;
 	void		*win_ptr;
 	char		**file;
@@ -192,4 +207,9 @@ void	print_player(t_img *minimap, double i, double j, int color);
 void	print_player_fov(t_img *minimap, t_game *game, int color);
 void	print_outer_circle(t_img *img, int pos, int inner_radius, int color);
 void	print_element(t_img *minimap, t_game *game, int i, int j);
+
+//cursor.c
+void	init_cursor(t_game *game);
+void	print_cursor(t_game *game, int i, int j);
+
 #endif
