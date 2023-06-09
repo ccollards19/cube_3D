@@ -55,31 +55,47 @@ void	init_mlx(t_game *game)
 	mlx_mouse_get_pos(game->win_ptr, &game->mouse[0], &game->mouse[1]);
 }
 
-void init_asset(t_game *game)
+void	init_asset_2(t_game *game)
+{
+	game->asset->WE.ptr = mlx_xpm_file_to_image(game->mlx_ptr, \
+game->WE_path, &game->asset->WE.width, &game->asset->WE.height);
+	if (game->asset->WE.ptr == NULL)
+		terminate(game, "");
+	game->asset->WE.offset = mlx_get_data_addr(game->asset->WE.ptr, \
+&game->asset->WE.bits_per_pixel, &game->asset->WE.line_length, \
+&game->asset->WE.endian);
+	game->asset->EA.ptr = mlx_xpm_file_to_image(game->mlx_ptr, \
+game->EA_path, &game->asset->EA.width, \
+&(game->asset->EA.height));
+	if (game->asset->EA.ptr == NULL)
+		terminate(game, "");
+	game->asset->EA.offset = mlx_get_data_addr(game->asset->EA.ptr, \
+&game->asset->EA.bits_per_pixel, &game->asset->EA.line_length, \
+&game->asset->EA.endian);
+}
+
+void	init_asset(t_game *game)
 {
 	game->asset = xmalloc(sizeof(t_asset));
 	if (game->asset == NULL)
 		terminate(game, "");
 
-	game->asset->NO.ptr = mlx_xpm_file_to_image(game->mlx_ptr, game->NO_path, &game->asset->NO.width, &game->asset->NO.height);
+	game->asset->NO.ptr = mlx_xpm_file_to_image(game->mlx_ptr, game->NO_path, \
+&game->asset->NO.width, &game->asset->NO.height);
 	if (game->asset->NO.ptr == NULL)
 		terminate(game, "");
-	game->asset->NO.offset = mlx_get_data_addr(game->asset->NO.ptr, &game->asset->NO.bits_per_pixel, &game->asset->NO.line_length, &game->asset->NO.endian);
+	game->asset->NO.offset = mlx_get_data_addr(game->asset->NO.ptr, \
+&game->asset->NO.bits_per_pixel, &game->asset->NO.line_length, \
+&game->asset->NO.endian);
 
-	game->asset->SO.ptr = mlx_xpm_file_to_image(game->mlx_ptr, game->SO_path, &game->asset->SO.width, &game->asset->SO.height);
+	game->asset->SO.ptr = mlx_xpm_file_to_image(game->mlx_ptr, \
+game->SO_path, &game->asset->SO.width, &game->asset->SO.height);
 	if (game->asset->SO.ptr == NULL)
 		terminate(game, "");
-	game->asset->SO.offset = mlx_get_data_addr(game->asset->SO.ptr, &game->asset->SO.bits_per_pixel, &game->asset->SO.line_length, &game->asset->SO.endian);
-
-	game->asset->WE.ptr = mlx_xpm_file_to_image(game->mlx_ptr, game->WE_path, &game->asset->WE.width, &game->asset->WE.height);
-	if (game->asset->WE.ptr == NULL)
-		terminate(game, "");
-	game->asset->WE.offset = mlx_get_data_addr(game->asset->WE.ptr, &game->asset->WE.bits_per_pixel, &game->asset->WE.line_length, &game->asset->WE.endian);
-
-	game->asset->EA.ptr = mlx_xpm_file_to_image(game->mlx_ptr, game->EA_path, &game->asset->EA.width, &(game->asset->EA.height));
-	if (game->asset->EA.ptr == NULL)
-		terminate(game, "");
-	game->asset->EA.offset = mlx_get_data_addr(game->asset->EA.ptr, &game->asset->EA.bits_per_pixel, &game->asset->EA.line_length, &game->asset->EA.endian);
+	game->asset->SO.offset = mlx_get_data_addr(game->asset->SO.ptr, \
+&game->asset->SO.bits_per_pixel, &game->asset->SO.line_length, \
+&game->asset->SO.endian);
+	init_asset_2(game);
 }
 
 /*
@@ -109,7 +125,7 @@ void precompute(t_game *game)
 */
 int	main(int argc, char **argv)
 {
-	t_game game;
+	t_game	game;
 
 	if (argc != 2)
 		terminate(NULL, "invalid number of arguments\n");
@@ -119,6 +135,5 @@ int	main(int argc, char **argv)
 	init_mlx(&game);
 	init_asset(&game);
 	game_loop(&game);
-
 	return (0);
 }
