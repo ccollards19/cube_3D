@@ -128,6 +128,7 @@ typedef struct s_game
 	int			pos[3][2];
 	int			dimension[2];
 	int			sprite_frame;
+	int			firing;
 	void		*mlx_ptr;
 	void		*win_ptr;
 	char		**file;
@@ -219,4 +220,7 @@ void	init_cursor(t_game *game);
 void	print_cursor(t_game *game, int i, int j);
 void	print_sprite(t_img *img, int pos[2], int dimension[2], t_img *sprite);
 void	init_sprite(t_game *game);
+
+//interact.c
+void	shoot(t_game *game);
 #endif

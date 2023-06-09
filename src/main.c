@@ -39,6 +39,7 @@ static void init_game(t_game *game, char *path)
 	game->pos[1][1] = 0;
 	game->pos[2][0] = 600;
 	game->pos[2][1] = 0;
+	game->firing = 0;
 }
 
 void	init_mlx(t_game *game)

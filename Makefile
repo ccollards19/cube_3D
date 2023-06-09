@@ -39,6 +39,7 @@ SRC_LIST =	main.c \
 		parsing.c \
 		parsing2.c \
 		terminate.c \
+		interact.c \
 		game_loop.c \
 		game_loop_utils.c \
 		utils.c \

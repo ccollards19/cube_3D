@@ -50,7 +50,7 @@ int	loop_hook(t_game *game)
 	d_x = 0;
 	d_y = 0;
 	cast = handle_mouse(game) + input_management(game, d_x, d_y) \
-	+ change_color(game);
+	+ change_color(game) + game->firing;
 	if (cast || game->should_cast)
 	{
 		game->should_cast = 0;
@@ -64,6 +64,11 @@ int	loop_hook(t_game *game)
 int	mouse_hook(int key, int i, int j, t_game *game)
 {
 	printf("%d %d %d\n", key, i, j);
+	if (key == 1)
+	{
+		if (game->firing < 2)
+			game->firing++;
+	}
 	if (key == 2)
 	{
 		game->cursor.shape++;

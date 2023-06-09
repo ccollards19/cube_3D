@@ -52,17 +52,7 @@ void	raycast(t_game *game)
 	ray.dy_inv = 1 / sin(ray.angle);
 	build_frame(&ray, game);
 	print_cursor(game, -1, -1);
-	static int test;
-	game->sprite_frame++;
-	if (game->sprite_frame > 6)
-		game->sprite_frame = 0;
-	if ((game->sprite_frame % 2) && ++test > 2)
-		test = 0;
-	mlx_put_image_to_window(game->mlx_ptr, game->win_ptr, \
-	game->gun_effect[game->sprite_frame].ptr, 540, 680);
-	print_sprite(&game->gun, game->pos[test], game->dimension, &game->gun_sprite);
-	mlx_put_image_to_window(game->mlx_ptr, game->win_ptr, \
-	game->gun.ptr, 500, 650);
+	shoot(game);
 }
 
 int	change_color(t_game *game)
