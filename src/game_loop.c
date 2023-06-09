@@ -59,12 +59,24 @@ int	loop_hook(t_game *game)
 	}
 	return (0);
 }
+int	mouse_hook(int key, int i, int j, t_game *game)
+{
+	printf("%d %d %d\n", key, i, j);
+	if (key == 2)
+	{
+		game->cursor.shape++;
+		if (game->cursor.shape > CIRCLE)
+			game->cursor.shape = CROSS;
+	}
+	return (0);
+}
 
 void	game_loop(t_game *game)
 {
 	mlx_hook(game->win_ptr, 17, 0, destroy, game);
 	mlx_hook(game->win_ptr, 3, 1L << 0, relase_key_hook, game);
 	mlx_hook(game->win_ptr, 2, 1L << 1, key_hook, game);
+	mlx_mouse_hook(game->win_ptr, mouse_hook, game);
 	mlx_loop_hook(game->mlx_ptr, loop_hook, game);
 	mlx_loop(game->mlx_ptr);
 }
