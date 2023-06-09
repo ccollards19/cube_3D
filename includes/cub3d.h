@@ -122,6 +122,12 @@ typedef struct s_game
 	t_img		frame;
 	t_img		minimap;
 	t_cursor 	cursor;
+	t_img		gun_effect[7];
+	t_img		gun;
+	t_img		gun_sprite;
+	int			pos[3][2];
+	int			dimension[2];
+	int			sprite_frame;
 	void		*mlx_ptr;
 	void		*win_ptr;
 	char		**file;
@@ -181,9 +187,9 @@ int	intersect_ea(t_ray *ray, t_ray *ray_tmp, t_game *game, char tile);
 int	intersect_we(t_ray *ray, t_ray *ray_tmp, t_game *game, char tile);
 
 //render.c
-void	*build_frame(t_ray *ray, t_game *game);
-void	my_mlx_pixel_put(t_img *img, int x, int y, int color);
-
+void			*build_frame(t_ray *ray, t_game *game);
+void			my_mlx_pixel_put(t_img *img, int x, int y, int color);
+unsigned int	get_texture_color(t_img *img, int x, int y);
 //syntax.c
 
 int		valid_format(char *s);
@@ -211,5 +217,6 @@ void	print_element(t_img *minimap, t_game *game, int i, int j);
 //cursor.c
 void	init_cursor(t_game *game);
 void	print_cursor(t_game *game, int i, int j);
-
+void	print_sprite(t_img *img, int pos[2], int dimension[2], t_img *sprite);
+void	init_sprite(t_game *game);
 #endif

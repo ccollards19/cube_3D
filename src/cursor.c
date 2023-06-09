@@ -26,6 +26,56 @@ void	print_shape(t_img *img, enum e_shape shape, int color, int pos[2])
 		my_mlx_pixel_put(img, pos[0], pos[1], color);
 }
 
+void	print_sprite(t_img *img, int pos[2], int dimension[2], t_img *sprite)
+{
+	int	i;
+	int	j;
+
+	i = -1;
+	while (++i < 200)
+	{
+		j = -1;
+		while (++j < 200)
+		{
+			my_mlx_pixel_put(img, i, j, trgb(255, 0, 0, 0));
+			if (i <= dimension[0] && j <= dimension[1])
+			{
+				my_mlx_pixel_put(img, i, j, \
+				get_texture_color(sprite, pos[0] + i, pos[1] + j));
+			}
+		}
+	}
+}
+
+void	init_sprite(t_game *game)
+{
+	game->gun_sprite.ptr = mlx_xpm_file_to_image(game->mlx_ptr, \
+	"ruins/gun.xpm", &game->gun.width, &game->gun.height);
+	game->gun_sprite.offset = mlx_get_data_addr(game->gun_sprite.ptr, \
+	&game->gun_sprite.bits_per_pixel, &game->gun_sprite.line_length, \
+	&game->gun_sprite.endian);
+	game->gun.ptr = mlx_new_image(game->mlx_ptr, 200, 200);
+	game->gun.offset = mlx_get_data_addr(game->gun.ptr, \
+	&game->gun.bits_per_pixel, &game->gun.line_length, \
+	&game->gun.endian);
+	game->gun_sprite.width = 1024;
+	game->gun_sprite.height = 1024;
+	game->gun_effect[0].ptr = mlx_xpm_file_to_image(game->mlx_ptr, \
+	"ruins/sprite_0.xpm", &game->gun.width, &game->gun.height);
+	game->gun_effect[1].ptr = mlx_xpm_file_to_image(game->mlx_ptr, \
+	"ruins/sprite_1.xpm", &game->gun.width, &game->gun.height);
+	game->gun_effect[2].ptr = mlx_xpm_file_to_image(game->mlx_ptr, \
+	"ruins/sprite_2.xpm", &game->gun.width, &game->gun.height);
+	game->gun_effect[3].ptr = mlx_xpm_file_to_image(game->mlx_ptr, \
+	"ruins/sprite_3.xpm", &game->gun.width, &game->gun.height);
+	game->gun_effect[4].ptr = mlx_xpm_file_to_image(game->mlx_ptr, \
+	"ruins/sprite_4.xpm", &game->gun.width, &game->gun.height);
+	game->gun_effect[5].ptr = mlx_xpm_file_to_image(game->mlx_ptr, \
+	"ruins/sprite_5.xpm", &game->gun.width, &game->gun.height);
+	game->gun_effect[6].ptr = mlx_xpm_file_to_image(game->mlx_ptr, \
+	"ruins/sprite_6.xpm", &game->gun.width, &game->gun.height);
+}
+
 void	print_cursor(t_game *game, int i, int j)
 {
 	int pos[2];
@@ -46,5 +96,5 @@ void	print_cursor(t_game *game, int i, int j)
 		}
 	}
 	mlx_put_image_to_window(game->mlx_ptr, game->win_ptr, \
-	game->cursor.img.ptr, 420, 420);
+	game->cursor.img.ptr, 470, 470);
 }
