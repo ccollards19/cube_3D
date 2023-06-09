@@ -11,7 +11,8 @@ int	key_hook(int key, t_game *game)
 	if (key == 49)
 		game->color_change = 1;
 	if (key == 46)
-		((game->hide_minimap && game->hide_minimap--) || game->hide_minimap++);
+		(++game->should_cast && \
+		((game->hide_minimap && game->hide_minimap--) || game->hide_minimap++));
 	if (key == 53)
 		exit(1);
 	if (key == W)
@@ -59,6 +60,7 @@ int	loop_hook(t_game *game)
 	}
 	return (0);
 }
+
 int	mouse_hook(int key, int i, int j, t_game *game)
 {
 	printf("%d %d %d\n", key, i, j);
@@ -68,6 +70,7 @@ int	mouse_hook(int key, int i, int j, t_game *game)
 		if (game->cursor.shape > CIRCLE)
 			game->cursor.shape = CROSS;
 	}
+	game->should_cast = 1;
 	return (0);
 }
 
