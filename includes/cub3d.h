@@ -10,10 +10,10 @@
 # include "color.h"
 #include <stdio.h>//test
 
-# define WIN_WIDTH 1000
-# define WIN_WIDTH_2 500
-# define WIN_HEIGHT 1000
-# define WIN_HEIGHT_2 500
+# define WIN_WIDTH 1280
+# define WIN_WIDTH_2 640
+# define WIN_HEIGHT 720
+# define WIN_HEIGHT_2 360
 # define M_PI_8 0.3926905
 # define AGL(x) x > 2147483647 ? 1 : 0
 # define ESC 53
