@@ -33,9 +33,9 @@ void	shoot(t_game *game)
 		}
 		if (game->firing)
 			mlx_put_image_to_window(game->mlx_ptr, game->win_ptr, \
-			game->gun_effect[game->sprite_frame].ptr, 495, 680);
+			game->gun_effect[game->sprite_frame].ptr, WIN_WIDTH_2, WIN_HEIGHT - 180);
 		print_sprite(&game->gun, game->pos[tic], game->dimension, &game->gun_sprite);
 	}
 	mlx_put_image_to_window(game->mlx_ptr, game->win_ptr, \
-	game->gun.ptr, 460, 650 + state);
+	game->gun.ptr, WIN_WIDTH_2 - 40, WIN_HEIGHT - 200 + state);
 }
