@@ -63,7 +63,7 @@ void	init_mlx(t_game *game)
 	init_sprite(game);
 	game->sprite_frame = 0;
 	mlx_mouse_hide();
-	mlx_mouse_move(game->win_ptr, 500, 500);
+	mlx_mouse_move(game->win_ptr, WIN_WIDTH_2, WIN_HEIGHT_2);
 	mlx_mouse_get_pos(game->win_ptr, &game->mouse[0], &game->mouse[1]);
 }
 
