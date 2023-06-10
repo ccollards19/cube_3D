@@ -96,5 +96,6 @@ void	print_cursor(t_game *game, int i, int j)
 		}
 	}
 	mlx_put_image_to_window(game->mlx_ptr, game->win_ptr, \
-	game->cursor.img.ptr, (WIN_WIDTH_2 - 20), (WIN_HEIGHT_2 - 20));
+	game->cursor.img.ptr, WIN_WIDTH_2 - 30, WIN_HEIGHT_2 - 30);
 }
+>>>>>>> refs/remotes/origin/master
