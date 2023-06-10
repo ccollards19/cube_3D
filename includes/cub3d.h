@@ -94,6 +94,7 @@ typedef	struct s_asset {
 	t_img	SO;
 	t_img	WE;
 	t_img	EA;
+	t_img	DO;
 } t_asset;
 
 typedef enum e_color

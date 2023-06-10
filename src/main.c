@@ -70,20 +70,28 @@ void	init_mlx(t_game *game)
 void	init_asset_2(t_game *game)
 {
 	game->asset->WE.ptr = mlx_xpm_file_to_image(game->mlx_ptr, \
-game->WE_path, &game->asset->WE.width, &game->asset->WE.height);
+	game->WE_path, &game->asset->WE.width, &game->asset->WE.height);
 	if (game->asset->WE.ptr == NULL)
 		terminate(game, "");
 	game->asset->WE.offset = mlx_get_data_addr(game->asset->WE.ptr, \
-&game->asset->WE.bits_per_pixel, &game->asset->WE.line_length, \
-&game->asset->WE.endian);
+	&game->asset->WE.bits_per_pixel, &game->asset->WE.line_length, \
+	&game->asset->WE.endian);
 	game->asset->EA.ptr = mlx_xpm_file_to_image(game->mlx_ptr, \
-game->EA_path, &game->asset->EA.width, \
-&(game->asset->EA.height));
+	game->EA_path, &game->asset->EA.width, \
+	&(game->asset->EA.height));
 	if (game->asset->EA.ptr == NULL)
 		terminate(game, "");
 	game->asset->EA.offset = mlx_get_data_addr(game->asset->EA.ptr, \
-&game->asset->EA.bits_per_pixel, &game->asset->EA.line_length, \
-&game->asset->EA.endian);
+	&game->asset->EA.bits_per_pixel, &game->asset->EA.line_length, \
+	&game->asset->EA.endian);
+	game->asset->DO.ptr = mlx_xpm_file_to_image(game->mlx_ptr, \
+	"ruins/door.xpm", &game->asset->DO.width, \
+	&(game->asset->DO.height));
+	if (game->asset->DO.ptr == NULL)
+		terminate(game, "");
+	game->asset->DO.offset = mlx_get_data_addr(game->asset->DO.ptr, \
+	&game->asset->DO.bits_per_pixel, &game->asset->DO.line_length, \
+	&game->asset->DO.endian);
 }
 
 void	init_asset(t_game *game)
