@@ -154,6 +154,7 @@ typedef struct s_game
 	int			color_type;
 	int			color_change;
 	int			map_allocated;
+	int			fired;
 	int			current_ray;
 }t_game;
 
