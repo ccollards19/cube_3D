@@ -15,7 +15,6 @@
 # define WIN_HEIGHT 720
 # define WIN_HEIGHT_2 360
 # define M_PI_8 0.3926905
-# define AGL(x) x > 2147483647 ? 1 : 0
 # define ESC 53
 # define UP 126
 # define DOWN 125
@@ -26,19 +25,6 @@
 # define S 1
 # define D 0
 # define PI2 2 * M_PI
-# define SIN_10 0.173648
-# define SIN_20 0.342020
-# define SIN_30 0.500000
-# define SIN_40 0.642788
-# define SIN_50 0.766044
-# define SIN_60 0.866025
-# define SIN_70 0.939693
-# define SIN_80 0.984808
-# define SIN_90 1.000000
-
-//# define SIN_2(A) A < M_PI ? : SIN_3(A)
-//# define SIN(A) A < M_PI_2 ? A < M_PI_4 ? SIN_3(A) : A < M_PI_8 ? SIN_10 : SIN_20: SIN_2(A)
-#define ABS(x) ((x) < 0 ? -(x) : (x))
 
 typedef enum e_path
 {
@@ -81,15 +67,10 @@ typedef struct s_player
 	double 	angle;
 	double	x;
 	double	y;
-	int		fov;
-	size_t 	ammo;
-	size_t	hp;
-	size_t	speed;
 }	t_player;
 
 typedef	struct s_asset {
 	char	id;
-	int	stop;
 	t_img	NO;
 	t_img	SO;
 	t_img	WE;
