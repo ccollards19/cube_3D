@@ -4,7 +4,7 @@ HEADER	=	includes
 
 LIBFT	=	libft/libft.a
 
-CCFLAGS	= -Wall -Wextra -Werror -I$(HEADER)
+CCFLAGS	= -Wall -Wextra -Werror -finline-functions -fvectorize -fslp-vectorize -ffast-math -falign-functions -funroll-loops -fstrict-aliasing -fomit-frame-pointer -flto -Ofast -O1 -O2 -Os -O3 -I$(HEADER)
 
 MLFLAGS	= -Lmlx -lmlx -framework OpenGL -framework AppKit
 

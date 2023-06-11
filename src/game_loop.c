@@ -40,6 +40,7 @@ int	loop_hook(t_game *game)
 	double	d_x;
 	double	d_y;
 
+	mlx_mouse_hide();
 	d_x = 0;
 	d_y = 0;
 	cast = handle_mouse(game) + input_management(game, d_x, d_y) \
