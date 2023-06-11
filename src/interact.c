@@ -1,6 +1,6 @@
 #include "../includes/cub3d.h"
 
-int get_tic(t_game *game, int tic)
+int	get_tic(t_game *game, int tic)
 {
 	game->sprite_frame++;
 	if (game->sprite_frame > 6)
@@ -27,7 +27,7 @@ int	get_state(int state)
 
 void	interact(t_game *game, int i, int j)
 {
-	double dist;
+	double	dist;
 
 	game->fired = 0;
 	game->cursor.hover = 0;
@@ -46,6 +46,20 @@ void	interact(t_game *game, int i, int j)
 	}
 }
 
+int	animate_sprite(t_game *game, int tic)
+{
+	tic = get_tic(game, tic);
+	if (game->firing)
+		mlx_put_image_to_window(game->mlx_ptr, game->win_ptr, \
+			game->gun_effect[game->sprite_frame].ptr, WIN_WIDTH_2, \
+			WIN_HEIGHT - 180);
+	else
+		game->fired = 1;
+	print_sprite(&game->gun, game->pos[tic], game->dimension, \
+		&game->gun_sprite);
+	return (tic);
+}
+
 void	shoot(t_game *game)
 {
 	static int	tic;
@@ -56,19 +70,12 @@ void	shoot(t_game *game)
 	if ((game->down || game->up || state) && !(clock % 6))
 		state = get_state(state);
 	if (!game->firing)
-		print_sprite(&game->gun, game->pos[tic], game->dimension, &game->gun_sprite);
+		print_sprite(&game->gun, game->pos[tic], game->dimension, \
+		&game->gun_sprite);
 	else
-	{
-		tic = get_tic(game, tic);
-		if (game->firing)
-			mlx_put_image_to_window(game->mlx_ptr, game->win_ptr, \
-			game->gun_effect[game->sprite_frame].ptr, WIN_WIDTH_2, WIN_HEIGHT - 180);
-		else
-			game->fired = 1;
-		print_sprite(&game->gun, game->pos[tic], game->dimension, &game->gun_sprite);
-	}
-	mlx_put_image_to_window(game->mlx_ptr, game->win_ptr, \
-	game->gun.ptr, WIN_WIDTH_2 - 40, WIN_HEIGHT - 200 + state);
+		tic = animate_sprite(game, tic);
+	mlx_put_image_to_window(game->mlx_ptr, game->win_ptr, game->gun.ptr, \
+	WIN_WIDTH_2 - 40, WIN_HEIGHT - 200 + state);
 	if (game->cursor.hover && game->firing && game->fired)
 		interact(game, -1, -1);
 	else

@@ -14,7 +14,7 @@ void	init_cursor(t_game *game)
 
 void	print_shape(t_img *img, enum e_shape shape, int color, int pos[2])
 {
-	int dist;
+	int	dist;
 
 	my_mlx_pixel_put(img, pos[0], pos[1], trgb(255, 0, 0, 0));
 	dist = ((30 - pos[0]) * (30 - pos[0])) + \
@@ -80,7 +80,7 @@ void	init_sprite(t_game *game)
 
 void	print_cursor(t_game *game, int i, int j)
 {
-	int pos[2];
+	int	pos[2];
 
 	while (++i < 60)
 	{

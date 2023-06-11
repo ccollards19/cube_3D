@@ -13,7 +13,7 @@ void	terminate(t_game *game, char *msg)
 		mlx_destroy_image(game->mlx_ptr, game->frame.ptr);
 		mlx_destroy_window(game->mlx_ptr, game->win_ptr);
 	}
-	if (msg ==  NULL)
+	if (msg == NULL)
 		exit(0);
 	else
 	{

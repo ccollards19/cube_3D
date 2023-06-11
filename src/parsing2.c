@@ -95,10 +95,10 @@ char	*get_path(char **file, t_path path)
 
 int	is_hallway(char **map, int i, int j)
 {
-	return (i && map[i + 1] && j && map[i][j] == '0' && ((map[i + 1][j] == '0' && \
-	map[i - 1][j] == '0' && map[i][j + 1] == '1' && map[i][j - 1] == '1') || \
-	(map[i + 1][j] == '1' && map[i - 1][j] == '1' && map[i][j + 1] == '0' && \
-	map[i][j - 1] == '0')));
+	return (i && map[i + 1] && j && map[i][j] == '0' && \
+	((map[i + 1][j] == '0' && map[i - 1][j] == '0' && map[i][j + 1] == '1' \
+	&& map[i][j - 1] == '1') || (map[i + 1][j] == '1' && map[i - 1][j] == '1' \
+	&& map[i][j + 1] == '0' && map[i][j - 1] == '0')));
 }
 
 void	add_doors(t_game *game, int i, int j)
@@ -109,7 +109,7 @@ void	add_doors(t_game *game, int i, int j)
 		while (game->map[i][++j])
 		{
 			if (game->map[i][j] == 'S' || game->map[i][j] == 'W' || \
-                game->map[i][j] == 'E' || game->map[i][j] == 'N')
+			game->map[i][j] == 'E' || game->map[i][j] == 'N')
 				game->map[i][j] = '0';
 		}
 	}
@@ -119,7 +119,6 @@ void	add_doors(t_game *game, int i, int j)
 		j = -1;
 		while (game->map[i][++j])
 		{
-
 			if (is_hallway(game->map, i, j) && \
 			((!is_hallway(game->map, i - 1, j) && \
 			!is_hallway(game->map, i + 1, j)) || \

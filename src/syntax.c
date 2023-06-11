@@ -40,7 +40,7 @@ int	empty_line(char *s)
 
 	i = -1;
 	while (s[++i])
-		if (s[i] != '\t' && s[i] != '\n'&& s[i] != '\f' && \
+		if (s[i] != '\t' && s[i] != '\n' && s[i] != '\f' && \
 		s[i] != '\b' && s[i] != ' ' && s[i] != '\r')
 			return (0);
 	return (1);

@@ -7,20 +7,8 @@ void	set_values_to_null(t_game *game)
 	game->file = NULL;
 }
 
-static void init_game(t_game *game, char *path)
+void	init_game2(t_game *game)
 {
-	game->file = get_file_array(path);
-	game->map_allocated = 0;
-	game->EA_path = get_path(game->file, EA);
-	game->SO_path = get_path(game->file, SO);
-	game->WE_path = get_path(game->file, WE);
-	game->NO_path = get_path(game->file, NO);
-	game->ceiling_color = get_color(game->file, CEILING);
-	game->floor_color = get_color(game->file, FLOOR);
-	game->map = get_map(game->file);
-	if (!closed_map(game->map))
-		terminate(game, "Invalid map\n");
-	fill_map_blanks(game, game->map);
 	game->down = 0;
 	game->up = 0;
 	game->left = 0;
@@ -41,6 +29,23 @@ static void init_game(t_game *game, char *path)
 	game->pos[2][1] = 0;
 	game->firing = 0;
 	game->fired = 0;
+}
+
+static void	init_game(t_game *game, char *path)
+{
+	game->file = get_file_array(path);
+	game->map_allocated = 0;
+	game->EA_path = get_path(game->file, EA);
+	game->SO_path = get_path(game->file, SO);
+	game->WE_path = get_path(game->file, WE);
+	game->NO_path = get_path(game->file, NO);
+	game->ceiling_color = get_color(game->file, CEILING);
+	game->floor_color = get_color(game->file, FLOOR);
+	game->map = get_map(game->file);
+	if (!closed_map(game->map))
+		terminate(game, "Invalid map\n");
+	fill_map_blanks(game, game->map);
+	init_game2(game);
 }
 
 void	init_mlx(t_game *game)
@@ -104,7 +109,6 @@ void	init_asset(t_game *game)
 	game->asset = xmalloc(sizeof(t_asset));
 	if (game->asset == NULL)
 		terminate(game, "");
-
 	game->asset->NO.ptr = mlx_xpm_file_to_image(game->mlx_ptr, game->NO_path, \
 	&game->asset->NO.width, &game->asset->NO.height);
 	if (game->asset->NO.ptr == NULL)
@@ -112,7 +116,6 @@ void	init_asset(t_game *game)
 	game->asset->NO.offset = mlx_get_data_addr(game->asset->NO.ptr, \
 	&game->asset->NO.bits_per_pixel, &game->asset->NO.line_length, \
 	&game->asset->NO.endian);
-
 	game->asset->SO.ptr = mlx_xpm_file_to_image(game->mlx_ptr, \
 	game->SO_path, &game->asset->SO.width, &game->asset->SO.height);
 	if (game->asset->SO.ptr == NULL)
@@ -123,31 +126,6 @@ void	init_asset(t_game *game)
 	init_asset_2(game);
 }
 
-/*
-void precompute(t_game *game)
-{
-	int i;
-	double angle;
-
-	i = 0;
-	angle = 0;
-	game->angle = malloc(sizeof(t_angle) * RAY_NBR);
-	if (game->angle == NULL)
-		terminate(game, "");
-	while (i < RAY_NBR)
-	{
-		(game->angle)[i].angle = angle;
-		(game->angle)[i].sin = sin(angle);
-		(game->angle)[i].cos = cos(angle);
-		(game->angle)[i].tan = tan(angle);
-		(game->angle)[i].sin_inv = 1 / sin(angle);
-		(game->angle)[i].cos_inv = 1 / cos(angle);
-
-		angle += ((M_PI * 2) / RAY_NBR);
-		i++;
-	}
-}
-*/
 int	main(int argc, char **argv)
 {
 	t_game	game;

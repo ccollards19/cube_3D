@@ -18,7 +18,8 @@ int	intersect_we(t_ray *ray, t_ray *ray_tmp, t_game *game, char tile)
 	}
 	if (tile == 'C')
 	{
-		if (game->current_ray >= WIN_WIDTH_2 - 25 && game->current_ray <= WIN_WIDTH_2 + 25)
+		if (game->current_ray >= WIN_WIDTH_2 - 25 && \
+		game->current_ray <= WIN_WIDTH_2 + 25)
 		{
 			game->cursor.hover = 1;
 			game->cursor.hover_x = (int)(ray_tmp->x);
@@ -44,7 +45,8 @@ int	intersect_ea(t_ray *ray, t_ray *ray_tmp, t_game *game, char tile)
 	}
 	if (tile == 'C')
 	{
-		if (game->current_ray >= WIN_WIDTH_2 - 25 && game->current_ray <= WIN_WIDTH_2 + 25)
+		if (game->current_ray >= WIN_WIDTH_2 - 25 && \
+		game->current_ray <= WIN_WIDTH_2 + 25)
 		{
 			game->cursor.hover = 1;
 			game->cursor.hover_x = (int)(ray_tmp->x - 1);
@@ -70,7 +72,8 @@ int	intersect_no(t_ray *ray, t_ray *ray_tmp, t_game *game, char tile)
 	}
 	if (tile == 'C')
 	{
-		if (game->current_ray >= WIN_WIDTH_2 - 25 && game->current_ray <= WIN_WIDTH_2 + 25)
+		if (game->current_ray >= WIN_WIDTH_2 - 25 && \
+		game->current_ray <= WIN_WIDTH_2 + 25)
 		{
 			game->cursor.hover = 1;
 			game->cursor.hover_x = (int)(ray_tmp->x);
@@ -96,7 +99,8 @@ int	intersect_so(t_ray *ray, t_ray *ray_tmp, t_game *game, char tile)
 	}
 	if (tile == 'C')
 	{
-		if (game->current_ray >= WIN_WIDTH_2 - 25 && game->current_ray <= WIN_WIDTH_2 + 25)
+		if (game->current_ray >= WIN_WIDTH_2 - 25 && \
+		game->current_ray <= WIN_WIDTH_2 + 25)
 		{
 			game->cursor.hover = 1;
 			game->cursor.hover_x = (int)(ray_tmp->x);
