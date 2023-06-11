@@ -45,6 +45,7 @@ SRC_LIST =	main.c \
 		utils.c \
 		syntax.c \
 		intersect.c \
+		init.c \
 		render.c \
 		raycast.c \
 		cursor.c \

@@ -1,0 +1,120 @@
+#include "../includes/cub3d.h"
+
+void	init_game2(t_game *game)
+{
+	game->down = 0;
+	game->up = 0;
+	game->left = 0;
+	game->right = 0;
+	game->should_cast = 1;
+	game->mouse[0] = 0;
+	game->mouse[1] = 0;
+	game->hide_minimap = 0;
+	game->color_type = 0;
+	game->color_change = 0;
+	game->dimension[0] = 140;
+	game->dimension[1] = 200;
+	game->pos[0][0] = 0;
+	game->pos[0][1] = 0;
+	game->pos[1][0] = 300;
+	game->pos[1][1] = 0;
+	game->pos[2][0] = 600;
+	game->pos[2][1] = 0;
+	game->firing = 0;
+	game->fired = 0;
+}
+
+void	init_game(t_game *game, char *path)
+{
+	game->file = get_file_array(path);
+	game->map_allocated = 0;
+	game->EA_path = get_path(game->file, EA);
+	game->SO_path = get_path(game->file, SO);
+	game->WE_path = get_path(game->file, WE);
+	game->NO_path = get_path(game->file, NO);
+	game->ceiling_color = get_color(game->file, CEILING);
+	game->floor_color = get_color(game->file, FLOOR);
+	game->map = get_map(game->file);
+	if (!closed_map(game->map))
+		terminate(game, "Invalid map\n");
+	fill_map_blanks(game, game->map);
+	init_game2(game);
+}
+
+void	init_mlx(t_game *game)
+{
+	game->mlx_ptr = mlx_init();
+	if (game->mlx_ptr == NULL)
+		terminate(game, "");
+	game->win_ptr = \
+	mlx_new_window(game->mlx_ptr, WIN_WIDTH, WIN_HEIGHT, "Cube_3D");
+	if (game->win_ptr == NULL)
+		terminate(game, "");
+	game->player = xmalloc(sizeof(t_player));
+	game->player->angle = get_init_angle(game);
+	if (!set_player_position(game))
+		terminate(game, "Error\nNo players fund\n");
+	add_doors(game, -1, -1);
+	game->frame.ptr = mlx_new_image(game->mlx_ptr, WIN_WIDTH, WIN_HEIGHT);
+	game->frame.offset = mlx_get_data_addr(game->frame.ptr, \
+	&game->frame.bits_per_pixel, &game->frame.line_length, &game->frame.endian);
+	game->minimap.ptr = mlx_new_image(game->mlx_ptr, 300, 300);
+	game->minimap.offset = mlx_get_data_addr(game->minimap.ptr, \
+	&game->minimap.bits_per_pixel, &game->minimap.line_length, \
+	&game->minimap.endian);
+	init_cursor(game);
+	init_sprite(game);
+	game->sprite_frame = 0;
+	mlx_mouse_hide();
+	mlx_mouse_move(game->win_ptr, WIN_WIDTH_2, WIN_HEIGHT_2);
+	mlx_mouse_get_pos(game->win_ptr, &game->mouse[0], &game->mouse[1]);
+}
+
+void	init_asset_2(t_game *game)
+{
+	game->asset->WE.ptr = mlx_xpm_file_to_image(game->mlx_ptr, \
+	game->WE_path, &game->asset->WE.width, &game->asset->WE.height);
+	if (game->asset->WE.ptr == NULL)
+		terminate(game, "");
+	game->asset->WE.offset = mlx_get_data_addr(game->asset->WE.ptr, \
+	&game->asset->WE.bits_per_pixel, &game->asset->WE.line_length, \
+	&game->asset->WE.endian);
+	game->asset->EA.ptr = mlx_xpm_file_to_image(game->mlx_ptr, \
+	game->EA_path, &game->asset->EA.width, \
+	&(game->asset->EA.height));
+	if (game->asset->EA.ptr == NULL)
+		terminate(game, "");
+	game->asset->EA.offset = mlx_get_data_addr(game->asset->EA.ptr, \
+	&game->asset->EA.bits_per_pixel, &game->asset->EA.line_length, \
+	&game->asset->EA.endian);
+	game->asset->DO.ptr = mlx_xpm_file_to_image(game->mlx_ptr, \
+	"ruins/door.xpm", &game->asset->DO.width, \
+	&(game->asset->DO.height));
+	if (game->asset->DO.ptr == NULL)
+		terminate(game, "");
+	game->asset->DO.offset = mlx_get_data_addr(game->asset->DO.ptr, \
+	&game->asset->DO.bits_per_pixel, &game->asset->DO.line_length, \
+	&game->asset->DO.endian);
+}
+
+void	init_asset(t_game *game)
+{
+	game->asset = xmalloc(sizeof(t_asset));
+	if (game->asset == NULL)
+		terminate(game, "");
+	game->asset->NO.ptr = mlx_xpm_file_to_image(game->mlx_ptr, game->NO_path, \
+	&game->asset->NO.width, &game->asset->NO.height);
+	if (game->asset->NO.ptr == NULL)
+		terminate(game, "");
+	game->asset->NO.offset = mlx_get_data_addr(game->asset->NO.ptr, \
+	&game->asset->NO.bits_per_pixel, &game->asset->NO.line_length, \
+	&game->asset->NO.endian);
+	game->asset->SO.ptr = mlx_xpm_file_to_image(game->mlx_ptr, \
+	game->SO_path, &game->asset->SO.width, &game->asset->SO.height);
+	if (game->asset->SO.ptr == NULL)
+		terminate(game, "");
+	game->asset->SO.offset = mlx_get_data_addr(game->asset->SO.ptr, \
+	&game->asset->SO.bits_per_pixel, &game->asset->SO.line_length, \
+	&game->asset->SO.endian);
+	init_asset_2(game);
+}

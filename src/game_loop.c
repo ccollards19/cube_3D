@@ -1,18 +1,11 @@
 #include "cub3d.h"
 
-int	destroy(t_game *game)
-{
-	terminate(game, "Window got closed\n");
-	return (1);
-}
-
 int	key_hook(int key, t_game *game)
 {
 	if (key == 49)
 		game->color_change = 1;
-	if (key == 46)
-		(++game->should_cast && \
-		((game->hide_minimap && game->hide_minimap--) || game->hide_minimap++));
+	if (key == 46 && ++game->should_cast)
+		((game->hide_minimap && game->hide_minimap--) || game->hide_minimap++);
 	if (key == 53)
 		exit(1);
 	if (key == W)

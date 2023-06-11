@@ -67,32 +67,6 @@ int	closed_map(char **map)
 	return (1);
 }
 
-char	*get_path(char **file, t_path path)
-{
-	int	i;
-	int	stop;
-
-	stop = 0;
-	i = 0;
-	while (file[i])
-	{
-		((path == EA && !ft_strncmp(file[i], "EA", 2) && ++stop) || \
-		(path == SO && !ft_strncmp(file[i], "SO", 2) && ++stop) || \
-		(path == WE && !ft_strncmp(file[i], "WE", 2) && ++stop) || \
-		(path == NO && !ft_strncmp(file[i], "NO", 2) && ++stop));
-		if (stop)
-			break ;
-		i++;
-	}
-	(stop && (\
-	(path == EA && i != 3) || (path == SO && i != 1) || \
-	(path == WE && i != 2) || (path == NO && i != 0)) \
-	&& stop--);
-	if (!stop || ft_strlen(file[i]) < 4)
-		terminate(NULL, "syntax of .cub not respected1\n");
-	return (file[i] + 3);
-}
-
 int	is_hallway(char **map, int i, int j)
 {
 	return (i && map[i + 1] && j && map[i][j] == '0' && \
