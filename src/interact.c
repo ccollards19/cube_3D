@@ -27,6 +27,8 @@ int	get_state(int state)
 
 void	interact(t_game *game, int i, int j)
 {
+	double dist;
+
 	game->fired = 0;
 	game->cursor.hover = 0;
 	while (game->map[++i])
@@ -34,7 +36,9 @@ void	interact(t_game *game, int i, int j)
 		j = -1;
 		while (game->map[i][++j])
 		{
-			if (game->map[i][j] == 'O')
+			dist = ((game->player->x - i) * (game->player->x - i)) + \
+			((game->player->y - j) * (game->player->y - j));
+			if (game->map[i][j] == 'O' && dist > 9)
 				game->map[i][j] = 'C';
 			if (i == game->cursor.hover_x && j == game->cursor.hover_y)
 				game->map[i][j] = 'O';
