@@ -47,7 +47,8 @@ void	init_mlx(t_game *game)
 	game->mlx_ptr = mlx_init();
 	if (game->mlx_ptr == NULL)
 		terminate(game, "");
-	game->win_ptr = mlx_new_window(game->mlx_ptr, WIN_WIDTH, WIN_HEIGHT, "Cube_3D");
+	game->win_ptr = \
+	mlx_new_window(game->mlx_ptr, WIN_WIDTH, WIN_HEIGHT, "Cube_3D");
 	if (game->win_ptr == NULL)
 		terminate(game, "");
 	game->player = xmalloc(sizeof(t_player));
@@ -55,10 +56,13 @@ void	init_mlx(t_game *game)
 	if (!set_player_position(game))
 		terminate(game, "Error\nNo players fund\n");
 	add_doors(game, -1, -1);
-	game->frame.ptr = mlx_new_image(game->mlx_ptr, WIN_WIDTH, WIN_HEIGHT);//test version
-	game->frame.offset = mlx_get_data_addr(game->frame.ptr, &game->frame.bits_per_pixel, &game->frame.line_length, &game->frame.endian);//test version
+	game->frame.ptr = mlx_new_image(game->mlx_ptr, WIN_WIDTH, WIN_HEIGHT);
+	game->frame.offset = mlx_get_data_addr(game->frame.ptr, \
+	&game->frame.bits_per_pixel, &game->frame.line_length, &game->frame.endian);
 	game->minimap.ptr = mlx_new_image(game->mlx_ptr, 300, 300);
-	game->minimap.offset = mlx_get_data_addr(game->minimap.ptr, &game->minimap.bits_per_pixel, &game->minimap.line_length, &game->minimap.endian);
+	game->minimap.offset = mlx_get_data_addr(game->minimap.ptr, \
+	&game->minimap.bits_per_pixel, &game->minimap.line_length, \
+	&game->minimap.endian);
 	init_cursor(game);
 	init_sprite(game);
 	game->sprite_frame = 0;
@@ -101,20 +105,20 @@ void	init_asset(t_game *game)
 		terminate(game, "");
 
 	game->asset->NO.ptr = mlx_xpm_file_to_image(game->mlx_ptr, game->NO_path, \
-&game->asset->NO.width, &game->asset->NO.height);
+	&game->asset->NO.width, &game->asset->NO.height);
 	if (game->asset->NO.ptr == NULL)
 		terminate(game, "");
 	game->asset->NO.offset = mlx_get_data_addr(game->asset->NO.ptr, \
-&game->asset->NO.bits_per_pixel, &game->asset->NO.line_length, \
-&game->asset->NO.endian);
+	&game->asset->NO.bits_per_pixel, &game->asset->NO.line_length, \
+	&game->asset->NO.endian);
 
 	game->asset->SO.ptr = mlx_xpm_file_to_image(game->mlx_ptr, \
-game->SO_path, &game->asset->SO.width, &game->asset->SO.height);
+	game->SO_path, &game->asset->SO.width, &game->asset->SO.height);
 	if (game->asset->SO.ptr == NULL)
 		terminate(game, "");
 	game->asset->SO.offset = mlx_get_data_addr(game->asset->SO.ptr, \
-&game->asset->SO.bits_per_pixel, &game->asset->SO.line_length, \
-&game->asset->SO.endian);
+	&game->asset->SO.bits_per_pixel, &game->asset->SO.line_length, \
+	&game->asset->SO.endian);
 	init_asset_2(game);
 }
 

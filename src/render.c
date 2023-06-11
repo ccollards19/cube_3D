@@ -80,6 +80,7 @@ void	*build_frame(t_ray *ray, t_game *game)
 	ray->angle -= M_PI_4;
 	while (i < WIN_WIDTH)
 	{
+		game->current_ray = i;
 		cast_ray(ray, game);
 		ray->distance = ray->distance * cos(fisheye_angle);
 		print_ray_on_img(ray, i, 0, game);

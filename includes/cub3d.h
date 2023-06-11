@@ -115,6 +115,8 @@ typedef struct s_cursor
 	int				hover;
 	t_img			img;
 	enum e_shape	shape;
+	int				hover_x;
+	int				hover_y;
 }t_cursor;
 
 typedef struct s_game
@@ -152,6 +154,7 @@ typedef struct s_game
 	int			color_type;
 	int			color_change;
 	int			map_allocated;
+	int			current_ray;
 }t_game;
 
 //utils.c

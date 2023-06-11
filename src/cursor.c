@@ -8,6 +8,8 @@ void	init_cursor(t_game *game)
 	&game->cursor.img.endian);
 	game->cursor.hover = 0;
 	game->cursor.shape = DOT;
+	game->cursor.hover_x = 0;
+	game->cursor.hover_y = 0;
 }
 
 void	print_shape(t_img *img, enum e_shape shape, int color, int pos[2])

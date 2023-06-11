@@ -26,7 +26,7 @@ int	is_wall(char **map, double y, double x)
 
 	i = (int)x;
 	j = (int)y;
-	if (map[j][i] == '1' || map[j][i] == ' ')
+	if (map[j][i] == '1' || map[j][i] == ' ' || map[j][i] == 'C')
 		return (1);
 	else
 		return (0);
