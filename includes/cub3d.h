@@ -124,7 +124,6 @@ typedef struct s_game
 	char		*EA_path;
 	int			floor_color;
 	int			ceiling_color;
-	int			**render_array;
 	int			up;
 	int			down;
 	int			left;
