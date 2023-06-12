@@ -58,11 +58,11 @@ double	get_init_angle(t_game *game)
 	i = -1;
 	while (game->map[++i])
 	{
-		if (does_contain(game->map[i], 'N') || \
+		if (does_contain(game->map[i], 'S') || \
 		(++dir && does_contain(game->map[i], 'E')) || \
-		(++dir && does_contain(game->map[i], 'S')) || \
+		(++dir && does_contain(game->map[i], 'N')) || \
 		(++dir && does_contain(game->map[i], 'W')))
-			return ((M_PI_4 * dir));
+			return ((M_PI_2 * dir));
 		else
 			dir = 0;
 	}

@@ -55,18 +55,20 @@ OBJ 	= $(SRC:%.c=%.o)
 
 BOBJS	= $(BONUS:%.c=%.o)
 
+LIBMLX = mlx/libmlx.a
+
 #end of variable definitions
 
 all: $(NAME) 
 
-$(NAME): libmlx $(LIBFT) $(OBJ) 
+$(NAME): $(LIBMLX) $(LIBFT) $(OBJ)
 	 @$(CC) $(CCFLAGS) $(MLFLAGS) $(OBJ) $(LIBFT) -o $@
 	 @printf "\n[COMPILED]\n"
 
 $(LIBFT):
 	@make -C libft
 
-libmlx:
+$(LIBMLX):
 	@make -C mlx
 
 %.o: %.c
