@@ -12,25 +12,11 @@
 
 #include "../includes/cub3d.h"
 
-int	contain(char c, char *s)
+int	is_charset(char c, char *set, int i)
 {
-	int	i;
-
-	i = -1;
-	if (c == '$')
-	{
-		while (s && s[++i])
-		{
-			if (s[i] == c && s[i + 1] != ' ')
-				return (1);
-		}
-		return (0);
-	}
-	while (s && s[++i])
-	{
-		if (s[i] == c)
+	while (set[++i])
+		if (set[i] == c)
 			return (1);
-	}
 	return (0);
 }
 

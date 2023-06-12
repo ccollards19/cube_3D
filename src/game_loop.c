@@ -82,7 +82,6 @@ int	mouse_hook(int key, int i, int j, t_game *game)
 {
 	(void)i;
 	(void)j;
-	ft_printf("key = %d\n", key);
 	if (key == 1)
 	{
 		if (game->firing < 2)

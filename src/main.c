@@ -49,7 +49,7 @@ char	*get_path(char **file, t_path path)
 	&& stop--);
 	if (!stop || ft_strlen(file[i]) < 4)
 		terminate(NULL, "syntax of .cub not respected1\n");
-	return (file[i] + 3);
+	return (ft_strtrim(file[i] + 3, " "));
 }
 
 int	destroy(t_game *game)
