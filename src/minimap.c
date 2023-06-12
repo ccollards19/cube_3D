@@ -27,33 +27,41 @@ int	trgb(int t, int r, int g, int b)
 	return (t << 24 | r << 16 | g << 8 | b);
 }
 
-char	**get_map(char **file)
+static char	**get_map2(char **file, int i, int j, int k)
 {
 	char	**map;
-	int		i[3];
 
-	i[1] = 1;
-	i[0] = 0;
-	while (file[++i[0]])
+	map = malloc(sizeof(char *) * k);
+	if (!map)
+		return (NULL);
+	while (file[++i])
 	{
-		i[2] = 0;
-		while (file[i[0]][i[2]] == ' ' || file[i[1]][i[2]] == '\t')
-			i[2]++;
-		i[1] += (file[i[0]][i[2]] == '1');
+		k = 0;
+		while (file[i][k] == ' ')
+			k++;
+		if (file[i][k] == '1')
+			map[j++] = file[i];
 	}
-	map = xmalloc(sizeof(char *) * i[1]);
-	i[1] = 0;
-	i[0] = 0;
-	while (file[++i[0]])
-	{
-		i[2] = 0;
-		while (file[i[0]][i[2]] == ' ')
-			i[2]++;
-		if (file[i[0]][i[2]] == '1')
-			map[i[1]++] = file[i[0]];
-	}
-	map[i[1]] = 0;
+	map[j] = 0;
 	return (map);
+}
+
+char	**get_map(char **file)
+{
+	int	i;
+	int	j;
+	int	k;
+
+	j = 1;
+	i = 0;
+	while (file[++i])
+	{
+		k = 0;
+		while (file[i][k] == ' ')
+			k++;
+		j += (file[i][k] == '1');
+	}
+	return (get_map2(file, 0, 0, j));
 }
 
 /*
