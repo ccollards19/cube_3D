@@ -77,7 +77,6 @@ void	terminate(t_game *game, char *msg)
 		free_img(game);
 		mlx_destroy_window(game->mlx_ptr, game->win_ptr);
 	}
-	system("leaks cube_3D");
 	if (msg == NULL)
 		exit(0);
 	else
