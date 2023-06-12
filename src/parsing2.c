@@ -66,8 +66,6 @@ int	closed_map(char **map)
 		j = -1;
 		while (map[i][++j])
 		{
-			if (!is_charset(map[i][j], "10 NSWE", -1))
-				return (0);
 			if (map[i][j] == '0')
 			{
 				if (i == 0 || map[i + 1] == 0 || j == 0 || map[i][j + 1] == 0)

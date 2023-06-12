@@ -42,6 +42,8 @@ void	init_game2(t_game *game)
 void	init_game(t_game *game, char *path)
 {
 	game->file = get_file_array(path);
+	if (!game->file)
+		terminate(NULL, "invalid map\n");
 	game->map_allocated = 0;
 	game->ea_path = get_path(game->file, EA);
 	game->so_path = get_path(game->file, SO);
@@ -49,6 +51,8 @@ void	init_game(t_game *game, char *path)
 	game->no_path = get_path(game->file, NO);
 	game->ceiling_color = get_color(game->file, CEILING);
 	game->floor_color = get_color(game->file, FLOOR);
+	if (game->ceiling_color == -1 || game->floor_color == -1)
+		terminate(game, "Invalid color\n");
 	game->map = get_map(game->file);
 	if (!closed_map(game->map))
 		terminate(game, "Invalid map\n");

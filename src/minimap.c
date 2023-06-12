@@ -15,8 +15,10 @@
 int	is_charset(char c, char *set, int i)
 {
 	while (set[++i])
+	{
 		if (set[i] == c)
 			return (1);
+	}
 	return (0);
 }
 
@@ -45,7 +47,7 @@ char	**get_map(char **file)
 	while (file[++i[0]])
 	{
 		i[2] = 0;
-		while (file[i[0]][i[2]] == ' ' || file[i[0]][i[2]] == '\t')
+		while (file[i[0]][i[2]] == ' ')
 			i[2]++;
 		if (file[i[0]][i[2]] == '1')
 			map[i[1]++] = file[i[0]];
