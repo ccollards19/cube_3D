@@ -33,24 +33,25 @@ int	giga_check(char *buf, int buf_size)
 	int	i;
 
 	i = 0;
-	while (str_in_str(buf + i, "NO ", buf_size) || \
-	str_in_str(buf + i, "SO ", buf_size) || \
-	str_in_str(buf + i, "EA ", buf_size) || \
-	str_in_str(buf + i, "WE ", buf_size) || \
-	str_in_str(buf + i, "F ", buf_size) || \
-	str_in_str(buf + i, "C ", buf_size))
-		i++;
-	while (buf[i] && buf[i] != '\n')
-		i++;
+	while (buf[i])
+	{
+		while (buf[i] && buf[i] == '\n')
+			i++;
+		if (!((str_in_str(buf + i, "NO ", buf_size) || str_in_str(buf + i, \
+		"SO ", buf_size) || str_in_str(buf + i, "EA ", buf_size) || \
+		str_in_str(buf + i, "WE ", buf_size) || str_in_str(buf + i, \
+		"F ", buf_size) || str_in_str(buf + i, "C ", buf_size))))
+			break ;
+		while (buf[i] && buf[i] != '\n')
+			i++;
+	}
 	while (buf[i] && buf[i] == '\n')
 		i++;
 	i -= 1;
 	while (buf[++i])
 	{
-		if (buf[i] == '\n' && ((i && buf[i - 1] == '\n') || \
-		(buf[i] == '\n' && !buf[i + 1])))
-			return (1);
-		if (!is_charset(buf[i], "01 NSWE\n", -1))
+		if ((buf[i] == '\n' && i && buf[i - 1] == '\n') || \
+		(!is_charset(buf[i], "01 NSWE\n", -1)))
 			return (1);
 	}
 	return (0);

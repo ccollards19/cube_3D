@@ -83,7 +83,7 @@ int	get_color2(char **elements)
 		free_array(rgb);
 	i = -1;
 	while (!err && rgb[++i])
-		if (!err && ft_atoi(rgb[i]) > 255 && ++err)
+		if (!err && (ft_atoi(rgb[i]) > 255 || ft_atoi(rgb[i]) < 0) && ++err)
 			free_array(rgb);
 	if (err)
 		return (-1);

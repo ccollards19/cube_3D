@@ -24,6 +24,10 @@ void	set_values_to_null(t_game *game)
 	game->gun.ptr = NULL;
 	game->gun_sprite.ptr = NULL;
 	game->frame.ptr = NULL;
+	game->no_path = NULL;
+	game->we_path = NULL;
+	game->ea_path = NULL;
+	game->so_path = NULL;
 }
 
 char	*get_path(char **file, t_path path)
@@ -31,6 +35,7 @@ char	*get_path(char **file, t_path path)
 	int		i;
 	char	*type;
 	char	*res;
+	char	**elements;
 
 	type = "NO ";
 	if (path == EA)
@@ -39,18 +44,18 @@ char	*get_path(char **file, t_path path)
 		type = "SO ";
 	if (path == WE)
 		type = "WE ";
-	i = -1;
-	while (file[i] && !str_in_str(file[i], type, ft_strlen(file[i])))
+	i = 0;
+	while (file[i] && !str_in_str(file[i], type, (int)ft_strlen(file[i])))
 		i++;
 	if (!file[i])
 		return (NULL);
-	type = ft_strtrim(file[i], " ");
-	if (!type)
+	elements = ft_split(file[i], ' ');
+	if (arr_size(elements) != 2)
+		free_array(elements);
+	if (arr_size(elements) != 2)
 		return (NULL);
-	res = ft_strtrim(type + 3, " ");
-	safe_free(type);
-	if (res && does_contain(res, ' '))
-		safe_free(res);
+	res = ft_strdup(elements[1]);
+	free_array(elements);
 	return (res);
 }
 

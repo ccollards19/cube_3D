@@ -20,13 +20,13 @@ char	*str_in_str(char *s1, char *s2, int n)
 	i = 0;
 	if (!ft_strlen(s2))
 		return ((char *)s1);
-	while (s1[i] != '\0' && i < n)
+	while (s1[i] != '\0' && s1[i] != '\n' && i < n)
 	{
 		j = 0;
 		while (s2[j] && s2[j] == s1[i + j] && i + j < n)
 		{
 			j++;
-			if (s2[j + 1] == '\0')
+			if (s2[j] == '\0')
 				return (s1 + i);
 		}
 		i++;
