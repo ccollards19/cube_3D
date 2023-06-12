@@ -28,28 +28,30 @@ void	set_values_to_null(t_game *game)
 
 char	*get_path(char **file, t_path path)
 {
-	int	i;
-	int	stop;
+	int		i;
+	char	*type;
+	char	*res;
 
-	stop = 0;
-	i = 0;
-	while (file[i])
-	{
-		((path == EA && !ft_strncmp(file[i], "EA", 2) && ++stop) || \
-		(path == SO && !ft_strncmp(file[i], "SO", 2) && ++stop) || \
-		(path == WE && !ft_strncmp(file[i], "WE", 2) && ++stop) || \
-		(path == NO && !ft_strncmp(file[i], "NO", 2) && ++stop));
-		if (stop)
-			break ;
+	type = "NO ";
+	if (path == EA)
+		type = "EA ";
+	if (path == SO)
+		type = "SO ";
+	if (path == WE)
+		type = "WE ";
+	i = -1;
+	while (file[i] && !str_in_str(file[i], type, ft_strlen(file[i])))
 		i++;
-	}
-	(stop && (\
-	(path == EA && i != 3) || (path == SO && i != 1) || \
-	(path == WE && i != 2) || (path == NO && i != 0)) \
-	&& stop--);
-	if (!stop || ft_strlen(file[i]) < 4)
-		terminate(NULL, "syntax of .cub not respected1\n");
-	return (ft_strtrim(file[i] + 3, " "));
+	if (!file[i])
+		return (NULL);
+	type = ft_strtrim(file[i], " ");
+	if (!type)
+		return (NULL);
+	res = ft_strtrim(type + 3, " ");
+	safe_free(type);
+	if (res && does_contain(res, ' '))
+		safe_free(res);
+	return (res);
 }
 
 int	destroy(t_game *game)

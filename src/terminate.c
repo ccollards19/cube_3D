@@ -52,6 +52,18 @@ void	free_img(t_game *game)
 		mlx_destroy_image(game->mlx_ptr, game->frame.ptr);
 }
 
+void	free_path(t_game *game)
+{
+	if (game->no_path)
+		free(game->no_path);
+	if (game->so_path)
+		free(game->so_path);
+	if (game->ea_path)
+		free(game->ea_path);
+	if (game->we_path)
+		free(game->we_path);
+}
+
 void	terminate(t_game *game, char *msg)
 {
 	if (game && game->mlx_ptr && game->win_ptr)
@@ -60,6 +72,7 @@ void	terminate(t_game *game, char *msg)
 			free_array(game->map);
 		else
 			free(game->map);
+		free_path(game);
 		free_array(game->file);
 		free_img(game);
 		mlx_destroy_window(game->mlx_ptr, game->win_ptr);
