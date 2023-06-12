@@ -26,22 +26,10 @@ int	handle_mouse(t_game *game)
 		game->player->angle -= M_PI * 2;
 	if (game->player->angle < 0)
 		game->player->angle += M_PI * 2;
-	mlx_mouse_move(game->win_ptr, WIN_WIDTH_2, WIN_HEIGHT_2);
+	if (game->mouse_lock)
+		mlx_mouse_move(game->win_ptr, WIN_WIDTH_2, WIN_HEIGHT_2);
 	mlx_mouse_get_pos(game->win_ptr, &game->mouse[0], &game->mouse[1]);
 	return (1);
-}
-
-int	is_wall(char **map, double y, double x)
-{
-	int	i;
-	int	j;
-
-	i = (int)x;
-	j = (int)y;
-	if (map[j][i] == '1' || map[j][i] == ' ' || map[j][i] == 'C')
-		return (1);
-	else
-		return (0);
 }
 
 void	raycast(t_game *game)
@@ -93,9 +81,36 @@ int	change_color(t_game *game)
 	return (1);
 }
 
+void	input_ad(t_game *game)
+{
+	double	d_x;
+	double	d_y;
+	double	d_a;
+
+	d_a = M_PI_2 + game->player->angle;
+	d_x = cos(d_a) / 10;
+	d_y = sin(d_a) / 10;
+	if (game->key_a)
+	{
+		if (!is_wall(game->map, game->player->x + (3 * d_x), game->player->y))
+			game->player->x += d_x;
+		if (!is_wall(game->map, game->player->x, game->player->y + (3 * d_y)))
+			game->player->y += d_y;
+	}
+	if (game->key_d)
+	{
+		d_x = -d_x;
+		d_y = -d_y;
+		if (!is_wall(game->map, game->player->x + (3 * d_x), game->player->y))
+			game->player->x += d_x;
+		if (!is_wall(game->map, game->player->x, game->player->y + (3 * d_y)))
+			game->player->y += d_y;
+	}
+}
+
 int	input_management(t_game *game, double d_x, double d_y)
 {
-	if (game->up || game->down)
+	if (game->up || game->down || game->key_d || game->key_a)
 	{
 		d_x = cos(game->player->angle) / 10;
 		d_y = sin(game->player->angle) / 10;
@@ -118,5 +133,6 @@ int	input_management(t_game *game, double d_x, double d_y)
 		game->player->angle += 0.05;
 	if (game->right)
 		game->player->angle -= 0.05;
+	input_ad(game);
 	return (1);
 }

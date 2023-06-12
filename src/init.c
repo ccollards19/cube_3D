@@ -34,6 +34,9 @@ void	init_game2(t_game *game)
 	game->pos[2][1] = 0;
 	game->firing = 0;
 	game->fired = 0;
+	game->key_d = 0;
+	game->key_a = 0;
+	game->mouse_lock = 1;
 }
 
 void	init_game(t_game *game, char *path)
@@ -114,6 +117,11 @@ void	init_asset(t_game *game)
 	game->asset = xmalloc(sizeof(t_asset));
 	if (game->asset == NULL)
 		terminate(game, "");
+	game->asset->d.ptr = NULL;
+	game->asset->ea.ptr = NULL;
+	game->asset->so.ptr = NULL;
+	game->asset->no.ptr = NULL;
+	game->asset->we.ptr = NULL;
 	game->asset->no.ptr = mlx_xpm_file_to_image(game->mlx_ptr, game->no_path, \
 	&game->asset->no.width, &game->asset->no.height);
 	if (game->asset->no.ptr == NULL)

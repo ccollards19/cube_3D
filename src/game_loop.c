@@ -18,15 +18,19 @@ int	key_hook(int key, t_game *game)
 		game->color_change = 1;
 	if (key == 46 && ++game->should_cast)
 		((game->hide_minimap && game->hide_minimap--) || game->hide_minimap++);
-	if (key == 53)
-		exit(1);
+	if (key == ESC)
+		destroy(game);
 	if (key == W)
 		game->up = 1;
 	if (key == S)
 		game->down = 1;
 	if (key == A)
-		game->left = 1;
+		game->key_a = 1;
 	if (key == D)
+		game->key_d = 1;
+	if (key == RIGHT)
+		game->left = 1;
+	if (key == LEFT)
 		game->right = 1;
 	return (0);
 }
@@ -40,8 +44,12 @@ int	relase_key_hook(int key, t_game *game)
 	if (key == S)
 		game->down = 0;
 	if (key == A)
-		game->left = 0;
+		game->key_a = 0;
 	if (key == D)
+		game->key_d = 0;
+	if (key == RIGHT)
+		game->left = 0;
+	if (key == LEFT)
 		game->right = 0;
 	return (0);
 }
@@ -52,7 +60,10 @@ int	loop_hook(t_game *game)
 	double	d_x;
 	double	d_y;
 
-	mlx_mouse_hide();
+	if (game->mouse_lock)
+		mlx_mouse_hide();
+	else
+		mlx_mouse_show();
 	d_x = 0;
 	d_y = 0;
 	cast = handle_mouse(game) + input_management(game, d_x, d_y) \
@@ -71,6 +82,7 @@ int	mouse_hook(int key, int i, int j, t_game *game)
 {
 	(void)i;
 	(void)j;
+	ft_printf("key = %d\n", key);
 	if (key == 1)
 	{
 		if (game->firing < 2)
@@ -82,6 +94,10 @@ int	mouse_hook(int key, int i, int j, t_game *game)
 		if (game->cursor.shape > CIRCLE)
 			game->cursor.shape = CROSS;
 	}
+	if (key == 4)
+		game->mouse_lock = 0;
+	if (key == 5)
+		game->mouse_lock = 1;
 	game->should_cast = 1;
 	return (0);
 }

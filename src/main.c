@@ -54,7 +54,7 @@ char	*get_path(char **file, t_path path)
 
 int	destroy(t_game *game)
 {
-	terminate(game, "Window got closed\n");
+	terminate(game, NULL);
 	return (1);
 }
 

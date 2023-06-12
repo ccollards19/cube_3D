@@ -24,7 +24,6 @@
 # define WIN_WIDTH_2 640
 # define WIN_HEIGHT 720
 # define WIN_HEIGHT_2 360
-# define M_PI_8 0.3926905
 # define ESC 53
 # define UP 126
 # define DOWN 125
@@ -138,7 +137,10 @@ typedef struct s_game
 	int			down;
 	int			left;
 	int			right;
+	int			key_a;
+	int			key_d;
 	int			mouse[2];
+	int			mouse_lock;
 	int			hide_minimap;
 	int			should_cast;
 	int			color_type;

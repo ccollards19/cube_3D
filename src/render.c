@@ -44,7 +44,7 @@ void	print_ray_on_img(t_ray *ray, int x, int y, t_game *game)
 	double	y_incr;
 
 	lim2 = WIN_HEIGHT_2 * (1 + (1.2 / ray->distance));
-	lim1 = WIN_HEIGHT_2 * (1 - (1.8 / ray->distance));
+	lim1 = WIN_HEIGHT_2 * (1 - (2.8 / ray->distance));
 	y_incr = (ray->texture->height / fabs(lim2 - lim1));
 	y_texture = 0;
 	if (lim1 < 0)

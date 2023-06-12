@@ -53,12 +53,15 @@ void	free_array(char	**arr)
 	safe_free(arr);
 }
 
-int	array_size(char **arr)
+int	is_wall(char **map, double y, double x)
 {
 	int	i;
+	int	j;
 
-	i = 0;
-	while (arr[i])
-		i++;
-	return (i);
+	i = (int)x;
+	j = (int)y;
+	if (map[j][i] == '1' || map[j][i] == ' ' || map[j][i] == 'C')
+		return (1);
+	else
+		return (0);
 }

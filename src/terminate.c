@@ -27,11 +27,16 @@ void	free_img(t_game *game)
 {
 	if (game->asset != NULL)
 	{
-		mlx_destroy_image(game->mlx_ptr, game->asset->d.ptr);
-		mlx_destroy_image(game->mlx_ptr, game->asset->ea.ptr);
-		mlx_destroy_image(game->mlx_ptr, game->asset->no.ptr);
-		mlx_destroy_image(game->mlx_ptr, game->asset->we.ptr);
-		mlx_destroy_image(game->mlx_ptr, game->asset->so.ptr);
+		if (game->asset->d.ptr)
+			mlx_destroy_image(game->mlx_ptr, game->asset->d.ptr);
+		if (game->asset->ea.ptr)
+			mlx_destroy_image(game->mlx_ptr, game->asset->ea.ptr);
+		if (game->asset->no.ptr)
+			mlx_destroy_image(game->mlx_ptr, game->asset->no.ptr);
+		if (game->asset->we.ptr)
+			mlx_destroy_image(game->mlx_ptr, game->asset->we.ptr);
+		if (game->asset->so.ptr)
+			mlx_destroy_image(game->mlx_ptr, game->asset->so.ptr);
 	}
 	if (game->minimap.ptr != NULL)
 		mlx_destroy_image(game->mlx_ptr, game->minimap.ptr);

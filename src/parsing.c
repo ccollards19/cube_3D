@@ -33,8 +33,8 @@ int	set_player_position(t_game *game)
 	}
 	if (!game->map[i])
 		return (0);
-	game->player->x = i;
-	game->player->y = search - game->map[i];
+	game->player->x = i + 0.5;
+	game->player->y = search - game->map[i] + 0.5;
 	return (1);
 }
 
