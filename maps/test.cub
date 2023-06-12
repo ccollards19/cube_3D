@@ -1,11 +1,11 @@
 NO ./ruins/Tileable1k.xpm
 
-F      220,100,0 
-C 225,30,0
+F   220,100,0
+C    225,30,0
 
-SO ./ruins/Tileable2k.xpm
-WE ./ruins/Tileable3k.xpm
-EA ./ruins/Tileable4k.xpm
+    SO    ./ruins/Tileable2k.xpm
+WE  ./ruins/Tileable3k.xpm
+   EA   ./ruins/Tileable4k.xpm
 
 
 

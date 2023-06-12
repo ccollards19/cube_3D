@@ -12,11 +12,12 @@
 
 #include "cub3d.h"
 
-void	safe_free(void	*mem_allocated)
+int	safe_free(void	*mem_allocated)
 {
 	if (mem_allocated)
 		free(mem_allocated);
 	mem_allocated = NULL;
+	return (1);
 }
 
 int	ft_strcmp(const char *s1, const char *s2)

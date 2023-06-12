@@ -151,7 +151,7 @@ typedef struct s_game
 }t_game;
 
 //utils.c
-void			safe_free(void	*mem_allocated);
+int				safe_free(void	*mem_allocated);
 int				ft_strcmp(const char *s1, const char *s2);
 void			free_array(char	**arr);
 

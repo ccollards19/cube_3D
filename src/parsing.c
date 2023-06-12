@@ -71,18 +71,15 @@ char	**get_file_array(char *s)
 	if (buf == NULL)
 		terminate(NULL, "failed malloc\n");
 	fd = open(s, O_RDONLY);
-	if (!fd)
-	{
-		free(buf);
+	if (fd == -1)
+		safe_free(buf);
+	if (!buf)
 		terminate(NULL, "no file\n");
-	}
 	read(fd, buf, size);
 	buf[size + 1] = 0;
 	if (giga_check(buf, size))
-	{
-		safe_free(buf);
-		return (NULL);
-	}
+		if (safe_free(buf))
+			return (NULL);
 	arr = ft_split(buf, '\n');
 	safe_free(buf);
 	return (arr);
