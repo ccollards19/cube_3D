@@ -151,7 +151,6 @@ typedef struct s_game
 }t_game;
 
 //utils.c
-void			*xmalloc(int mem_size);
 void			safe_free(void	*mem_allocated);
 int				ft_strcmp(const char *s1, const char *s2);
 void			free_array(char	**arr);
@@ -206,6 +205,7 @@ char			**get_map(char **file);
 void			minimap(t_game *game);
 int				trgb(int t, int r, int g, int b);
 int				is_charset(char c, char *set, int i);
+
 //game_loop_utils
 int				handle_mouse(t_game *game);
 int				is_wall(char **map, double y, double x);

@@ -67,10 +67,15 @@ char	**get_file_array(char *s)
 	if (is_invalid_name(s))
 		terminate(NULL, "invalid map name\n");
 	size = get_buffer_size(s);
-	buf = xmalloc(size + 1);
+	buf = malloc(size + 1);
+	if (buf == NULL)
+		terminate(NULL, "failed malloc\n");
 	fd = open(s, O_RDONLY);
 	if (!fd)
+	{
+		free(buf);
 		terminate(NULL, "no file\n");
+	}
 	read(fd, buf, size);
 	buf[size + 1] = 0;
 	if (giga_check(buf, size))

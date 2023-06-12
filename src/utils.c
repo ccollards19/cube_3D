@@ -12,16 +12,6 @@
 
 #include "cub3d.h"
 
-void	*xmalloc(int mem_size)
-{
-	void	*mem_alloc;
-
-	mem_alloc = malloc(mem_size);
-	if (!mem_alloc)
-		exit(1);
-	return (mem_alloc);
-}
-
 void	safe_free(void	*mem_allocated)
 {
 	if (mem_allocated)

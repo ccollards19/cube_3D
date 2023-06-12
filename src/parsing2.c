@@ -20,7 +20,9 @@ char	*add_spaces(char *line, size_t target_len)
 	i = -1;
 	if (ft_strlen(line) < target_len)
 	{
-		tmp = xmalloc((int)target_len * sizeof(char));
+		tmp = malloc((int)target_len * sizeof(char));
+		if (!tmp)
+			return (NULL);
 		while (line[++i])
 			tmp[i] = line[i];
 		while (i < target_len)
@@ -52,7 +54,11 @@ void	fill_map_blanks(t_game *game, char **map)
 	}
 	i = -1;
 	while (game->map[++i])
+	{
 		game->map[i] = add_spaces(map[i], j);
+		if (game->map[i] == NULL)
+			terminate(game, "failed malloc\n");
+	}
 }
 
 int	closed_map(char **map)

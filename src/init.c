@@ -71,7 +71,7 @@ void	init_mlx(t_game *game)
 	mlx_new_window(game->mlx_ptr, WIN_WIDTH, WIN_HEIGHT, "Cube_3D");
 	if (game->win_ptr == NULL)
 		terminate(game, "win_ptr error\n");
-	game->player = xmalloc(sizeof(t_player));
+	game->player = malloc(sizeof(t_player));
 	game->player->angle = get_init_angle(game);
 	if (!set_player_position(game, -1, -1))
 		terminate(game, "invalid number of players\n");
@@ -120,7 +120,7 @@ void	init_asset_2(t_game *game)
 
 void	init_asset(t_game *game)
 {
-	game->asset = xmalloc(sizeof(t_asset));
+	game->asset = malloc(sizeof(t_asset));
 	if (game->asset == NULL)
 		terminate(game, "");
 	game->asset->d.ptr = NULL;
