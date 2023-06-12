@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   minimap.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: niespana <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/06/12 10:10:23 by niespana          #+#    #+#             */
+/*   Updated: 2023/06/12 10:10:23 by niespana         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes/cub3d.h"
 
 int	contain(char c, char *s)
@@ -87,6 +99,6 @@ void	minimap(t_game *game)
 	}
 	print_player_fov(&minimap, game, trgb(128, 255, 255, 0));
 	print_player(&minimap, 130, 130, trgb(128, 255, 100, 100));
-	print_outer_circle(&minimap, 130, 65, white);
+	print_outer_circle(&minimap, 130, 65, trgb(0, 255, 255, 255));
 	mlx_put_image_to_window(game->mlx_ptr, game->win_ptr, minimap.ptr, 0, 0);
 }

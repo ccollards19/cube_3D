@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   render.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: niespana <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/06/12 10:10:32 by niespana          #+#    #+#             */
+/*   Updated: 2023/06/12 10:10:32 by niespana         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes/cub3d.h"
 #include <stdio.h>
 
@@ -55,15 +67,15 @@ ray->texture, (int)(ray->texture_offset * ray->texture->width) \
 
 void	reset_ray(t_ray *ray, t_game *game)
 {
-	ray->x = game->player->x;
-	ray->y = game->player->y;
-	ray->x0 = game->player->x;
-	ray->y0 = game->player->y;
 	ray->distance = 0;
 	ray->dx = cos(ray->angle);
 	ray->dx_inv = 1 / cos(ray->angle);
 	ray->dy = sin(ray->angle);
 	ray->dy_inv = 1 / sin(ray->angle);
+	ray->x = game->player->x;
+	ray->y = game->player->y;
+	ray->x0 = game->player->x;
+	ray->y0 = game->player->y;
 	ray->texture_offset = 0;
 	ray->texture = 0;
 }

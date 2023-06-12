@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   init.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: niespana <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/06/12 10:10:18 by niespana          #+#    #+#             */
+/*   Updated: 2023/06/12 10:10:19 by niespana         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes/cub3d.h"
 
 void	init_game2(t_game *game)
@@ -28,10 +40,10 @@ void	init_game(t_game *game, char *path)
 {
 	game->file = get_file_array(path);
 	game->map_allocated = 0;
-	game->EA_path = get_path(game->file, EA);
-	game->SO_path = get_path(game->file, SO);
-	game->WE_path = get_path(game->file, WE);
-	game->NO_path = get_path(game->file, NO);
+	game->ea_path = get_path(game->file, EA);
+	game->so_path = get_path(game->file, SO);
+	game->we_path = get_path(game->file, WE);
+	game->no_path = get_path(game->file, NO);
 	game->ceiling_color = get_color(game->file, CEILING);
 	game->floor_color = get_color(game->file, FLOOR);
 	game->map = get_map(game->file);
@@ -72,29 +84,29 @@ void	init_mlx(t_game *game)
 
 void	init_asset_2(t_game *game)
 {
-	game->asset->WE.ptr = mlx_xpm_file_to_image(game->mlx_ptr, \
-	game->WE_path, &game->asset->WE.width, &game->asset->WE.height);
-	if (game->asset->WE.ptr == NULL)
+	game->asset->we.ptr = mlx_xpm_file_to_image(game->mlx_ptr, \
+	game->we_path, &game->asset->we.width, &game->asset->we.height);
+	if (game->asset->we.ptr == NULL)
 		terminate(game, "");
-	game->asset->WE.offset = mlx_get_data_addr(game->asset->WE.ptr, \
-	&game->asset->WE.bits_per_pixel, &game->asset->WE.line_length, \
-	&game->asset->WE.endian);
-	game->asset->EA.ptr = mlx_xpm_file_to_image(game->mlx_ptr, \
-	game->EA_path, &game->asset->EA.width, \
-	&(game->asset->EA.height));
-	if (game->asset->EA.ptr == NULL)
+	game->asset->we.offset = mlx_get_data_addr(game->asset->we.ptr, \
+	&game->asset->we.bits_per_pixel, &game->asset->we.line_length, \
+	&game->asset->we.endian);
+	game->asset->ea.ptr = mlx_xpm_file_to_image(game->mlx_ptr, \
+	game->ea_path, &game->asset->ea.width, \
+	&(game->asset->ea.height));
+	if (game->asset->ea.ptr == NULL)
 		terminate(game, "");
-	game->asset->EA.offset = mlx_get_data_addr(game->asset->EA.ptr, \
-	&game->asset->EA.bits_per_pixel, &game->asset->EA.line_length, \
-	&game->asset->EA.endian);
-	game->asset->DO.ptr = mlx_xpm_file_to_image(game->mlx_ptr, \
-	"ruins/door.xpm", &game->asset->DO.width, \
-	&(game->asset->DO.height));
-	if (game->asset->DO.ptr == NULL)
+	game->asset->ea.offset = mlx_get_data_addr(game->asset->ea.ptr, \
+	&game->asset->ea.bits_per_pixel, &game->asset->ea.line_length, \
+	&game->asset->ea.endian);
+	game->asset->d.ptr = mlx_xpm_file_to_image(game->mlx_ptr, \
+	"ruins/door.xpm", &game->asset->d.width, \
+	&(game->asset->d.height));
+	if (game->asset->d.ptr == NULL)
 		terminate(game, "");
-	game->asset->DO.offset = mlx_get_data_addr(game->asset->DO.ptr, \
-	&game->asset->DO.bits_per_pixel, &game->asset->DO.line_length, \
-	&game->asset->DO.endian);
+	game->asset->d.offset = mlx_get_data_addr(game->asset->d.ptr, \
+	&game->asset->d.bits_per_pixel, &game->asset->d.line_length, \
+	&game->asset->d.endian);
 }
 
 void	init_asset(t_game *game)
@@ -102,19 +114,19 @@ void	init_asset(t_game *game)
 	game->asset = xmalloc(sizeof(t_asset));
 	if (game->asset == NULL)
 		terminate(game, "");
-	game->asset->NO.ptr = mlx_xpm_file_to_image(game->mlx_ptr, game->NO_path, \
-	&game->asset->NO.width, &game->asset->NO.height);
-	if (game->asset->NO.ptr == NULL)
+	game->asset->no.ptr = mlx_xpm_file_to_image(game->mlx_ptr, game->no_path, \
+	&game->asset->no.width, &game->asset->no.height);
+	if (game->asset->no.ptr == NULL)
 		terminate(game, "");
-	game->asset->NO.offset = mlx_get_data_addr(game->asset->NO.ptr, \
-	&game->asset->NO.bits_per_pixel, &game->asset->NO.line_length, \
-	&game->asset->NO.endian);
-	game->asset->SO.ptr = mlx_xpm_file_to_image(game->mlx_ptr, \
-	game->SO_path, &game->asset->SO.width, &game->asset->SO.height);
-	if (game->asset->SO.ptr == NULL)
+	game->asset->no.offset = mlx_get_data_addr(game->asset->no.ptr, \
+	&game->asset->no.bits_per_pixel, &game->asset->no.line_length, \
+	&game->asset->no.endian);
+	game->asset->so.ptr = mlx_xpm_file_to_image(game->mlx_ptr, \
+	game->so_path, &game->asset->so.width, &game->asset->so.height);
+	if (game->asset->so.ptr == NULL)
 		terminate(game, "");
-	game->asset->SO.offset = mlx_get_data_addr(game->asset->SO.ptr, \
-	&game->asset->SO.bits_per_pixel, &game->asset->SO.line_length, \
-	&game->asset->SO.endian);
+	game->asset->so.offset = mlx_get_data_addr(game->asset->so.ptr, \
+	&game->asset->so.bits_per_pixel, &game->asset->so.line_length, \
+	&game->asset->so.endian);
 	init_asset_2(game);
 }
