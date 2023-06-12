@@ -73,8 +73,8 @@ void	init_mlx(t_game *game)
 		terminate(game, "win_ptr error\n");
 	game->player = xmalloc(sizeof(t_player));
 	game->player->angle = get_init_angle(game);
-	if (!set_player_position(game))
-		terminate(game, "No players fund\n");
+	if (!set_player_position(game, -1, -1))
+		terminate(game, "invalid number of players\n");
 	add_doors(game, -1, -1);
 	game->frame.ptr = mlx_new_image(game->mlx_ptr, WIN_WIDTH, WIN_HEIGHT);
 	game->frame.offset = mlx_get_data_addr(game->frame.ptr, \

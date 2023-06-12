@@ -22,29 +22,30 @@ int	arr_size(char **arr)
 	return (i);
 }
 
-int	set_player_position(t_game *game)
+int	set_player_position(t_game *game, int i, int j)
 {
-	int		i;
-	char	*search;
+	int	nb;
+	int	ligne;
+	int	colonne;
 
-	i = 0;
-	while (game->map[i])
+	nb = 0;
+	i = -1;
+	while (game->map[++i])
 	{
-		search = ft_strchr(game->map[i], 'N');
-		if (!search)
-			search = ft_strchr(game->map[i], 'E');
-		if (!search)
-			search = ft_strchr(game->map[i], 'S');
-		if (!search)
-			search = ft_strchr(game->map[i], 'W');
-		if (search)
-			break ;
-		i++;
+		j = -1;
+		while (game->map[i][++j])
+		{
+			if (is_charset(game->map[i][j], "NWES", -1) && ++nb)
+			{
+				colonne = j;
+				ligne = i;
+			}
+		}
 	}
-	if (!game->map[i])
+	if (nb != 1)
 		return (0);
-	game->player->x = i + 0.5;
-	game->player->y = search - game->map[i] + 0.5;
+	game->player->x = ligne + 0.5;
+	game->player->y = colonne + 0.5;
 	return (1);
 }
 

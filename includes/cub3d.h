@@ -170,7 +170,7 @@ char			**get_file_array(char *s);
 char			*get_path(char **file, t_path path);
 int				get_color(char **file, t_color color);
 double			get_init_angle(t_game *game);
-int				set_player_position(t_game *game);
+int				set_player_position(t_game *game, int i, int j);
 int				closed_map(char **map);
 void			fill_map_blanks(t_game *game, char **map);
 void			add_doors(t_game *game, int i, int j);
